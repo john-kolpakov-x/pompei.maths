@@ -1,0 +1,21 @@
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+
+repositories {
+  mavenCentral()
+}
+
+sourceCompatibility = '1.7'
+
+dependencies {
+  compile 'commons-collections:commons-collections:3.2'
+  //compile 'org.springframework:spring-full:1.2.8'
+  //compile 'commons-io:commons-io:2.4'
+  
+  testCompile 'org.testng:testng:6.1.1'
+  testCompile 'org.easytesting:fest-assert:1.4'
+  
+}
+
