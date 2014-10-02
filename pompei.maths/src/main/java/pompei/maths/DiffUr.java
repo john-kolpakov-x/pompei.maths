@@ -1,6 +1,8 @@
 package pompei.maths;
 
 public interface DiffUr {
+  int poryadok();
+  
   void prepare(int N, F f);
   
   double[] getX();

@@ -1,14 +1,20 @@
-package pompei.maths.runge_kutta;
+package pompei.maths;
 
-import pompei.maths.DiffUr;
-import pompei.maths.F;
-
-public class RungeKuttaDiffUr implements DiffUr {
+public class DiffUrDefault implements DiffUr {
   
-  private final RungeKuttaStepper stepper = new RungeKuttaStepper();
+  private final Stepper stepper;
   private int N;
   private F f;
   private double t, h;
+  
+  public DiffUrDefault(Stepper stepper) {
+    this.stepper = stepper;
+  }
+  
+  @Override
+  public int poryadok() {
+    return stepper.poryadok();
+  }
   
   @Override
   public void prepare(int N, F f) {
@@ -19,7 +25,7 @@ public class RungeKuttaDiffUr implements DiffUr {
   
   @Override
   public double[] getX() {
-    return stepper.x;
+    return stepper.getX();
   }
   
   @Override

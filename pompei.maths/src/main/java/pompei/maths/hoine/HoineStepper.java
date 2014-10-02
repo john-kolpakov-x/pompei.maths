@@ -1,12 +1,12 @@
-package pompei.maths.runge_kutta;
+package pompei.maths.hoine;
 
 import pompei.maths.F;
 import pompei.maths.Stepper;
 
-public class RungeKuttaStepper implements Stepper {
-  private double x[];
+public class HoineStepper implements Stepper {
+  double x[];
   
-  double k1[], k2[], k3[], k4[], tmp[];
+  double k1[], k2[], k3[], tmp[];
   
   @Override
   public void prepare(int N) {
@@ -14,7 +14,6 @@ public class RungeKuttaStepper implements Stepper {
     k1 = new double[N];
     k2 = new double[N];
     k3 = new double[N];
-    k4 = new double[N];
     tmp = new double[N];
   }
   
@@ -22,39 +21,33 @@ public class RungeKuttaStepper implements Stepper {
   public void step(F f, double t, double h, int N) {
     
     double k1[] = this.k1;
-    double x[] = this.getX();
+    double x[] = this.x;
     
     f.f(k1, t, x);
     
-    double h2 = h / 2;
+    double h3 = h / 3;
     double tmp[] = this.tmp;
     
     for (int i = 0; i < N; i++) {
-      tmp[i] = x[i] + h2 * k1[i];
+      tmp[i] = x[i] + h3 * k1[i];
     }
     
-    double t_h2 = t + h2;
+    double t_h3 = t + h3;
     double k2[] = this.k2;
-    f.f(k2, t_h2, tmp);
+    f.f(k2, t_h3, tmp);
+    
+    double _2h3 = 2 * h3;
     
     for (int i = 0; i < N; i++) {
-      tmp[i] = x[i] + h2 * k2[i];
+      tmp[i] = x[i] + _2h3 * k2[i];
     }
     
     double k3[] = this.k3;
-    f.f(k3, t_h2, tmp);
+    double t_2h3 = t + _2h3;
+    f.f(k3, t_2h3, tmp);
     
     for (int i = 0; i < N; i++) {
-      tmp[i] = x[i] + h * k3[i];
-    }
-    
-    double k4[] = this.k4;
-    f.f(k4, t + h, tmp);
-    
-    double h6 = h / 6;
-    
-    for (int i = 0; i < N; i++) {
-      x[i] += (k1[i] + k4[i] + 2 * (k2[i] + k3[i])) * h6;
+      x[i] += (0.25 * k1[i] + 0.75 * k3[i]) * h;
     }
     
   }
@@ -66,6 +59,6 @@ public class RungeKuttaStepper implements Stepper {
   
   @Override
   public int poryadok() {
-    return 5;
+    return 4;
   }
 }
