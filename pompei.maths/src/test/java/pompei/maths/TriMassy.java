@@ -11,11 +11,11 @@ import pompei.maths.hoine.HoineStepper;
 
 public class TriMassy {
   
-  private final static double k0 = 1;
-  private final static double k1 = 1;
-  private final static double k2 = 1;
+  private final static double k0 = 40;
+  private final static double k1 = 2;
+  private final static double k2 = 2;
   
-  private final static double m0 = 1;
+  private final static double m0 = 10;
   private final static double m1 = 1;
   private final static double m2 = 1;
   
@@ -49,9 +49,9 @@ public class TriMassy {
     }
   };
   
-  private final static double h = 0.001;
+  private final static double h = 0.0001;
   private final static double xMax = 2;
-  private final static double deltaT = 0.24;
+  private final static double deltaT = 1.0 / 24;
   
   private final static int width = 1300;
   private final static int height = 768;
@@ -73,7 +73,7 @@ public class TriMassy {
     double tShow = ur.getT() - deltaT;
     int index = 1;
     
-    while (ur.getT() < 10) {
+    while (ur.getT() < 50) {
       
       if (tShow < ur.getT()) {
         tShow = ur.getT() + deltaT;
@@ -104,7 +104,7 @@ public class TriMassy {
       g.setColor(Color.GRAY);
       g.drawLine(width / 4, 0, width / 4, height);
       
-      int X = width / 4, Y = height / 2 - (int)(x1 / xMax * height / 2);
+      int X = width / 4, Y = height / 2 - (int) (x1 / xMax * height / 2);
       
       drawGruz(g, m1, X, Y);
     }
@@ -112,7 +112,7 @@ public class TriMassy {
       g.setColor(Color.GRAY);
       g.drawLine(width / 2, 0, width / 2, height);
       
-      int X = width / 2, Y = height / 2 - (int)(x0 / xMax * height / 2);
+      int X = width / 2, Y = height / 2 - (int) (x0 / xMax * height / 2);
       
       drawGruz(g, m0, X, Y);
     }
@@ -120,7 +120,7 @@ public class TriMassy {
       g.setColor(Color.GRAY);
       g.drawLine(3 * width / 4, 0, 3 * width / 4, height);
       
-      int X = 3 * width / 4, Y = height / 2 - (int)(x2 / xMax * height / 2);
+      int X = 3 * width / 4, Y = height / 2 - (int) (x2 / xMax * height / 2);
       
       drawGruz(g, m2, X, Y);
     }
@@ -131,9 +131,10 @@ public class TriMassy {
     while (I.length() < 4) {
       I = "0" + I;
     }
-    File file = new File("build/img-" + I + ".png");
+    File file = new File("build/images/img-" + I + ".png");
+    file.getParentFile().mkdirs();
     ImageIO.write(img, "png", file);
-    System.out.println("Written " + file);
+    System.out.println("Written " + file + ", T = " + ur.getT());
   }
   
   private static void drawGruz(Graphics2D g, double m, int x, int y) {
