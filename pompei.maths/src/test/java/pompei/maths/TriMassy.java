@@ -7,8 +7,6 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
-import pompei.maths.hoine.HoineStepper;
-
 public class TriMassy {
   
   private final static double k0 = 40;
@@ -57,7 +55,7 @@ public class TriMassy {
   private final static int height = 768;
   
   public static void main(String[] args) throws Exception {
-    DiffUr ur = new DiffUrDefault(new HoineStepper());
+    DiffUr ur = new DiffUrDefault(new Stepper_H4_Hoine());
     ur.prepare(6, f);
     double[] x = ur.getX();
     x[0] = x0;

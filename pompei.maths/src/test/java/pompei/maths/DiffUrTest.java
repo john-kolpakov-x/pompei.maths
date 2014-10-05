@@ -8,9 +8,6 @@ import static org.fest.assertions.Assertions.assertThat;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import pompei.maths.hoine.HoineStepper;
-import pompei.maths.runge_kutta.RungeKuttaStepper;
-
 public class DiffUrTest {
   
   private static double res(double t) {
@@ -21,15 +18,21 @@ public class DiffUrTest {
   public Object[][] diff_urs() {
     return new Object[][] {
         //
-        new Object[] { new DiffUrDefault(new RungeKuttaStepper()) {
+        new Object[] { 1e-8, new DiffUrDefault(new Stepper_H5_RungeKutta()) {
           public String toString() {
-            return "Runge-Kutta";
+            return "H5 - Runge-Kutta";
           };
         } },
         //
-        new Object[] { new DiffUrDefault(new HoineStepper()) {
+        new Object[] { 1e-8, new DiffUrDefault(new Stepper_H4_Hoine()) {
           public String toString() {
-            return "Hoine";
+            return "H4 - Hoine";
+          };
+        } },
+        //
+        new Object[] { 1e-5, new DiffUrDefault(new Stepper_H3()) {
+          public String toString() {
+            return "H3";
           };
         } },
     //    
@@ -37,8 +40,7 @@ public class DiffUrTest {
   }
   
   @Test(dataProvider = "diff_urs")
-  public void step(DiffUr dur) throws Exception {
-    double DELTA = 2e-8;
+  public void step(double DELTA, DiffUr dur) throws Exception {
     
     F f = new F() {
       @Override

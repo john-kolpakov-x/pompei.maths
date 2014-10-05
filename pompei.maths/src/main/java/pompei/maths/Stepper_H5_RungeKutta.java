@@ -1,9 +1,7 @@
-package pompei.maths.runge_kutta;
+package pompei.maths;
 
-import pompei.maths.F;
-import pompei.maths.Stepper;
 
-public class RungeKuttaStepper implements Stepper {
+public class Stepper_H5_RungeKutta implements Stepper {
   private double x[];
   
   double k1[], k2[], k3[], k4[], tmp[];
