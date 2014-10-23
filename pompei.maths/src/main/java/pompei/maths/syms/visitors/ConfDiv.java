@@ -1,6 +1,6 @@
 package pompei.maths.syms.visitors;
 
-public interface DivConf {
+public interface ConfDiv {
   int paddingUp(int level);
   
   int paddingDown(int level);

@@ -30,7 +30,7 @@ public class ExpEvaluator implements Visitor<Double> {
   
   @Override
   public Double visitVarExpr(VarExpr varExpr) {
-    return varSource.getValue(varExpr.varName);
+    return varSource.getValue(varExpr.name);
   }
   
   @Override

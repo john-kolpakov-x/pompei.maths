@@ -1,10 +1,7 @@
 package pompei.maths.syms.visitors;
 
 import java.awt.Graphics2D;
-import java.util.HashMap;
-import java.util.Map;
 
-import pompei.maths.syms.top.Expr;
 import pompei.maths.syms.top.Visitor;
 import pompei.maths.syms.visitable.ConstDoubleExpr;
 import pompei.maths.syms.visitable.ConstIntExpr;
@@ -16,7 +13,7 @@ import pompei.maths.syms.visitable.Plus;
 import pompei.maths.syms.visitable.VarExpr;
 
 public class ExpSizer implements Visitor<PaintSize> {
-  private GraphicsSource gs;
+  public final GraphicsSource gs;
   
   public ExpSizer(GraphicsSource gs) {
     this.gs = gs;
@@ -24,113 +21,56 @@ public class ExpSizer implements Visitor<PaintSize> {
   
   public int level = 1;
   
-  private String id(Expr expr) {
-    return System.identityHashCode(expr) + "-" + level;
-  }
-  
-  private Map<String, PaintSize> sizes = new HashMap<>();
-  
-  public void assignCacheFrom(ExpSizer other) {
-    sizes = other.sizes;
+  public Graphics2D g() {
+    return gs.getGraphics(level);
   }
   
   @Override
   public PaintSize visitConstDouble(ConstDoubleExpr constDoubleExpr) {
-    String id = id(constDoubleExpr);
-    {
-      PaintSize ret = sizes.get(id);
-      if (ret != null) return ret;
-    }
-    {
-      PaintSize ret = strSize("" + constDoubleExpr.value);
-      sizes.put(id, ret);
-      return ret;
-    }
+    return strSize("" + constDoubleExpr.value);
   }
   
   @Override
   public PaintSize visitConstIntExpr(ConstIntExpr constIntExpr) {
-    String id = id(constIntExpr);
-    {
-      PaintSize ret = sizes.get(id);
-      if (ret != null) return ret;
-    }
-    {
-      PaintSize ret = strSize("" + constIntExpr.value);
-      sizes.put(id, ret);
-      return ret;
-    }
+    return strSize("" + constIntExpr.value);
   }
   
   @Override
   public PaintSize visitVarExpr(VarExpr varExpr) {
-    String id = id(varExpr);
-    {
-      PaintSize ret = sizes.get(id);
-      if (ret != null) return ret;
-    }
-    {
-      PaintSize ret = strSize("" + varExpr.varName);
-      sizes.put(id, ret);
-      return ret;
-    }
+    return strSize("" + varExpr.name);
   }
   
   @Override
   public PaintSize visitPlus(Plus plus) {
-    String id = id(plus);
-    {
-      PaintSize ret = sizes.get(id);
-      if (ret != null) return ret;
-    }
-    {
-      PaintSize ret = new PaintSize(0, 0, 0);
-      
-      ret.expandOnRight(plus.left.visit(this));
-      ret.expandOnRight(strSize("+"));
-      ret.expandOnRight(plus.right.visit(this));
-      
-      sizes.put(id, ret);
-      return ret;
-    }
+    PaintSize ret = new PaintSize(0, 0, 0);
+    
+    ret.expandOnRight(plus.left.visit(this));
+    ret.expandOnRight(strSize("+"));
+    ret.expandOnRight(plus.right.visit(this));
+    
+    return ret;
   }
   
   @Override
   public PaintSize visitMul(Mul mul) {
-    String id = id(mul);
-    {
-      PaintSize ret = sizes.get(id);
-      if (ret != null) return ret;
-    }
-    {
-      PaintSize ret = new PaintSize();
-      
-      ret.expandOnRight(mul.left.visit(this));
-      ret.expandOnRight(strSize("·"));
-      ret.expandOnRight(mul.right.visit(this));
-      
-      sizes.put(id, ret);
-      return ret;
-    }
+    PaintSize ret = new PaintSize();
+    
+    ret.expandOnRight(mul.left.visit(this));
+    ret.expandOnRight(strSize("·"));
+    ret.expandOnRight(mul.right.visit(this));
+    
+    return ret;
   }
   
   @Override
   public PaintSize visitMinus(Minus minus) {
-    String id = id(minus);
-    {
-      PaintSize ret = sizes.get(id);
-      if (ret != null) return ret;
-    }
-    {
-      PaintSize ret = new PaintSize();
-      
-      ret.expandOnRight(minus.left.visit(this));
-      ret.expandOnRight(strSize("-"));
-      ret.expandOnRight(minus.right.visit(this));
-      
-      sizes.put(id, ret);
-      return ret;
-    }
+    PaintSize ret = new PaintSize();
+    
+    ret.expandOnRight(minus.left.visit(this));
+    ret.expandOnRight(strSize("-"));
+    ret.expandOnRight(minus.right.visit(this));
+    
+    return ret;
   }
   
   @Override
@@ -142,7 +82,7 @@ public class ExpSizer implements Visitor<PaintSize> {
     
     int upDist = (int)(ascent * gs.ascendingMiddleProportion(level) + 0.5);
     
-    DivConf dc = gs.div();
+    ConfDiv dc = gs.div();
     
     int h1 = dc.paddingUp(level) + top.h1 + top.h2 + upDist;
     int h2 = dc.paddingDown(level) + bottom.h1 + bottom.h2 - upDist;
@@ -155,11 +95,31 @@ public class ExpSizer implements Visitor<PaintSize> {
   
   @Override
   public PaintSize visitIntPower(IntPower intPower) {
-    // TODO Auto-generated method stub
-    return null;
+    PaintSize expSize = intPower.exp.visit(this);
+    level++;
+    PaintSize powSize = strSize("" + intPower.pow);
+    level--;
+    
+    int powExpDistance = gs.power().powExpDistance(level);
+    double upPercent = gs.power().upPercent(level);
+    
+    int h1 = expSize.h1;
+    int h2 = expSize.h2;
+    
+    int upMove = (int)(h1 * upPercent);
+    
+    int h1_ = expSize.h1 + upMove;
+    int h2_ = expSize.h2 - upMove;
+    
+    if (h1 < h1_) h1 = h1_;
+    if (h2 < h2_) h2 = h2_;
+    
+    int w = expSize.w + powExpDistance + powSize.w;
+    
+    return new PaintSize(w, h1, h2);
   }
   
-  private PaintSize strSize(String str) {
+  public PaintSize strSize(String str) {
     Graphics2D g = gs.getGraphics(level);
     int w = g.getFontMetrics().stringWidth(str);
     int h1 = g.getFontMetrics().getAscent();

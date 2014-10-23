@@ -1,3 +1,3 @@
 package pompei.maths.syms.top;
 
-public interface Const extends Expr {}
+public interface Const extends SimpleExpr {}
