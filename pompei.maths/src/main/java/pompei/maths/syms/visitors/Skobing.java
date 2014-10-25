@@ -47,4 +47,10 @@ public class Skobing extends Scanner {
     return new IntPower(s(exp), intPower.pow);
   }
   
+  @Override
+  public Expr visitSkob(Skob skob) {
+    Expr target = skob.target.visit(this);
+    if (target == skob.target) return skob;
+    return new Skob(target);
+  }
 }

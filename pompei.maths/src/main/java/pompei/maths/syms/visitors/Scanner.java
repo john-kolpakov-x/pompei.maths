@@ -1,5 +1,6 @@
 package pompei.maths.syms.visitors;
 
+import pompei.maths.syms.exceptions.ScobException;
 import pompei.maths.syms.top.Expr;
 import pompei.maths.syms.top.Visitor;
 import pompei.maths.syms.visitable.ConstDoubleExpr;
@@ -70,9 +71,7 @@ public class Scanner implements Visitor<Expr> {
   
   @Override
   public Expr visitSkob(Skob skob) {
-    Expr target = skob.target.visit(this);
-    if (target == skob.target) return skob;
-    return new Skob(target);
+    throw new ScobException();
   }
   
 }
