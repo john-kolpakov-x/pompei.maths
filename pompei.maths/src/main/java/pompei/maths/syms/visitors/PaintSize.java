@@ -18,4 +18,8 @@ public class PaintSize {
     if (h1 < size.h1) h1 = size.h1;
     if (h2 < size.h2) h2 = size.h2;
   }
+  
+  public int h() {
+    return h1 + h2;
+  }
 }

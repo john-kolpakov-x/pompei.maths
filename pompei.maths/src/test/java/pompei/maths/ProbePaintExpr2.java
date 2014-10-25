@@ -28,7 +28,7 @@ public class ProbePaintExpr2 {
     int width = 800, height = 600;
     
     BufferedImage image = ProbeUtil.createImage(width, height);
-    Expr expr = create(2);
+    Expr expr = create(3);
     
     paint(image, 100, 150, expr);
     Expr exprS = Skobing.add(expr);
@@ -74,6 +74,8 @@ public class ProbePaintExpr2 {
       return create1();
     case 2:
       return create2();
+    case 3:
+      return create3();
     }
     throw new RuntimeException();
   }
@@ -84,6 +86,15 @@ public class ProbePaintExpr2 {
     Div c1_2 = ex.div(c1, c2);
     IntPower pow = ex.power(c1_2, -19);
     return pow;
+  }
+  
+  private static Expr create3() {
+    ConstIntExpr c1 = ex.fix(1);
+    ConstIntExpr c2 = ex.fix(2);
+    Div c1_2 = ex.div(c1, c2);
+    IntPower pow = ex.power(c1_2, -19);
+    
+    return new Plus(pow, pow);
   }
   
   private static Expr create1() {

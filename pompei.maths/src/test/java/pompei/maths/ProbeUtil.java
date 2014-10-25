@@ -30,8 +30,8 @@ public class ProbeUtil {
         return new ConfSkob() {
           
           @Override
-          public double xSizeFactor(int level) {
-            return 0.15;
+          public double ySizeWidthFactor(int level) {
+            return 0.1;
           }
           
           @Override

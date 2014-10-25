@@ -149,7 +149,7 @@ public class ExpPainter implements Visitor<Void> {
     
     PaintSize targetSize = skob.target.visit(sizer);
     ConfSkob conf = sizer.gs.skob();
-    int sw = (int)(targetSize.w * conf.xSizeFactor(sizer.level) / 2.0 + 0.5);
+    int sw = (int)(targetSize.h() * conf.ySizeWidthFactor(sizer.level) + 0.5);
     int minWidth = conf.minWidth(sizer.level);
     if (sw < minWidth) sw = minWidth;
     
