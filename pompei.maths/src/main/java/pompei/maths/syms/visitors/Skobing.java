@@ -2,18 +2,13 @@ package pompei.maths.syms.visitors;
 
 import pompei.maths.syms.top.Expr;
 import pompei.maths.syms.top.SimpleExpr;
-import pompei.maths.syms.top.Visitor;
-import pompei.maths.syms.visitable.ConstDoubleExpr;
-import pompei.maths.syms.visitable.ConstIntExpr;
-import pompei.maths.syms.visitable.Div;
 import pompei.maths.syms.visitable.IntPower;
 import pompei.maths.syms.visitable.Minus;
 import pompei.maths.syms.visitable.Mul;
 import pompei.maths.syms.visitable.Plus;
 import pompei.maths.syms.visitable.Skob;
-import pompei.maths.syms.visitable.VarExpr;
 
-public class Skobing implements Visitor<Expr> {
+public class Skobing extends Scanner {
   
   public Skobing() {}
   
@@ -21,29 +16,6 @@ public class Skobing implements Visitor<Expr> {
   
   public static Expr add(Expr expr) {
     return expr.visit(new Skobing());
-  }
-  
-  @Override
-  public Expr visitConstDouble(ConstDoubleExpr constDoubleExpr) {
-    return constDoubleExpr;
-  }
-  
-  @Override
-  public Expr visitConstIntExpr(ConstIntExpr constIntExpr) {
-    return constIntExpr;
-  }
-  
-  @Override
-  public Expr visitVarExpr(VarExpr varExpr) {
-    return varExpr;
-  }
-  
-  @Override
-  public Expr visitPlus(Plus plus) {
-    Expr left = plus.left.visit(this);
-    Expr right = plus.right.visit(this);
-    if (left == plus.left && right == plus.right) return plus;
-    return new Plus(left, right);
   }
   
   @Override
@@ -66,22 +38,6 @@ public class Skobing implements Visitor<Expr> {
   }
   
   @Override
-  public Expr visitMinus(Minus minus) {
-    Expr left = minus.left.visit(this);
-    Expr right = minus.right.visit(this);
-    if (left == minus.left && right == minus.right) return minus;
-    return new Minus(left, right);
-  }
-  
-  @Override
-  public Expr visitDiv(Div div) {
-    Expr left = div.top.visit(this);
-    Expr right = div.bottom.visit(this);
-    if (left == div.top && right == div.bottom) return div;
-    return new Div(left, right);
-  }
-  
-  @Override
   public Expr visitIntPower(IntPower intPower) {
     Expr exp = intPower.exp.visit(this);
     if (exp instanceof SimpleExpr || intPower.exp instanceof Skob) {
@@ -89,13 +45,6 @@ public class Skobing implements Visitor<Expr> {
       return new IntPower(exp, intPower.pow);
     }
     return new IntPower(s(exp), intPower.pow);
-  }
-  
-  @Override
-  public Expr visitSkob(Skob skob) {
-    Expr target = skob.target.visit(this);
-    if (target == skob.target) return skob;
-    return new Skob(target);
   }
   
 }

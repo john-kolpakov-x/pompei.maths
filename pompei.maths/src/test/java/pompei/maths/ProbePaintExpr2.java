@@ -28,7 +28,7 @@ public class ProbePaintExpr2 {
     int width = 800, height = 600;
     
     BufferedImage image = ProbeUtil.createImage(width, height);
-    Expr expr = create(3);
+    Expr expr = create(1);
     
     paint(image, 100, 150, expr);
     Expr exprS = Skobing.add(expr);
@@ -111,7 +111,9 @@ public class ProbePaintExpr2 {
     //    Mul mul = ex.mul(ex.s(ab), ex.s(cd));
     Mul mul = ex.mul((ab), (cd17));
     
-    return mul;
+    Plus plus = ex.plus(mul, ex.div(ex.fix(1), ex.fix(2)));
+    
+    return plus;
   }
   
 }
