@@ -16,7 +16,7 @@ import pompei.maths.syms.visitable.Var;
 import pompei.maths.syms.visitable.ex;
 import pompei.maths.syms.visitors.Skobing;
 
-public class KillIntPowerProbe {
+public class EvalConstsProbe {
   public static void main(String[] args) throws Exception {
     
     int width = 1800, height = 600;
@@ -26,14 +26,14 @@ public class KillIntPowerProbe {
     
     ProbeUtil.paint(image, 100, 150, Skobing.add(in));
     
-    Expr out = in.visit(new KillIntPower());
+    Expr out = in.visit(new EvalConsts());
     
     ProbeUtil.paint(image, 100, 300, Skobing.add(out));
     //    ProbeUtil.paint(image, 100, 450, Skobing.add(out));
     
-    ImageIO.write(image, "png", new File("build/KillIntPowerProbe.png"));
+    ImageIO.write(image, "png", new File("build/EvalConstsProbe.png"));
     
-    System.out.println("OK build/KillIntPowerProbe.png");
+    System.out.println("OK build/EvalConstsProbe.png");
   }
   
   private static Expr create(int nomer) {

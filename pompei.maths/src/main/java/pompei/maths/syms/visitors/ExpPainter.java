@@ -7,6 +7,7 @@ import pompei.maths.syms.visitable.ConstDouble;
 import pompei.maths.syms.visitable.ConstInt;
 import pompei.maths.syms.visitable.Div;
 import pompei.maths.syms.visitable.IntPower;
+import pompei.maths.syms.visitable.Minis;
 import pompei.maths.syms.visitable.Minus;
 import pompei.maths.syms.visitable.Mul;
 import pompei.maths.syms.visitable.Plus;
@@ -79,6 +80,18 @@ public class ExpPainter implements Visitor<Void> {
     sizer.g().drawString("-", x, y);
     x += sizer.strSize("-").w;
     minus.right.visit(this);
+    x = savedX;
+    
+    return null;
+  }
+  
+  @Override
+  public Void visitMinis(Minis minis) {
+    
+    int savedX = x;
+    sizer.g().drawString("-", x, y);
+    x += sizer.strSize("-").w;
+    minis.target.visit(this);
     x = savedX;
     
     return null;

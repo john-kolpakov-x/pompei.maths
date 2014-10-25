@@ -15,4 +15,9 @@ public class Plus implements Expr {
   public <T> T visit(Visitor<T> visitor) {
     return visitor.visitPlus(this);
   }
+  
+  @Override
+  public boolean isConst() {
+    return left.isConst() && right.isConst();
+  }
 }

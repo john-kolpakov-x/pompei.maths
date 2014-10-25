@@ -15,4 +15,9 @@ public class Mul implements Expr {
   public <T> T visit(Visitor<T> visitor) {
     return visitor.visitMul(this);
   }
+  
+  @Override
+  public boolean isConst() {
+    return left.isConst() && right.isConst();
+  }
 }

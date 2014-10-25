@@ -4,11 +4,11 @@ import pompei.maths.syms.top.Expr;
 
 public class ex {
   public static ConstInt fix(int a) {
-    return new ConstInt(a);
+    return ConstInt.get(a);
   }
   
   public static ConstDouble fix(double a) {
-    return new ConstDouble(a);
+    return ConstDouble.get(a);
   }
   
   public static IntPower power(Expr exp, int pow) {

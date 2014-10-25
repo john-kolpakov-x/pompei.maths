@@ -6,6 +6,7 @@ import pompei.maths.syms.visitable.ConstDouble;
 import pompei.maths.syms.visitable.ConstInt;
 import pompei.maths.syms.visitable.Div;
 import pompei.maths.syms.visitable.IntPower;
+import pompei.maths.syms.visitable.Minis;
 import pompei.maths.syms.visitable.Minus;
 import pompei.maths.syms.visitable.Mul;
 import pompei.maths.syms.visitable.Plus;
@@ -82,4 +83,8 @@ public class ExpEvaluator implements Visitor<Double> {
     return skob.target.visit(this);
   }
   
+  @Override
+  public Double visitMinis(Minis minis) {
+    return -minis.target.visit(this);
+  }
 }

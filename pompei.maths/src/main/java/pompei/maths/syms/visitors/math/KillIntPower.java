@@ -5,15 +5,30 @@ import pompei.maths.syms.visitable.ConstInt;
 import pompei.maths.syms.visitable.Div;
 import pompei.maths.syms.visitable.IntPower;
 import pompei.maths.syms.visitable.Mul;
+import pompei.maths.syms.visitable.Var;
 import pompei.maths.syms.visitors.Scanner;
 
 public class KillIntPower extends Scanner {
   @Override
   public Expr visitIntPower(IntPower intPower) {
-    int pow = intPower.pow;
-    if (pow == 0) return ConstInt.ONE;
+    
     Expr exp = intPower.exp;
-    if (pow == 1) return exp;
+    int pow = intPower.pow;
+    
+    while (exp instanceof IntPower) {
+      IntPower exp_ = (IntPower)exp;
+      pow += exp_.pow;
+      exp = exp_.exp;
+    }
+    
+    if (pow == 0) return ConstInt.ONE;
+    
+    if (pow == 1) return exp.visit(this);
+    
+    if (exp instanceof ConstInt || exp instanceof Var) {
+      if (exp == intPower.exp) return intPower;
+      return new IntPower(exp, pow);
+    }
     
     int sign = 1;
     if (pow < 0) {
@@ -23,7 +38,7 @@ public class KillIntPower extends Scanner {
     
     Expr ret = exp;
     
-    while (pow-- > 0) {
+    while (pow-- > 1) {
       ret = new Mul(ret, exp);
     }
     

@@ -1,12 +1,15 @@
 package pompei.maths.syms.visitors;
 
+import pompei.maths.syms.top.Const;
 import pompei.maths.syms.top.Expr;
 import pompei.maths.syms.top.SimpleExpr;
 import pompei.maths.syms.visitable.IntPower;
+import pompei.maths.syms.visitable.Minis;
 import pompei.maths.syms.visitable.Minus;
 import pompei.maths.syms.visitable.Mul;
 import pompei.maths.syms.visitable.Plus;
 import pompei.maths.syms.visitable.Skob;
+import pompei.maths.syms.visitable.Var;
 
 public class Skobing extends Scanner {
   
@@ -52,5 +55,15 @@ public class Skobing extends Scanner {
     Expr target = skob.target.visit(this);
     if (target == skob.target) return skob;
     return new Skob(target);
+  }
+  
+  @Override
+  public Expr visitMinis(Minis minis) {
+    Expr target = minis.target.visit(this);
+    if (!(target instanceof Const) && !(target instanceof Var) && !(target instanceof Skob)) {
+      return new Minis(s(target));
+    }
+    if (target == minis.target) return minis;
+    return new Minis(target);
   }
 }

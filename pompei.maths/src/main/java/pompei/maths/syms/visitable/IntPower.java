@@ -16,4 +16,9 @@ public class IntPower implements Expr {
   public <T> T visit(Visitor<T> visitor) {
     return visitor.visitIntPower(this);
   }
+  
+  @Override
+  public boolean isConst() {
+    return exp.isConst();
+  }
 }

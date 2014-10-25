@@ -15,4 +15,9 @@ public class Minus implements Expr {
   public <T> T visit(Visitor<T> visitor) {
     return visitor.visitMinus(this);
   }
+  
+  @Override
+  public boolean isConst() {
+    return left.isConst() && right.isConst();
+  }
 }

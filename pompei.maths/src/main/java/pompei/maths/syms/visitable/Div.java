@@ -15,4 +15,9 @@ public class Div implements Expr {
   public <T> T visit(Visitor<T> visitor) {
     return visitor.visitDiv(this);
   }
+  
+  @Override
+  public boolean isConst() {
+    return top.isConst() && bottom.isConst();
+  }
 }

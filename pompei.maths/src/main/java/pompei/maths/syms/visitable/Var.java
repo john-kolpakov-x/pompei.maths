@@ -14,4 +14,9 @@ public class Var implements SimpleExpr {
   public <T> T visit(Visitor<T> visitor) {
     return visitor.visitVarExpr(this);
   }
+  
+  @Override
+  public boolean isConst() {
+    return false;
+  }
 }

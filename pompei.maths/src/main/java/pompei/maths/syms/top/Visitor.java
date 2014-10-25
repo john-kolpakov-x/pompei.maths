@@ -4,6 +4,7 @@ import pompei.maths.syms.visitable.ConstDouble;
 import pompei.maths.syms.visitable.ConstInt;
 import pompei.maths.syms.visitable.Div;
 import pompei.maths.syms.visitable.IntPower;
+import pompei.maths.syms.visitable.Minis;
 import pompei.maths.syms.visitable.Minus;
 import pompei.maths.syms.visitable.Mul;
 import pompei.maths.syms.visitable.Plus;
@@ -28,4 +29,6 @@ public interface Visitor<T> {
   T visitIntPower(IntPower intPower);
   
   T visitSkob(Skob skob);
+  
+  T visitMinis(Minis minis);
 }
