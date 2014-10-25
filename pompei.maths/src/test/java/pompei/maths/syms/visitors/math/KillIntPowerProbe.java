@@ -22,7 +22,7 @@ public class KillIntPowerProbe {
     int width = 800, height = 600;
     
     BufferedImage image = ProbeUtil.createImage(width, height);
-    Expr in = create(2);
+    Expr in = create(1);
     
     ProbeUtil.paint(image, 100, 150, Skobing.add(in));
     
@@ -74,7 +74,7 @@ public class KillIntPowerProbe {
     Plus ab = ex.plus(a, b);
     Plus cd = ex.plus(c, d);
     
-    IntPower cd17 = ex.power(cd, -17);
+    IntPower cd17 = ex.power(cd, -1);
     
     //    Mul mul = ex.mul(ex.s(ab), ex.s(cd));
     Mul mul = ex.mul((ab), (cd17));

@@ -11,7 +11,7 @@ public class KillIntPower extends Scanner {
   @Override
   public Expr visitIntPower(IntPower intPower) {
     int pow = intPower.pow;
-    if (pow == 0) return new ConstInt(1);
+    if (pow == 0) return ConstInt.ONE;
     Expr exp = intPower.exp;
     if (pow == 1) return exp;
     
