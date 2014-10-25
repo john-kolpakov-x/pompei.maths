@@ -7,7 +7,7 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
-public class ProbeExpPainter {
+public class ProbePainter {
   public static void main(String[] args) throws Exception {
     int width = 800, height = 600;
     

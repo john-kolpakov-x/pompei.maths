@@ -34,4 +34,8 @@ public class ex {
   public static VarExpr var(String name) {
     return new VarExpr(name);
   }
+  
+  public static Expr s(Expr target) {
+    return new Skob(target);
+  }
 }

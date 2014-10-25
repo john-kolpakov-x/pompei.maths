@@ -14,7 +14,7 @@ import pompei.maths.syms.visitors.ExpSizer;
 import pompei.maths.syms.visitors.GraphicsSource;
 import pompei.maths.syms.visitors.PaintSize;
 
-public class ProbePaintFont {
+public class ProbePaintExpr {
   public static void main(String[] args) throws Exception {
     
     Expr expr = create1();

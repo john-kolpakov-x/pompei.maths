@@ -31,7 +31,7 @@ public class ProbeUtil {
           
           @Override
           public double xSizeFactor(int level) {
-            return 0.1;
+            return 0.15;
           }
           
           @Override

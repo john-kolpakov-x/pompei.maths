@@ -132,9 +132,9 @@ public class ExpSizer implements Visitor<PaintSize> {
   public PaintSize visitSkob(Skob skob) {
     
     PaintSize size = skob.target.visit(this);
-    size.w = (int)(size.w * gs.skob().xSizeFactor(level) + 0.5);
+    int w = (int)(size.w * (1 + gs.skob().xSizeFactor(level)) + 0.5);
     
-    return size;
+    return new PaintSize(w, size.h1, size.h2);
   }
   
 }

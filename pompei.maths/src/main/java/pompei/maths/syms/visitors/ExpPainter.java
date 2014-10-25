@@ -167,9 +167,10 @@ public class ExpPainter implements Visitor<Void> {
     }
     
     {
+      int savedX = x;
       x += sw;
       skob.target.visit(this);
-      x -= sw;
+      x = savedX;
     }
     
     return null;
