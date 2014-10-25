@@ -6,8 +6,8 @@ import pompei.maths.syms.top.Visitor;
 public class VarExpr implements SimpleExpr {
   public final String name;
   
-  public VarExpr(String varName) {
-    this.name = varName;
+  public VarExpr(String name) {
+    this.name = name;
   }
   
   @Override

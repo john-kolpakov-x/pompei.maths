@@ -8,4 +8,6 @@ public interface ConfDiv {
   int paddingLeft(int level);
   
   int paddingRight(int level);
+  
+  int lineWidth(int level);
 }

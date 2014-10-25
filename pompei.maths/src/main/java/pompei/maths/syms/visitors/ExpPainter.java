@@ -1,5 +1,7 @@
 package pompei.maths.syms.visitors;
 
+import java.awt.Graphics2D;
+
 import pompei.maths.syms.top.Visitor;
 import pompei.maths.syms.visitable.ConstDoubleExpr;
 import pompei.maths.syms.visitable.ConstIntExpr;
@@ -41,31 +43,103 @@ public class ExpPainter implements Visitor<Void> {
   
   @Override
   public Void visitPlus(Plus plus) {
-    // TODO Auto-generated method stub
+    
+    int savedX = x;
+    plus.left.visit(this);
+    x += plus.left.visit(sizer).w;
+    sizer.g().drawString("+", x, y);
+    x += sizer.strSize("+").w;
+    plus.right.visit(this);
+    x = savedX;
+    
     return null;
   }
   
   @Override
   public Void visitMul(Mul mul) {
-    // TODO Auto-generated method stub
+    
+    int savedX = x;
+    mul.left.visit(this);
+    x += mul.left.visit(sizer).w;
+    sizer.g().drawString("·", x, y);
+    x += sizer.strSize("·").w;
+    mul.right.visit(this);
+    x = savedX;
+    
     return null;
   }
   
   @Override
   public Void visitMinus(Minus minus) {
-    // TODO Auto-generated method stub
+    
+    int savedX = x;
+    minus.left.visit(this);
+    x += minus.left.visit(sizer).w;
+    sizer.g().drawString("-", x, y);
+    x += sizer.strSize("-").w;
+    minus.right.visit(this);
+    x = savedX;
+    
     return null;
   }
   
   @Override
   public Void visitDiv(Div div) {
-    // TODO Auto-generated method stub
+    PaintSize top = div.top.visit(sizer);
+    PaintSize bottom = div.bottom.visit(sizer);
+    Graphics2D g = sizer.g();
+    int ascent = g.getFontMetrics().getAscent();
+    
+    int upDist = (int)(ascent * sizer.gs.ascendingMiddleProportion(sizer.level) + 0.5);
+    
+    ConfDiv dc = sizer.gs.div();
+    
+    int savedX = x, savedY = y;
+    
+    int maxW = Math.max(top.w, bottom.w);
+    
+    x = savedX + dc.paddingLeft(sizer.level) + (maxW - top.w) / 2;
+    y = savedY - upDist - dc.paddingUp(sizer.level) - top.h2;
+    div.top.visit(this);
+    
+    x = savedX + dc.paddingLeft(sizer.level) + (maxW - bottom.w) / 2;
+    y = savedY - upDist + dc.paddingDown(sizer.level) + bottom.h1;
+    div.bottom.visit(this);
+    
+    x = savedX;
+    y = savedY;
+    
+    PaintSize size = div.visit(sizer);
+    
+    sizer.g().drawLine(x, y - upDist, x + size.w, y - upDist);
+    int lineWidth = dc.lineWidth(sizer.level);
+    if (lineWidth > 1) {
+      int h2 = lineWidth / 2;
+      sizer.g().fillRect(x, y - upDist - h2, size.w, lineWidth);
+    }
+    
     return null;
   }
   
   @Override
   public Void visitIntPower(IntPower intPower) {
-    // TODO Auto-generated method stub
+    
+    PaintSize expSize = intPower.exp.visit(sizer);
+    
+    ConfPower confPower = sizer.gs.power();
+    
+    int powExpDistance = confPower.powExpDistance(sizer.level);
+    double upPercent = confPower.upPercent(sizer.level);
+    
+    int h1 = expSize.h1;
+    
+    int upMove = (int)(h1 * upPercent);
+    
+    intPower.exp.visit(this);
+    int x1 = x + expSize.w + powExpDistance;
+    int y1 = y - upMove;
+    sizer.gs.getGraphics(sizer.level + 1).drawString("" + intPower.pow, x1, y1);
+    
     return null;
   }
   

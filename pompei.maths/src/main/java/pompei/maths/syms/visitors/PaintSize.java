@@ -1,7 +1,7 @@
 package pompei.maths.syms.visitors;
 
 public class PaintSize {
-  int w, h1, h2;
+  public int w, h1, h2;
   
   public PaintSize() {
     w = h1 = h2 = 0;

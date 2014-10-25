@@ -30,7 +30,7 @@ public class ExpSizerCache implements InvocationHandler {
   
   @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-    if (isVisitMwthod(method)) return callVisitMethod(method, args);
+    if (isVisitMethod(method)) return callVisitMethod(method, args);
     return method.invoke(target, args);
   }
   
@@ -53,7 +53,7 @@ public class ExpSizerCache implements InvocationHandler {
     }
   }
   
-  private boolean isVisitMwthod(Method method) {
+  private boolean isVisitMethod(Method method) {
     Class<?>[] pt = method.getParameterTypes();
     return method.getName().startsWith("visit") && pt.length == 1
         && pt[0].isAssignableFrom(Expr.class);
