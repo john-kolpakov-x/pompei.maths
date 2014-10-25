@@ -10,6 +10,7 @@ import pompei.maths.syms.visitable.IntPower;
 import pompei.maths.syms.visitable.Minus;
 import pompei.maths.syms.visitable.Mul;
 import pompei.maths.syms.visitable.Plus;
+import pompei.maths.syms.visitable.Skob;
 import pompei.maths.syms.visitable.VarExpr;
 
 public class ExpSizer implements Visitor<PaintSize> {
@@ -126,4 +127,14 @@ public class ExpSizer implements Visitor<PaintSize> {
     int h2 = g.getFontMetrics().getDescent();
     return new PaintSize(w, h1, h2);
   }
+  
+  @Override
+  public PaintSize visitSkob(Skob skob) {
+    
+    PaintSize size = skob.target.visit(this);
+    size.w = (int)(size.w * gs.skob().xSizeFactor(level) + 0.5);
+    
+    return size;
+  }
+  
 }

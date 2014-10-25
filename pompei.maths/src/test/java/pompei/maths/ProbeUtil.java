@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 import pompei.maths.syms.visitors.ConfDiv;
 import pompei.maths.syms.visitors.ConfPower;
+import pompei.maths.syms.visitors.ConfSkob;
 import pompei.maths.syms.visitors.GraphicsSource;
 
 public class ProbeUtil {
@@ -23,6 +24,27 @@ public class ProbeUtil {
     }
     
     return new GraphicsSource() {
+      
+      @Override
+      public ConfSkob skob() {
+        return new ConfSkob() {
+          
+          @Override
+          public double xSizeFactor(int level) {
+            return 0.1;
+          }
+          
+          @Override
+          public double topSizeFactor(int level) {
+            return 0;
+          }
+          
+          @Override
+          public double bottomSizeFactor(int level) {
+            return 0.5;
+          }
+        };
+      }
       
       @Override
       public ConfPower power() {

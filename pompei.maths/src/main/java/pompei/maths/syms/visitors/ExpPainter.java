@@ -10,6 +10,7 @@ import pompei.maths.syms.visitable.IntPower;
 import pompei.maths.syms.visitable.Minus;
 import pompei.maths.syms.visitable.Mul;
 import pompei.maths.syms.visitable.Plus;
+import pompei.maths.syms.visitable.Skob;
 import pompei.maths.syms.visitable.VarExpr;
 
 public class ExpPainter implements Visitor<Void> {
@@ -139,6 +140,37 @@ public class ExpPainter implements Visitor<Void> {
     int x1 = x + expSize.w + powExpDistance;
     int y1 = y - upMove;
     sizer.gs.getGraphics(sizer.level + 1).drawString("" + intPower.pow, x1, y1);
+    
+    return null;
+  }
+  
+  @Override
+  public Void visitSkob(Skob skob) {
+    
+    PaintSize targetSize = skob.target.visit(sizer);
+    ConfSkob conf = sizer.gs.skob();
+    int sw = (int)(targetSize.w * conf.xSizeFactor(sizer.level) / 2.0 + 0.5);
+    
+    {
+      int sh1 = (int)(targetSize.h1 * (1 - conf.topSizeFactor(sizer.level)) + 0.5);
+      int sh2 = (int)(targetSize.h2 * (1 - conf.bottomSizeFactor(sizer.level)) + 0.5);
+      int sh = sh1 + sh2;
+      
+      {
+        int sx = x, sy = y - sh1;
+        SkobPainter.paint(sizer.g(), conf, sx, sy, sw, sh, false);
+      }
+      {
+        int sx = x + sw + targetSize.w, sy = y - sh1;
+        SkobPainter.paint(sizer.g(), conf, sx, sy, sw, sh, true);
+      }
+    }
+    
+    {
+      x += sw;
+      skob.target.visit(this);
+      x -= sw;
+    }
     
     return null;
   }

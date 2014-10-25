@@ -7,6 +7,7 @@ import pompei.maths.syms.visitable.IntPower;
 import pompei.maths.syms.visitable.Minus;
 import pompei.maths.syms.visitable.Mul;
 import pompei.maths.syms.visitable.Plus;
+import pompei.maths.syms.visitable.Skob;
 import pompei.maths.syms.visitable.VarExpr;
 
 public interface Visitor<T> {
@@ -25,4 +26,6 @@ public interface Visitor<T> {
   T visitDiv(Div div);
   
   T visitIntPower(IntPower intPower);
+  
+  T visitSkob(Skob skob);
 }

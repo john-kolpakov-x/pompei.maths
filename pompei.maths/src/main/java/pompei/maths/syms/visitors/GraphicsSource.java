@@ -9,6 +9,8 @@ public interface GraphicsSource {
   
   ConfPower power();
   
+  ConfSkob skob();
+  
   float ascendingMiddleProportion(int level);
   
   void closeAll();
