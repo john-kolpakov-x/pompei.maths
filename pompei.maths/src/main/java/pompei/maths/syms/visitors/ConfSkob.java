@@ -6,4 +6,6 @@ public interface ConfSkob {
   double topSizeFactor(int level);
   
   double bottomSizeFactor(int level);
+  
+  int minWidth(int level);
 }

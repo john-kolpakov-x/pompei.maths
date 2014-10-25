@@ -109,8 +109,8 @@ public class ExpSizer implements Visitor<PaintSize> {
     
     int upMove = (int)(h1 * upPercent);
     
-    int h1_ = expSize.h1 + upMove;
-    int h2_ = expSize.h2 - upMove;
+    int h1_ = powSize.h1 + upMove;
+    int h2_ = powSize.h2 - upMove;
     
     if (h1 < h1_) h1 = h1_;
     if (h2 < h2_) h2 = h2_;
@@ -132,9 +132,11 @@ public class ExpSizer implements Visitor<PaintSize> {
   public PaintSize visitSkob(Skob skob) {
     
     PaintSize size = skob.target.visit(this);
-    int w = (int)(size.w * (1 + gs.skob().xSizeFactor(level)) + 0.5);
+    int w = (int)(size.w * gs.skob().xSizeFactor(level) + 0.5);
+    int minWidth = gs.skob().minWidth(level);
+    if (w < minWidth) w = minWidth;
     
-    return new PaintSize(w, size.h1, size.h2);
+    return new PaintSize(size.w + 2 * w, size.h1, size.h2);
   }
   
 }

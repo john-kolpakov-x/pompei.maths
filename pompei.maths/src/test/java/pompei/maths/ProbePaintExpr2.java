@@ -8,6 +8,9 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 import pompei.maths.syms.top.Expr;
+import pompei.maths.syms.visitable.ConstIntExpr;
+import pompei.maths.syms.visitable.Div;
+import pompei.maths.syms.visitable.IntPower;
 import pompei.maths.syms.visitable.Mul;
 import pompei.maths.syms.visitable.Plus;
 import pompei.maths.syms.visitable.VarExpr;
@@ -25,7 +28,7 @@ public class ProbePaintExpr2 {
     int width = 800, height = 600;
     
     BufferedImage image = ProbeUtil.createImage(width, height);
-    Expr expr = create1();
+    Expr expr = create(2);
     
     paint(image, 100, 150, expr);
     Expr exprS = Skobing.add(expr);
@@ -65,6 +68,24 @@ public class ProbePaintExpr2 {
     gs.closeAll();
   }
   
+  private static Expr create(int nomer) {
+    switch (nomer) {
+    case 1:
+      return create1();
+    case 2:
+      return create2();
+    }
+    throw new RuntimeException();
+  }
+  
+  private static Expr create2() {
+    ConstIntExpr c1 = ex.fix(1);
+    ConstIntExpr c2 = ex.fix(2);
+    Div c1_2 = ex.div(c1, c2);
+    IntPower pow = ex.power(c1_2, -19);
+    return pow;
+  }
+  
   private static Expr create1() {
     VarExpr a = ex.var("a");
     VarExpr b = ex.var("b");
@@ -74,8 +95,10 @@ public class ProbePaintExpr2 {
     Plus ab = ex.plus(a, b);
     Plus cd = ex.plus(c, d);
     
+    IntPower cd17 = ex.power(cd, -17);
+    
     //    Mul mul = ex.mul(ex.s(ab), ex.s(cd));
-    Mul mul = ex.mul((ab), (cd));
+    Mul mul = ex.mul((ab), (cd17));
     
     return mul;
   }

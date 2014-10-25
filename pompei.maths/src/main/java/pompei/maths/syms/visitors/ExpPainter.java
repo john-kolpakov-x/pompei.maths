@@ -112,7 +112,7 @@ public class ExpPainter implements Visitor<Void> {
     
     PaintSize size = div.visit(sizer);
     
-    sizer.g().drawLine(x, y - upDist, x + size.w, y - upDist);
+    sizer.g().drawLine(x, y - upDist, x + size.w - 1, y - upDist);
     int lineWidth = dc.lineWidth(sizer.level);
     if (lineWidth > 1) {
       int h2 = lineWidth / 2;
@@ -150,6 +150,8 @@ public class ExpPainter implements Visitor<Void> {
     PaintSize targetSize = skob.target.visit(sizer);
     ConfSkob conf = sizer.gs.skob();
     int sw = (int)(targetSize.w * conf.xSizeFactor(sizer.level) / 2.0 + 0.5);
+    int minWidth = conf.minWidth(sizer.level);
+    if (sw < minWidth) sw = minWidth;
     
     {
       int sh1 = (int)(targetSize.h1 * (1 - conf.topSizeFactor(sizer.level)) + 0.5);

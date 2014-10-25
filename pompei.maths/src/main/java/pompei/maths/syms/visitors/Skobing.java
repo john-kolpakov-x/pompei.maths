@@ -40,13 +40,16 @@ public class Skobing implements Visitor<Expr> {
   
   @Override
   public Expr visitPlus(Plus plus) {
-    return plus;
+    Expr left = plus.left.visit(this);
+    Expr right = plus.right.visit(this);
+    if (left == plus.left && right == plus.right) return plus;
+    return new Plus(left, right);
   }
   
   @Override
   public Expr visitMul(Mul mul) {
-    Expr left = onMulArg(mul.left);
-    Expr right = onMulArg(mul.right);
+    Expr left = onMulArg(mul.left.visit(this));
+    Expr right = onMulArg(mul.right.visit(this));
     if (left == mul.left && right == mul.right) return mul;
     return new Mul(left, right);
   }
@@ -64,24 +67,35 @@ public class Skobing implements Visitor<Expr> {
   
   @Override
   public Expr visitMinus(Minus minus) {
-    return minus;
+    Expr left = minus.left.visit(this);
+    Expr right = minus.right.visit(this);
+    if (left == minus.left && right == minus.right) return minus;
+    return new Minus(left, right);
   }
   
   @Override
   public Expr visitDiv(Div div) {
-    return div;
+    Expr left = div.top.visit(this);
+    Expr right = div.bottom.visit(this);
+    if (left == div.top && right == div.bottom) return div;
+    return new Div(left, right);
   }
   
   @Override
   public Expr visitIntPower(IntPower intPower) {
-    Expr exp = intPower.exp;
-    if (exp instanceof SimpleExpr) return intPower;
+    Expr exp = intPower.exp.visit(this);
+    if (exp instanceof SimpleExpr || intPower.exp instanceof Skob) {
+      if (exp == intPower.exp) return intPower;
+      return new IntPower(exp, intPower.pow);
+    }
     return new IntPower(s(exp), intPower.pow);
   }
   
   @Override
   public Expr visitSkob(Skob skob) {
-    return skob;
+    Expr target = skob.target.visit(this);
+    if (target == skob.target) return skob;
+    return new Skob(target);
   }
   
 }

@@ -14,12 +14,12 @@ public class ProbeUtil {
   static GraphicsSource createGS(BufferedImage image) {
     final Graphics2D g1 = image.createGraphics();
     {
-      g1.setFont(g1.getFont().deriveFont(70f));
+      g1.setFont(g1.getFont().deriveFont(30f));
       g1.setColor(Color.BLACK);
     }
     final Graphics2D g2 = image.createGraphics();
     {
-      g2.setFont(g2.getFont().deriveFont(40f));
+      g2.setFont(g2.getFont().deriveFont(20f));
       g2.setColor(Color.BLACK);
     }
     
@@ -43,6 +43,11 @@ public class ProbeUtil {
           public double bottomSizeFactor(int level) {
             return 0.5;
           }
+          
+          @Override
+          public int minWidth(int level) {
+            return 5;
+          }
         };
       }
       
@@ -56,7 +61,7 @@ public class ProbeUtil {
           
           @Override
           public int powExpDistance(int expLevel) {
-            return 0;
+            return 2;
           }
         };
       }
@@ -71,7 +76,7 @@ public class ProbeUtil {
         return new ConfDiv() {
           @Override
           public int lineWidth(int level) {
-            return level == 1 ? 7 : 5;
+            return level == 1 ? 3 : 2;
           }
           
           @Override
