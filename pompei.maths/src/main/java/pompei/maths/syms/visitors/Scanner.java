@@ -3,30 +3,30 @@ package pompei.maths.syms.visitors;
 import pompei.maths.syms.exceptions.ScobException;
 import pompei.maths.syms.top.Expr;
 import pompei.maths.syms.top.Visitor;
-import pompei.maths.syms.visitable.ConstDoubleExpr;
-import pompei.maths.syms.visitable.ConstIntExpr;
+import pompei.maths.syms.visitable.ConstDouble;
+import pompei.maths.syms.visitable.ConstInt;
 import pompei.maths.syms.visitable.Div;
 import pompei.maths.syms.visitable.IntPower;
 import pompei.maths.syms.visitable.Minus;
 import pompei.maths.syms.visitable.Mul;
 import pompei.maths.syms.visitable.Plus;
 import pompei.maths.syms.visitable.Skob;
-import pompei.maths.syms.visitable.VarExpr;
+import pompei.maths.syms.visitable.Var;
 
 public class Scanner implements Visitor<Expr> {
   
   @Override
-  public Expr visitConstDouble(ConstDoubleExpr constDoubleExpr) {
+  public Expr visitConstDouble(ConstDouble constDoubleExpr) {
     return constDoubleExpr;
   }
   
   @Override
-  public Expr visitConstIntExpr(ConstIntExpr constIntExpr) {
+  public Expr visitConstIntExpr(ConstInt constIntExpr) {
     return constIntExpr;
   }
   
   @Override
-  public Expr visitVarExpr(VarExpr varExpr) {
+  public Expr visitVarExpr(Var varExpr) {
     return varExpr;
   }
   

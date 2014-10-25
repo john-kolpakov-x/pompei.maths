@@ -3,15 +3,15 @@ package pompei.maths.syms.visitors;
 import java.awt.Graphics2D;
 
 import pompei.maths.syms.top.Visitor;
-import pompei.maths.syms.visitable.ConstDoubleExpr;
-import pompei.maths.syms.visitable.ConstIntExpr;
+import pompei.maths.syms.visitable.ConstDouble;
+import pompei.maths.syms.visitable.ConstInt;
 import pompei.maths.syms.visitable.Div;
 import pompei.maths.syms.visitable.IntPower;
 import pompei.maths.syms.visitable.Minus;
 import pompei.maths.syms.visitable.Mul;
 import pompei.maths.syms.visitable.Plus;
 import pompei.maths.syms.visitable.Skob;
-import pompei.maths.syms.visitable.VarExpr;
+import pompei.maths.syms.visitable.Var;
 
 public class ExpPainter implements Visitor<Void> {
   
@@ -25,19 +25,19 @@ public class ExpPainter implements Visitor<Void> {
   }
   
   @Override
-  public Void visitConstDouble(ConstDoubleExpr constDoubleExpr) {
+  public Void visitConstDouble(ConstDouble constDoubleExpr) {
     sizer.g().drawString("" + constDoubleExpr.value, x, y);
     return null;
   }
   
   @Override
-  public Void visitConstIntExpr(ConstIntExpr constIntExpr) {
+  public Void visitConstIntExpr(ConstInt constIntExpr) {
     sizer.g().drawString("" + constIntExpr.value, x, y);
     return null;
   }
   
   @Override
-  public Void visitVarExpr(VarExpr varExpr) {
+  public Void visitVarExpr(Var varExpr) {
     sizer.g().drawString(varExpr.name, x, y);
     return null;
   }

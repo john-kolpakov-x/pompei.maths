@@ -3,12 +3,12 @@ package pompei.maths.syms.visitable;
 import pompei.maths.syms.top.Expr;
 
 public class ex {
-  public static ConstIntExpr fix(int a) {
-    return new ConstIntExpr(a);
+  public static ConstInt fix(int a) {
+    return new ConstInt(a);
   }
   
-  public static ConstDoubleExpr fix(double a) {
-    return new ConstDoubleExpr(a);
+  public static ConstDouble fix(double a) {
+    return new ConstDouble(a);
   }
   
   public static IntPower power(Expr exp, int pow) {
@@ -31,8 +31,8 @@ public class ex {
     return new Mul(left, right);
   }
   
-  public static VarExpr var(String name) {
-    return new VarExpr(name);
+  public static Var var(String name) {
+    return new Var(name);
   }
   
   public static Expr s(Expr target) {

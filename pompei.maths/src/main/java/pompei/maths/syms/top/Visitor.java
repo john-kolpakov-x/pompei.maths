@@ -1,21 +1,21 @@
 package pompei.maths.syms.top;
 
-import pompei.maths.syms.visitable.ConstDoubleExpr;
-import pompei.maths.syms.visitable.ConstIntExpr;
+import pompei.maths.syms.visitable.ConstDouble;
+import pompei.maths.syms.visitable.ConstInt;
 import pompei.maths.syms.visitable.Div;
 import pompei.maths.syms.visitable.IntPower;
 import pompei.maths.syms.visitable.Minus;
 import pompei.maths.syms.visitable.Mul;
 import pompei.maths.syms.visitable.Plus;
 import pompei.maths.syms.visitable.Skob;
-import pompei.maths.syms.visitable.VarExpr;
+import pompei.maths.syms.visitable.Var;
 
 public interface Visitor<T> {
-  T visitConstDouble(ConstDoubleExpr constDoubleExpr);
+  T visitConstDouble(ConstDouble constDoubleExpr);
   
-  T visitConstIntExpr(ConstIntExpr constIntExpr);
+  T visitConstIntExpr(ConstInt constIntExpr);
   
-  T visitVarExpr(VarExpr varExpr);
+  T visitVarExpr(Var varExpr);
   
   T visitPlus(Plus plus);
   

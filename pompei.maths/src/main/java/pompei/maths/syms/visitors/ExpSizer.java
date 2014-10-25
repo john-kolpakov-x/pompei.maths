@@ -3,15 +3,15 @@ package pompei.maths.syms.visitors;
 import java.awt.Graphics2D;
 
 import pompei.maths.syms.top.Visitor;
-import pompei.maths.syms.visitable.ConstDoubleExpr;
-import pompei.maths.syms.visitable.ConstIntExpr;
+import pompei.maths.syms.visitable.ConstDouble;
+import pompei.maths.syms.visitable.ConstInt;
 import pompei.maths.syms.visitable.Div;
 import pompei.maths.syms.visitable.IntPower;
 import pompei.maths.syms.visitable.Minus;
 import pompei.maths.syms.visitable.Mul;
 import pompei.maths.syms.visitable.Plus;
 import pompei.maths.syms.visitable.Skob;
-import pompei.maths.syms.visitable.VarExpr;
+import pompei.maths.syms.visitable.Var;
 
 public class ExpSizer implements Visitor<PaintSize> {
   public final GraphicsSource gs;
@@ -27,17 +27,17 @@ public class ExpSizer implements Visitor<PaintSize> {
   }
   
   @Override
-  public PaintSize visitConstDouble(ConstDoubleExpr constDoubleExpr) {
+  public PaintSize visitConstDouble(ConstDouble constDoubleExpr) {
     return strSize("" + constDoubleExpr.value);
   }
   
   @Override
-  public PaintSize visitConstIntExpr(ConstIntExpr constIntExpr) {
+  public PaintSize visitConstIntExpr(ConstInt constIntExpr) {
     return strSize("" + constIntExpr.value);
   }
   
   @Override
-  public PaintSize visitVarExpr(VarExpr varExpr) {
+  public PaintSize visitVarExpr(Var varExpr) {
     return strSize("" + varExpr.name);
   }
   

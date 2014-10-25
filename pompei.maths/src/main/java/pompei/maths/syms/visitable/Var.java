@@ -3,10 +3,10 @@ package pompei.maths.syms.visitable;
 import pompei.maths.syms.top.SimpleExpr;
 import pompei.maths.syms.top.Visitor;
 
-public class VarExpr implements SimpleExpr {
+public class Var implements SimpleExpr {
   public final String name;
   
-  public VarExpr(String name) {
+  public Var(String name) {
     this.name = name;
   }
   

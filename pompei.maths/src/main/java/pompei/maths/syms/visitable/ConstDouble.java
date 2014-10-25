@@ -3,10 +3,10 @@ package pompei.maths.syms.visitable;
 import pompei.maths.syms.top.Const;
 import pompei.maths.syms.top.Visitor;
 
-public class ConstDoubleExpr implements Const {
+public class ConstDouble implements Const {
   public final double value;
   
-  public ConstDoubleExpr(double value) {
+  public ConstDouble(double value) {
     this.value = value;
   }
   

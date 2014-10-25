@@ -2,15 +2,15 @@ package pompei.maths.syms.visitors;
 
 import pompei.maths.syms.top.VarSource;
 import pompei.maths.syms.top.Visitor;
-import pompei.maths.syms.visitable.ConstDoubleExpr;
-import pompei.maths.syms.visitable.ConstIntExpr;
+import pompei.maths.syms.visitable.ConstDouble;
+import pompei.maths.syms.visitable.ConstInt;
 import pompei.maths.syms.visitable.Div;
 import pompei.maths.syms.visitable.IntPower;
 import pompei.maths.syms.visitable.Minus;
 import pompei.maths.syms.visitable.Mul;
 import pompei.maths.syms.visitable.Plus;
 import pompei.maths.syms.visitable.Skob;
-import pompei.maths.syms.visitable.VarExpr;
+import pompei.maths.syms.visitable.Var;
 
 public class ExpEvaluator implements Visitor<Double> {
   public final VarSource varSource;
@@ -20,17 +20,17 @@ public class ExpEvaluator implements Visitor<Double> {
   }
   
   @Override
-  public Double visitConstDouble(ConstDoubleExpr constDoubleExpr) {
+  public Double visitConstDouble(ConstDouble constDoubleExpr) {
     return constDoubleExpr.value;
   }
   
   @Override
-  public Double visitConstIntExpr(ConstIntExpr constIntExpr) {
+  public Double visitConstIntExpr(ConstInt constIntExpr) {
     return (double)constIntExpr.value;
   }
   
   @Override
-  public Double visitVarExpr(VarExpr varExpr) {
+  public Double visitVarExpr(Var varExpr) {
     return varSource.getValue(varExpr.name);
   }
   

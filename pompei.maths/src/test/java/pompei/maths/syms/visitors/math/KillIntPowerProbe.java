@@ -1,10 +1,11 @@
-package pompei.maths;
+package pompei.maths.syms.visitors.math;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
 
+import pompei.maths.ProbeUtil;
 import pompei.maths.syms.top.Expr;
 import pompei.maths.syms.visitable.ConstInt;
 import pompei.maths.syms.visitable.Div;
@@ -14,25 +15,25 @@ import pompei.maths.syms.visitable.Plus;
 import pompei.maths.syms.visitable.Var;
 import pompei.maths.syms.visitable.ex;
 import pompei.maths.syms.visitors.Skobing;
-import pompei.maths.syms.visitors.Unskobing;
 
-public class ProbePaintExpr2 {
+public class KillIntPowerProbe {
   public static void main(String[] args) throws Exception {
     
     int width = 800, height = 600;
     
     BufferedImage image = ProbeUtil.createImage(width, height);
-    Expr expr = create(1);
+    Expr in = create(2);
     
-    ProbeUtil.paint(image, 100, 150, expr);
-    Expr exprS = Skobing.add(expr);
-    ProbeUtil.paint(image, 100, 300, exprS);
-    Expr expr2 = Unskobing.remove(exprS);
-    ProbeUtil.paint(image, 100, 450, expr2);
+    ProbeUtil.paint(image, 100, 150, Skobing.add(in));
     
-    ImageIO.write(image, "png", new File("build/probe-paint2.png"));
+    Expr out = in.visit(new KillIntPower());
     
-    System.out.println("OK build/probe-paint2.png");
+    ProbeUtil.paint(image, 100, 300, Skobing.add(out));
+    //    ProbeUtil.paint(image, 100, 450, Skobing.add(out));
+    
+    ImageIO.write(image, "png", new File("build/KillIntPowerProbe.png"));
+    
+    System.out.println("OK build/KillIntPowerProbe.png");
   }
   
   private static Expr create(int nomer) {
@@ -48,10 +49,10 @@ public class ProbePaintExpr2 {
   }
   
   private static Expr create2() {
-    ConstInt c1 = ex.fix(1);
-    ConstInt c2 = ex.fix(2);
-    Div c1_2 = ex.div(c1, c2);
-    IntPower pow = ex.power(c1_2, -19);
+    Expr a = ex.var("a");
+    Expr b = ex.var("b");
+    Expr a_b = ex.plus(a, b);
+    IntPower pow = ex.power(a_b, -3);
     return pow;
   }
   
