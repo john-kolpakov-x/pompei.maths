@@ -39,6 +39,16 @@ public class ex {
     return new Mul(left, right);
   }
   
+  public static Mul muls(Expr... expr) {
+    if (expr.length < 2) throw new IllegalArgumentException();
+    
+    Mul ret = new Mul(expr[0], expr[1]);
+    for (int i = 2; i < expr.length; i++) {
+      ret = new Mul(expr[i], ret);
+    }
+    return ret;
+  }
+  
   public static Var var(String name) {
     return new Var(name);
   }
