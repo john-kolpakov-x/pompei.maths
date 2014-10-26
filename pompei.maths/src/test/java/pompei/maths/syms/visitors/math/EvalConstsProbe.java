@@ -93,6 +93,6 @@ public class EvalConstsProbe {
   
   private static Expr create4() {
     Expr expr = ex.plus(ex.div(ex.fix(2), ex.fix(3)), ex.fix(1));
-    return ex.plus(ex.div(ex.fix(1), ex.fix(25)), ex.power(ex.power(ex.power(expr, 2), 1), -1));
+    return ex.plus(ex.div(ex.fix(1), ex.fix(25)), ex.power(ex.power(ex.power(expr, 2), 1), -17));
   }
 }

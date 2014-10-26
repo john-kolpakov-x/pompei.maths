@@ -1,5 +1,7 @@
 package pompei.maths.syms.visitors.math;
 
+import java.math.BigInteger;
+
 import pompei.maths.syms.top.Const;
 import pompei.maths.syms.top.Expr;
 import pompei.maths.syms.visitable.ConstInt;
@@ -87,8 +89,8 @@ public class EvalConsts extends Scanner {
     if (pow == 1) return exp;
     
     if (exp instanceof ConstInt) {
-      long top = ((ConstInt)exp).top;
-      long bottom = ((ConstInt)exp).bottom;
+      BigInteger top = ((ConstInt)exp).top;
+      BigInteger bottom = ((ConstInt)exp).bottom;
       
       long sign = 1;
       if (pow < 0) {
@@ -96,15 +98,15 @@ public class EvalConsts extends Scanner {
         sign = -1;
       }
       
-      long retTop = top;
-      long retBottom = bottom;
+      BigInteger retTop = top;
+      BigInteger retBottom = bottom;
       while (pow-- > 1) {
-        retTop *= top;
-        retBottom *= bottom;
+        retTop = retTop.multiply(top);
+        retBottom = retBottom.multiply(bottom);
       }
       
       if (sign < 0) {
-        long tmp = retTop;
+        BigInteger tmp = retTop;
         retTop = retBottom;
         retBottom = tmp;
       }
