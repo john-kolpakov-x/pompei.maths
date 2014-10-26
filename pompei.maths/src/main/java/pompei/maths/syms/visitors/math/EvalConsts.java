@@ -1,6 +1,5 @@
 package pompei.maths.syms.visitors.math;
 
-import pompei.maths.syms.exceptions.ZeroDivisionException;
 import pompei.maths.syms.top.Const;
 import pompei.maths.syms.top.Expr;
 import pompei.maths.syms.visitable.ConstInt;
@@ -17,59 +16,14 @@ public class EvalConsts extends Scanner {
   public Expr visitDiv(Div div) {
     Expr top = div.top.visit(this);
     Expr bottom = div.bottom.visit(this);
-    if (top instanceof ConstInt && bottom instanceof ConstInt) {
-      long topValue = ((ConstInt)top).value;
-      long bottomValue = ((ConstInt)bottom).value;
-      return constDiv(topValue, bottomValue);
-    }
     if (top instanceof Const && bottom instanceof Const) {
       Const topConst = (Const)top;
       Const bottomConst = (Const)bottom;
       return topConst.div(bottomConst);
     }
     
-    if (top instanceof ConstInt && bottom instanceof Div) {
-      Div bot = (Div)bottom;
-      if (bot.top instanceof ConstInt && bot.bottom instanceof ConstInt) {
-        long c1 = ((ConstInt)top).value;
-        long c2 = ((ConstInt)bot.top).value;
-        long c3 = ((ConstInt)bot.bottom).value;
-        return constDiv(c1 * c3, c2);
-      }
-    }
-    
-    if (top instanceof Div && bottom instanceof ConstInt) {
-      Div t = (Div)top;
-      if (t.top instanceof ConstInt && t.bottom instanceof ConstInt) {
-        long c1 = ((ConstInt)t.top).value;
-        long c2 = ((ConstInt)t.bottom).value;
-        long c3 = ((ConstInt)bottom).value;
-        return constDiv(c1, c2 * c3);
-      }
-    }
-    
     if (top == div.top && bottom == div.bottom) return div;
     return new Div(top, bottom);
-  }
-  
-  private static Expr constDiv(long topValue, long bottomValue) {
-    if (bottomValue == 0) throw new ZeroDivisionException();
-    long sign = 1;
-    if (topValue < 0) {
-      topValue = -topValue;
-      sign = -sign;
-    }
-    if (bottomValue < 0) {
-      bottomValue = -bottomValue;
-      sign = -sign;
-    }
-    if (topValue % bottomValue == 0) return ConstInt.get(topValue / bottomValue);
-    long gcd = UtilMath.gcd(topValue, bottomValue);
-    topValue /= gcd;
-    bottomValue /= gcd;
-    ConstInt topRet = ConstInt.get(sign * topValue);
-    if (bottomValue == 1) return topRet;
-    return new Div(topRet, ConstInt.get(bottomValue));
   }
   
   @Override
@@ -96,9 +50,7 @@ public class EvalConsts extends Scanner {
       Const rightC = (Const)right;
       return leftC.sum(rightC);
     }
-    if (left == plus.left && right == plus.right) {
-      return plus;
-    }
+    if (left == plus.left && right == plus.right) return plus;
     return new Plus(left, right);
   }
   
@@ -111,9 +63,7 @@ public class EvalConsts extends Scanner {
       Const rightC = (Const)right;
       return leftC.sub(rightC);
     }
-    if (left == minus.left && right == minus.right) {
-      return minus;
-    }
+    if (left == minus.left && right == minus.right) return minus;
     return new Minus(left, right);
   }
   
@@ -134,20 +84,35 @@ public class EvalConsts extends Scanner {
     if (pow == 0) return ConstInt.ONE;
     
     Expr exp = intPower.exp.visit(this);
+    if (pow == 1) return exp;
+    
     if (exp instanceof ConstInt) {
-      long value = ((ConstInt)exp).value;
+      long top = ((ConstInt)exp).top;
+      long bottom = ((ConstInt)exp).bottom;
+      
       long sign = 1;
       if (pow < 0) {
         pow = -pow;
         sign = -1;
       }
-      long ret = value;
+      
+      long retTop = top;
+      long retBottom = bottom;
       while (pow-- > 1) {
-        ret += value;
+        retTop *= top;
+        retBottom *= bottom;
       }
       
+      if (sign < 0) {
+        long tmp = retTop;
+        retTop = retBottom;
+        retBottom = tmp;
+      }
+      
+      return ConstInt.get(retTop, retBottom);
     }
-    // TODO Auto-generated method stub
-    return super.visitIntPower(intPower);
+    
+    if (exp == intPower.exp) return intPower;
+    return new IntPower(exp, pow);
   }
 }

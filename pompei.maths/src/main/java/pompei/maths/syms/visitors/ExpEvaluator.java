@@ -27,7 +27,7 @@ public class ExpEvaluator implements Visitor<Double> {
   
   @Override
   public Double visitConstIntExpr(ConstInt constIntExpr) {
-    return (double)constIntExpr.value;
+    return constIntExpr.doubleValue();
   }
   
   @Override

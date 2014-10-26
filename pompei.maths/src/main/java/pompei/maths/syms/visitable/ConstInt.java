@@ -1,10 +1,12 @@
 package pompei.maths.syms.visitable;
 
+import pompei.maths.syms.exceptions.DivByZero;
 import pompei.maths.syms.top.Const;
 import pompei.maths.syms.top.Visitor;
+import pompei.maths.syms.visitors.math.UtilMath;
 
 public class ConstInt extends AbstractConst {
-  public final long value;Надо этот класс сделать не целым, а рациональным
+  public final long top, bottom;
   
   public static final ConstInt ZERO = new ConstInt(0);
   
@@ -21,7 +23,12 @@ public class ConstInt extends AbstractConst {
   public static final ConstInt MFIVE = new ConstInt(-5);
   
   private ConstInt(long value) {
-    this.value = value;
+    this(value, 1);
+  }
+  
+  private ConstInt(long top, long bottom) {
+    this.top = top;
+    this.bottom = bottom;
   }
   
   @Override
@@ -31,25 +38,73 @@ public class ConstInt extends AbstractConst {
   
   @Override
   public Const negate() {
-    return get(-value);
+    return get(-top, bottom);
   }
   
   public static ConstInt get(long value) {
-    if (value == 0) return ZERO;
-    
-    if (value == 1) return ONE;
-    if (value == 2) return TWO;
-    if (value == 3) return THREE;
-    if (value == 4) return FOUR;
-    if (value == 5) return FIVE;
-    
-    if (value == -1) return MONE;
-    if (value == -2) return MTWO;
-    if (value == -3) return MTHREE;
-    if (value == -4) return MFOUR;
-    if (value == -5) return MFIVE;
-    
-    return new ConstInt(value);
+    return get(value, 1);
   }
   
+  public static ConstInt get(long top, long bottom) {
+    
+    {
+      if (bottom == 0) throw new DivByZero();
+      if (bottom < 0) {
+        top = -top;
+        bottom = -bottom;
+      }
+      long gcd = UtilMath.gcd(top, bottom);
+      top /= gcd;
+      bottom /= gcd;
+    }
+    
+    if (bottom == 1) {
+      
+      if (top == 0) return ZERO;
+      
+      if (top == 1) return ONE;
+      if (top == 2) return TWO;
+      if (top == 3) return THREE;
+      if (top == 4) return FOUR;
+      if (top == 5) return FIVE;
+      
+      if (top == -1) return MONE;
+      if (top == -2) return MTWO;
+      if (top == -3) return MTHREE;
+      if (top == -4) return MFOUR;
+      if (top == -5) return MFIVE;
+      
+    }
+    
+    return new ConstInt(top, bottom);
+  }
+  
+  public double doubleValue() {
+    return (double)top / (double)bottom;
+  }
+  
+  public ConstInt innerSum(ConstInt other) {
+    return get(top * other.bottom + bottom * other.top, bottom * other.bottom);
+  }
+  
+  public ConstInt innerSub(ConstInt other) {
+    return get(top * other.bottom - bottom * other.top, bottom * other.bottom);
+  }
+  
+  public ConstInt innerMul(ConstInt other) {
+    return get(top * other.top, bottom * other.bottom);
+  }
+  
+  public ConstInt innerDiv(ConstInt other) {
+    return get(top * other.bottom, bottom * other.top);
+  }
+  
+  public ConstInt innerInvert() {
+    return get(bottom, top);
+  }
+  
+  public String displayStr() {
+    if (bottom == 1) return "" + top;
+    return top + "/" + bottom;
+  }
 }

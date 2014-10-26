@@ -3,8 +3,12 @@ package pompei.maths.syms.visitable;
 import pompei.maths.syms.top.Expr;
 
 public class ex {
-  public static ConstInt fix(int a) {
+  public static ConstInt fix(long a) {
     return ConstInt.get(a);
+  }
+  
+  public static ConstInt fix(long top, long bottom) {
+    return ConstInt.get(top, bottom);
   }
   
   public static ConstDouble fix(double a) {

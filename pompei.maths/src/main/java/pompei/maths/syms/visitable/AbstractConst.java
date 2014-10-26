@@ -9,14 +9,14 @@ public abstract class AbstractConst implements Const {
     if (this instanceof ConstInt && other instanceof ConstInt) {
       ConstInt a = (ConstInt)this;
       ConstInt b = (ConstInt)other;
-      return ConstInt.get(a.value + b.value);
+      return a.innerSum(b);
     }
     
     return ConstDouble.get(d(this) + d(other));
   }
   
   private static double d(Const x) {
-    if (x instanceof ConstInt) return ((ConstInt)x).value;
+    if (x instanceof ConstInt) return ((ConstInt)x).doubleValue();
     return ((ConstDouble)x).value;
   }
   
@@ -25,7 +25,7 @@ public abstract class AbstractConst implements Const {
     if (this instanceof ConstInt && other instanceof ConstInt) {
       ConstInt a = (ConstInt)this;
       ConstInt b = (ConstInt)other;
-      return ConstInt.get(a.value - b.value);
+      return a.innerSub(b);
     }
     
     return ConstDouble.get(d(this) - d(other));
@@ -36,7 +36,7 @@ public abstract class AbstractConst implements Const {
     if (this instanceof ConstInt && other instanceof ConstInt) {
       ConstInt a = (ConstInt)this;
       ConstInt b = (ConstInt)other;
-      return ConstInt.get(a.value * b.value);
+      return a.innerMul(b);
     }
     
     return ConstDouble.get(d(this) * d(other));
@@ -44,7 +44,13 @@ public abstract class AbstractConst implements Const {
   
   @Override
   public Const div(Const other) {
-    return ConstDouble.get(d(this) / d(other));
+    if (this instanceof ConstInt && other instanceof ConstInt) {
+      ConstInt a = (ConstInt)this;
+      ConstInt b = (ConstInt)other;
+      return a.innerDiv(b);
+    }
+    
+    return ConstDouble.get(d(this) * d(other));
   }
   
   @Override
