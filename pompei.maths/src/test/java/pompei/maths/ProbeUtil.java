@@ -18,12 +18,12 @@ public class ProbeUtil {
   static GraphicsSource createGS(BufferedImage image) {
     final Graphics2D g1 = image.createGraphics();
     {
-      g1.setFont(g1.getFont().deriveFont(30f));
+      g1.setFont(g1.getFont().deriveFont(20f));
       g1.setColor(Color.BLACK);
     }
     final Graphics2D g2 = image.createGraphics();
     {
-      g2.setFont(g2.getFont().deriveFont(20f));
+      g2.setFont(g2.getFont().deriveFont(15f));
       g2.setColor(Color.BLACK);
     }
     
@@ -141,6 +141,7 @@ public class ProbeUtil {
       Graphics2D g = image.createGraphics();
       g.setColor(new Color(200, 200, 200));
       g.setColor(new Color(255, 255, 255));
+      //g.setColor(Color.BLUE);
       
       g.drawLine(x, y, x + size.w, y);
       g.drawLine(x, y - size.h1, x + size.w, y - size.h1);

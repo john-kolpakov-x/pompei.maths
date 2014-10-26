@@ -31,6 +31,10 @@ public class ex {
     return new Minus(left, right);
   }
   
+  public static Minis minis(Expr target) {
+    return new Minis(target);
+  }
+  
   public static Mul mul(Expr left, Expr right) {
     return new Mul(left, right);
   }
