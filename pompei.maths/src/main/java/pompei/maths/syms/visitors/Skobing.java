@@ -66,4 +66,13 @@ public class Skobing extends Scanner {
     if (target == minis.target) return minis;
     return new Minis(target);
   }
+  
+  @Override
+  public Expr visitMinus(Minus minus) {
+    if (minus.right instanceof Minus) {
+      return new Minus(minus.left, s(minus.right));
+    }
+    return super.visitMinus(minus);
+  }
+  
 }

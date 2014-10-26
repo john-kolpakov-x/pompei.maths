@@ -22,8 +22,29 @@ public class Minising extends Scanner {
     
     if (killMinus) return new Plus(left, minis(right));
     
+    boolean leftMinis = false, rightMinis = false;
+    boolean leftPlus = true, rightPlus = true;
+    
+    if (left instanceof Minis) {
+      left = ((Minis)left).target;
+      leftMinis = !leftMinis;
+      leftPlus = !leftPlus;
+    }
     if (right instanceof Minis) {
-      return new Plus(left, ((Minis)right).target);
+      right = ((Minis)right).target;
+      rightMinis = !rightMinis;
+      rightPlus = !rightPlus;
+    }
+    
+    if (leftMinis && rightPlus) {
+      return new Minis(new Plus(left, right));
+    }
+    if (leftPlus && rightMinis) {
+      return new Plus(left, right);
+    }
+    
+    if (leftMinis && rightMinis) {
+      return new Minis(new Minus(left, right));
     }
     
     if (left == minus.left && right == minus.right) return minus;
@@ -42,8 +63,29 @@ public class Minising extends Scanner {
     Expr left = plus.left.visit(this);
     Expr right = plus.right.visit(this);
     
+    boolean leftMinis = false, rightMinis = false;
+    boolean leftPlus = true, rightPlus = true;
+    
+    if (left instanceof Minis) {
+      left = ((Minis)left).target;
+      leftMinis = !leftMinis;
+      leftPlus = !leftPlus;
+    }
     if (right instanceof Minis) {
-      return new Minus(left, ((Minis)right).target);
+      right = ((Minis)right).target;
+      rightMinis = !rightMinis;
+      rightPlus = !rightPlus;
+    }
+    
+    if (leftMinis && rightPlus) {
+      return new Minis(new Minus(left, right));
+    }
+    if (leftPlus && rightMinis) {
+      return new Minus(left, right);
+    }
+    
+    if (leftMinis && rightMinis) {
+      return new Minis(new Plus(left, right));
     }
     
     if (left == plus.left && right == plus.right) return plus;

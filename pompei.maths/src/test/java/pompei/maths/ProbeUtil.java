@@ -129,7 +129,7 @@ public class ProbeUtil {
     g.dispose();
     return image;
   }
-
+  
   public static void paint(BufferedImage image, int x, int y, Expr expr) {
     GraphicsSource gs = createGS(image);
     
@@ -139,7 +139,8 @@ public class ProbeUtil {
     
     {
       Graphics2D g = image.createGraphics();
-      g.setColor(Color.BLUE);
+      g.setColor(new Color(200, 200, 200));
+      g.setColor(new Color(255, 255, 255));
       
       g.drawLine(x, y, x + size.w, y);
       g.drawLine(x, y - size.h1, x + size.w, y - size.h1);
