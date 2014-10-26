@@ -69,7 +69,7 @@ public class ExpSizer implements Visitor<PaintSize> {
     PaintSize ret = new PaintSize();
     
     ret.expandOnRight(minus.left.visit(this));
-    ret.expandOnRight(strSize("-"));
+    ret.expandOnRight(strSize("−"));
     ret.expandOnRight(minus.right.visit(this));
     
     return ret;

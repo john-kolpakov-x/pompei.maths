@@ -77,8 +77,8 @@ public class ExpPainter implements Visitor<Void> {
     int savedX = x;
     minus.left.visit(this);
     x += minus.left.visit(sizer).w;
-    sizer.g().drawString("-", x, y);
-    x += sizer.strSize("-").w;
+    sizer.g().drawString("−", x, y);
+    x += sizer.strSize("−").w;
     minus.right.visit(this);
     x = savedX;
     
