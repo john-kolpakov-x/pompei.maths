@@ -12,6 +12,7 @@ public class ConstInt extends AbstractConst {
   public static final ConstInt ZERO = new ConstInt(0);
   
   public static final ConstInt ONE = new ConstInt(1);
+  public static final ConstInt M_ONE = new ConstInt(-1);
   public static final ConstInt TEN = new ConstInt(10);
   
   private ConstInt(long value) {
@@ -67,11 +68,14 @@ public class ConstInt extends AbstractConst {
       if (top.compareTo(BigInteger.ZERO) == 0) return ZERO;
       if (top.compareTo(BigInteger.ONE) == 0) return ONE;
       if (top.compareTo(BigInteger.TEN) == 0) return TEN;
+      if (top.compareTo(BI_M_ONE) == 0) return M_ONE;
       
     }
     
     return new ConstInt(top, bottom);
   }
+  
+  private static final BigInteger BI_M_ONE = BigInteger.ONE.negate();
   
   public double doubleValue() {
     return top.doubleValue() / bottom.doubleValue();
