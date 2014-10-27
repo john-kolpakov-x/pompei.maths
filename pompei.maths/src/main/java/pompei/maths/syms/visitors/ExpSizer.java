@@ -100,7 +100,7 @@ public class ExpSizer implements Visitor<PaintSize> {
     int h1 = dc.paddingUp(level) + top.h1 + top.h2 + upDist;
     int h2 = dc.paddingDown(level) + bottom.h1 + bottom.h2 - upDist;
     
-    int w = (top.w > bottom.w ? top.w : bottom.w) //
+    int w = (top.w > bottom.w ? top.w :bottom.w) //
         + dc.paddingLeft(level) + dc.paddingRight(level);
     
     return new PaintSize(w, h1, h2);

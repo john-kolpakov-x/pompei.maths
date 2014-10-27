@@ -5,7 +5,8 @@ import java.awt.geom.Path2D;
 
 public class SkobPainter {
   
-  public static void paint(Graphics2D g, ConfSkob conf, int x, int y, int w, int h, boolean isRight) {
+  public static void
+      paint(Graphics2D g, ConfSkob conf, int x, int y, int w, int h, boolean isRight) {
     double w2 = w / 2.0;
     double h2 = h / 2.0;
     double h8 = h / 8.0;

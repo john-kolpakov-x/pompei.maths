@@ -1,6 +1,5 @@
 package pompei.maths;
 
-
 public class Stepper_H4_Hoine implements Stepper {
   double x[];
   

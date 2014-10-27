@@ -72,7 +72,7 @@ public class ProbeUtil {
       
       @Override
       public Graphics2D getGraphics(int level) {
-        return level == 1 ? g1 : g2;
+        return level == 1 ? g1 :g2;
       }
       
       @Override
@@ -80,7 +80,7 @@ public class ProbeUtil {
         return new ConfDiv() {
           @Override
           public int lineWidth(int level) {
-            return level == 1 ? 3 : 2;
+            return level == 1 ? 3 :2;
           }
           
           @Override

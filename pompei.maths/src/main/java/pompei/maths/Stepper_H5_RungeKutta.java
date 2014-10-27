@@ -1,6 +1,5 @@
 package pompei.maths;
 
-
 public class Stepper_H5_RungeKutta implements Stepper {
   private double x[];
   

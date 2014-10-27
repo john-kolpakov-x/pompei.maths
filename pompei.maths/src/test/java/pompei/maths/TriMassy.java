@@ -102,7 +102,7 @@ public class TriMassy {
       g.setColor(Color.GRAY);
       g.drawLine(width / 4, 0, width / 4, height);
       
-      int X = width / 4, Y = height / 2 - (int) (x1 / xMax * height / 2);
+      int X = width / 4, Y = height / 2 - (int)(x1 / xMax * height / 2);
       
       drawGruz(g, m1, X, Y);
     }
@@ -110,7 +110,7 @@ public class TriMassy {
       g.setColor(Color.GRAY);
       g.drawLine(width / 2, 0, width / 2, height);
       
-      int X = width / 2, Y = height / 2 - (int) (x0 / xMax * height / 2);
+      int X = width / 2, Y = height / 2 - (int)(x0 / xMax * height / 2);
       
       drawGruz(g, m0, X, Y);
     }
@@ -118,7 +118,7 @@ public class TriMassy {
       g.setColor(Color.GRAY);
       g.drawLine(3 * width / 4, 0, 3 * width / 4, height);
       
-      int X = 3 * width / 4, Y = height / 2 - (int) (x2 / xMax * height / 2);
+      int X = 3 * width / 4, Y = height / 2 - (int)(x2 / xMax * height / 2);
       
       drawGruz(g, m2, X, Y);
     }

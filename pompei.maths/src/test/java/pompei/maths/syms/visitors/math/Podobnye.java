@@ -68,7 +68,8 @@ public class Podobnye extends Scanner {
     @Override
     public Void visitPlus(Plus plus) {
       if (plus.isConst()) addConst(plus);
-      else ok = false;
+      else
+        ok = false;
       return null;
     }
     
@@ -86,7 +87,8 @@ public class Podobnye extends Scanner {
     @Override
     public Void visitMinus(Minus minus) {
       if (minus.isConst()) addConst(minus);
-      else ok = false;
+      else
+        ok = false;
       return null;
     }
     
