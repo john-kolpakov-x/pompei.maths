@@ -44,7 +44,7 @@ public class ex {
     
     Mul ret = new Mul(expr[0], expr[1]);
     for (int i = 2; i < expr.length; i++) {
-      ret = new Mul(expr[i], ret);
+      ret = new Mul(ret, expr[i]);
     }
     return ret;
   }
