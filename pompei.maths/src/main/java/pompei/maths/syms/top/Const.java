@@ -10,4 +10,10 @@ public interface Const extends SimpleExpr {
   Const mul(Const other);
   
   Const div(Const other);
+  
+  boolean isZero();
+  
+  boolean isOne();
+  
+  boolean isMinisOne();
 }

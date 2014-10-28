@@ -17,18 +17,18 @@ import pompei.maths.syms.visitable.Var;
 public class Scanner implements Visitor<Expr> {
   
   @Override
-  public Expr visitConstDouble(ConstDouble constDoubleExpr) {
-    return constDoubleExpr;
+  public Expr visitConstDouble(ConstDouble constDouble) {
+    return constDouble;
   }
   
   @Override
-  public Expr visitConstIntExpr(ConstInt constIntExpr) {
-    return constIntExpr;
+  public Expr visitConstInt(ConstInt constInt) {
+    return constInt;
   }
   
   @Override
-  public Expr visitVarExpr(Var varExpr) {
-    return varExpr;
+  public Expr visitVar(Var var) {
+    return var;
   }
   
   @Override

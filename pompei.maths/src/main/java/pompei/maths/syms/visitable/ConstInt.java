@@ -34,7 +34,7 @@ public class ConstInt extends AbstractConst {
   
   @Override
   public <T> T visit(Visitor<T> visitor) {
-    return visitor.visitConstIntExpr(this);
+    return visitor.visitConstInt(this);
   }
   
   @Override

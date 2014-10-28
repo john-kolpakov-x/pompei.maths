@@ -87,7 +87,7 @@ class CollectPlusArgs implements Visitor<Void> {
   }
   
   @Override
-  public Void visitConstIntExpr(ConstInt constIntExpr) {
+  public Void visitConstInt(ConstInt constIntExpr) {
     if (skip) return null;
     
     addConst(EMPTY, constIntExpr);
@@ -95,7 +95,7 @@ class CollectPlusArgs implements Visitor<Void> {
   }
   
   @Override
-  public Void visitVarExpr(Var varExpr) {
+  public Void visitVar(Var varExpr) {
     if (skip) return null;
     
     addConst(VarMul.alone(varExpr.name), ConstInt.ONE);

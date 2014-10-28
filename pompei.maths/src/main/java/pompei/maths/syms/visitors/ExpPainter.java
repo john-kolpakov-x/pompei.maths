@@ -32,13 +32,13 @@ public class ExpPainter implements Visitor<Void> {
   }
   
   @Override
-  public Void visitConstIntExpr(ConstInt constIntExpr) {
+  public Void visitConstInt(ConstInt constIntExpr) {
     sizer.g().drawString(constIntExpr.displayStr(), x, y);
     return null;
   }
   
   @Override
-  public Void visitVarExpr(Var varExpr) {
+  public Void visitVar(Var varExpr) {
     sizer.g().drawString(varExpr.name, x, y);
     return null;
   }

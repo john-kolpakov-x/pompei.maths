@@ -26,12 +26,12 @@ public class ExpEvaluator implements Visitor<Double> {
   }
   
   @Override
-  public Double visitConstIntExpr(ConstInt constIntExpr) {
+  public Double visitConstInt(ConstInt constIntExpr) {
     return constIntExpr.doubleValue();
   }
   
   @Override
-  public Double visitVarExpr(Var varExpr) {
+  public Double visitVar(Var varExpr) {
     return varSource.getValue(varExpr.name);
   }
   

@@ -14,9 +14,9 @@ import pompei.maths.syms.visitable.Var;
 public interface Visitor<T> {
   T visitConstDouble(ConstDouble constDoubleExpr);
   
-  T visitConstIntExpr(ConstInt constIntExpr);
+  T visitConstInt(ConstInt constIntExpr);
   
-  T visitVarExpr(Var varExpr);
+  T visitVar(Var varExpr);
   
   T visitPlus(Plus plus);
   

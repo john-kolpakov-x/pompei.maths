@@ -24,6 +24,13 @@ public class EvalConsts extends Scanner {
       return topConst.div(bottomConst);
     }
     
+    if (bottom instanceof Const) {
+      Const bottomConst = (Const)bottom;
+      Const a = ConstInt.ONE.div(bottomConst);
+      
+      return new Mul(top, a);
+    }
+    
     if (top == div.top && bottom == div.bottom) return div;
     return new Div(top, bottom);
   }
@@ -37,9 +44,21 @@ public class EvalConsts extends Scanner {
       Const rightC = (Const)right;
       return leftC.mul(rightC);
     }
-    if (left == mul.left && right == mul.right) {
-      return mul;
+    
+    if (left instanceof Const) {
+      Const leftC = (Const)left;
+      if (leftC.isZero()) return ConstInt.ZERO;
+      if (leftC.isOne()) return right;
+      if (leftC.isMinisOne()) return new Minis(right);
     }
+    if (right instanceof Const) {
+      Const rightC = (Const)right;
+      if (rightC.isZero()) return ConstInt.ZERO;
+      if (rightC.isOne()) return left;
+      if (rightC.isMinisOne()) return new Minis(left);
+    }
+    
+    if (left == mul.left && right == mul.right) return mul;
     return new Mul(left, right);
   }
   
@@ -52,6 +71,16 @@ public class EvalConsts extends Scanner {
       Const rightC = (Const)right;
       return leftC.sum(rightC);
     }
+    
+    if (left instanceof Const) {
+      Const leftC = (Const)left;
+      if (leftC.isZero()) return right;
+    }
+    if (right instanceof Const) {
+      Const rightC = (Const)right;
+      if (rightC.isZero()) return left;
+    }
+    
     if (left == plus.left && right == plus.right) return plus;
     return new Plus(left, right);
   }

@@ -22,4 +22,20 @@ public class ConstDouble extends AbstractConst {
   public static ConstDouble get(double value) {
     return new ConstDouble(value);
   }
+  
+  @Override
+  public boolean isMinisOne() {
+    return value == -1.0;
+  }
+  
+  @Override
+  public boolean isOne() {
+    return value == 1.0;
+  }
+  
+  @Override
+  public boolean isZero() {
+    return value == 0.0;
+  }
+  
 }

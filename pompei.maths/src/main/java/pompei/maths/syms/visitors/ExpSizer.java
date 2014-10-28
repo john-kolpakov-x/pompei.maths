@@ -33,12 +33,12 @@ public class ExpSizer implements Visitor<PaintSize> {
   }
   
   @Override
-  public PaintSize visitConstIntExpr(ConstInt constIntExpr) {
+  public PaintSize visitConstInt(ConstInt constIntExpr) {
     return strSize(constIntExpr.displayStr());
   }
   
   @Override
-  public PaintSize visitVarExpr(Var varExpr) {
+  public PaintSize visitVar(Var varExpr) {
     return strSize("" + varExpr.name);
   }
   

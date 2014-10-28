@@ -31,14 +31,14 @@ class CollectMulArg implements Visitor<Void> {
   }
   
   @Override
-  public Void visitConstIntExpr(ConstInt constIntExpr) {
+  public Void visitConstInt(ConstInt constIntExpr) {
     if (skip) return null;
     constCollect.addConst(constIntExpr, factor);
     return null;
   }
   
   @Override
-  public Void visitVarExpr(Var varExpr) {
+  public Void visitVar(Var varExpr) {
     if (skip) return null;
     varMul.addVar(varExpr.name, factor);
     return null;

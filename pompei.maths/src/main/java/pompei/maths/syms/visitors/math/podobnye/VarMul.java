@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import pompei.maths.syms.top.Expr;
+import pompei.maths.syms.visitable.ConstInt;
 import pompei.maths.syms.visitable.Div;
 import pompei.maths.syms.visitable.IntPower;
 import pompei.maths.syms.visitable.Mul;
@@ -50,6 +51,8 @@ public class VarMul extends HashMap<String, Integer> {
     
     Expr top = mulAll(topList);
     Expr bottom = mulAll(bottomList);
+    
+    if (top == null) top = ConstInt.ONE;
     
     if (bottom == null) return top;
     

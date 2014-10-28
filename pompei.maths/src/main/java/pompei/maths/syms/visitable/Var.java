@@ -12,7 +12,7 @@ public class Var implements SimpleExpr {
   
   @Override
   public <T> T visit(Visitor<T> visitor) {
-    return visitor.visitVarExpr(this);
+    return visitor.visitVar(this);
   }
   
   @Override

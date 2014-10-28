@@ -7,6 +7,8 @@ public class Mul implements Expr {
   public final Expr left, right;
   
   public Mul(Expr left, Expr right) {
+    if (left == null) throw new NullPointerException();
+    if (right == null) throw new NullPointerException();
     this.left = left;
     this.right = right;
   }
