@@ -50,6 +50,10 @@ public class ConstInt extends AbstractConst {
     return get(new BigInteger("" + top), new BigInteger("" + bottom));
   }
   
+  public static ConstInt get(BigInteger value) {
+    return get(value, BigInteger.ONE);
+  }
+  
   public static ConstInt get(BigInteger top, BigInteger bottom) {
     
     {
@@ -110,5 +114,22 @@ public class ConstInt extends AbstractConst {
   public String displayStr() {
     if (bottom.compareTo(BigInteger.ONE) == 0) return top.toString();
     return top + "/" + bottom;
+  }
+  
+  public boolean isOne() {
+    return top.compareTo(BigInteger.ONE) == 0 && bottom.compareTo(BigInteger.ONE) == 0;
+  }
+  
+  public boolean isMinisOne() {
+    return top.compareTo(BI_M_ONE) == 0 && bottom.compareTo(BigInteger.ONE) == 0;
+  }
+  
+  public boolean isZero() {
+    return top.compareTo(BigInteger.ZERO) == 0;
+  }
+  
+  @Override
+  public String toString() {
+    return displayStr();
   }
 }

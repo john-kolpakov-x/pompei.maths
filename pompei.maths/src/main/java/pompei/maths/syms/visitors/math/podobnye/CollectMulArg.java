@@ -20,10 +20,7 @@ class CollectMulArg implements Visitor<Void> {
   int factor = 1;
   
   public Expr createExpr(boolean withDiv) {
-    if (constCollect.isOne()) return varMul.createExpr(withDiv);
-    if (constCollect.isMinisOne()) return new Minis(varMul.createExpr(withDiv));
-    
-    return new Mul(constCollect.createExpr(), varMul.createExpr(withDiv));
+    return constCollect.mulTo(varMul.createExpr(withDiv));
   }
   
   @Override

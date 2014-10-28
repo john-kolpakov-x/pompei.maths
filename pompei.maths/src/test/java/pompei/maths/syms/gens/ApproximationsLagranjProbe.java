@@ -13,6 +13,7 @@ import pompei.maths.syms.visitors.Skobing;
 import pompei.maths.syms.visitors.math.Dividing;
 import pompei.maths.syms.visitors.math.KillMulPlus;
 import pompei.maths.syms.visitors.math.Minising;
+import pompei.maths.syms.visitors.math.podobnye.Podobnye;
 
 public class ApproximationsLagranjProbe {
   public static void main(String[] args) throws Exception {
@@ -39,7 +40,7 @@ public class ApproximationsLagranjProbe {
     chis = chis.visit(new KillMulPlus());
     ProbeUtil.paint(image, x, y += st, Skobing.add(ex.div(chis, znam)));
     
-    chis = chis.visit(new Minising(true));
+    chis = chis.visit(new Podobnye(true));
     //chis = chis.visit(new ReorganizeMinuses());
     
     ProbeUtil.paint(image, x, y += st, Skobing.add(ex.div(chis, znam)));

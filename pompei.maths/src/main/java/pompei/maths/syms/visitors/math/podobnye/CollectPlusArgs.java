@@ -33,7 +33,7 @@ class CollectPlusArgs implements Visitor<Void> {
       if (ret == null) {
         ret = createExprFor(e, withDiv);
       } else {
-        ret = new Mul(createExprFor(e, withDiv), ret);
+        ret = new Plus(createExprFor(e, withDiv), ret);
       }
     }
     
@@ -41,11 +41,24 @@ class CollectPlusArgs implements Visitor<Void> {
   }
   
   private Expr createExprFor(Entry<VarMul, List<ConstCollect>> e, boolean withDiv) {
-    if (e.getValue().size() == 0) return e.getKey().createExpr(withDiv);
-
-    Expr
-
-    return null;
+    Expr varMulExpr = e.getKey().createExpr(withDiv);
+    List<ConstCollect> constCollectList = e.getValue();
+    
+    int constCollectSize = constCollectList.size();
+    
+    if (constCollectSize == 0) return varMulExpr;
+    
+    ConstCollect firstConstCollect = constCollectList.get(0);
+    
+    if (constCollectSize == 1) return firstConstCollect.mulTo(varMulExpr);
+    
+    Expr constExpr = firstConstCollect.createExpr();
+    
+    for (int i = 1; i < constCollectSize; i++) {
+      constExpr = new Plus(constExpr, constCollectList.get(i).createExpr());
+    }
+    
+    return new Mul(constExpr, varMulExpr);
   }
   
   private void addConst(VarMul varMul, Expr aconst) {

@@ -6,6 +6,7 @@ import java.util.List;
 import pompei.maths.syms.top.Expr;
 import pompei.maths.syms.visitable.ConstInt;
 import pompei.maths.syms.visitable.IntPower;
+import pompei.maths.syms.visitable.Minis;
 import pompei.maths.syms.visitable.Mul;
 
 public class ConstCollect {
@@ -50,5 +51,11 @@ public class ConstCollect {
     }
     
     return ret;
+  }
+  
+  public Expr mulTo(Expr expr) {
+    if (isOne()) return expr;
+    if (isMinisOne()) return new Minis(expr);
+    return new Mul(createExpr(), expr);
   }
 }
