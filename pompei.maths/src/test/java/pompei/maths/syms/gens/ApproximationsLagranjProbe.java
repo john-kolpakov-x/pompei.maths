@@ -22,7 +22,7 @@ public class ApproximationsLagranjProbe {
     
     BufferedImage image = ProbeUtil.createImage(width, height);
     
-    int NUM = 4;
+    int NUM = 10;
     
     Expr in = Approximations.lagranj("x", "t", NUM);
     
@@ -36,7 +36,7 @@ public class ApproximationsLagranjProbe {
       re.add("t" + i, ConstInt.get(i));
     }
     for (int i = 1; i <= NUM; i++) {
-      re.add("x" + i, ConstInt.get(i * 187 + 1123));
+      re.add("x" + i, ConstInt.get(i * i - i * 187 + 1123 - 3 * i * i * i));
     }
     
     in = in.visit(re);
@@ -46,15 +46,19 @@ public class ApproximationsLagranjProbe {
     out = out.visit(new Minising(true));
     out = out.visit(new EvalConsts());
     ProbeUtil.paint(image, x, y += st, Skobing.add(out));
+    System.out.println("1");
     
     out = out.visit(new KillMulPlus());
     ProbeUtil.paint(image, x, y += st, Skobing.add(out));
+    System.out.println("2");
     
     out = out.visit(new Podobnye(true));
     ProbeUtil.paint(image, x, y += st, Skobing.add(out));
+    System.out.println("3");
     
     out = out.visit(new EvalConsts());
     ProbeUtil.paint(image, x, y += st, Skobing.add(out));
+    System.out.println("4");
     
     ImageIO.write(image, "png", new File("build/ApproximationsLagranj.png"));
     
