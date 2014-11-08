@@ -4,6 +4,8 @@ import static pompei.maths.crypt.U.___;
 
 import java.math.BigInteger;
 
+import pompei.maths.syms.visitors.math.UtilMath;
+
 public class CryptTeach {
   public static void main(String[] args) {
     
@@ -63,7 +65,7 @@ public class CryptTeach {
     System.out.println(U.splt("fi = " + fi, len));
     
     BigInteger e = new BigInteger("6700417");
-    BigInteger d = U.gcd(fi, e)[2];
+    BigInteger d = UtilMath.gcdExt(fi, e)[2];
     ___(len);
     System.out.println(U.splt("e = " + e, len));
     System.out.println(U.splt("d = " + d, len));
