@@ -1,4 +1,4 @@
-package pompei.maths;
+package pompei.maths.difur;
 
 public class Stepper_H3 implements Stepper {
   double x[];

@@ -1,4 +1,4 @@
-package pompei.maths;
+package pompei.maths.difur;
 
 public interface Stepper {
   void prepare(int N);

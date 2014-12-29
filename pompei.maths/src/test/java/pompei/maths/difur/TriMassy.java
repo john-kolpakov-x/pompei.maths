@@ -1,4 +1,4 @@
-package pompei.maths;
+package pompei.maths.difur;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -6,6 +6,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
+
+import pompei.maths.difur.DiffUr;
+import pompei.maths.difur.DiffUrDefault;
+import pompei.maths.difur.F;
+import pompei.maths.difur.Stepper_H4_Hoine;
 
 public class TriMassy {
   

@@ -1,4 +1,4 @@
-package pompei.maths;
+package pompei.maths.difur;
 
 public class DiffUrDefault implements DiffUr {
   

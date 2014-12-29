@@ -1,4 +1,4 @@
-package pompei.maths;
+package pompei.maths.difur;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.cos;
@@ -7,6 +7,13 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import pompei.maths.difur.DiffUr;
+import pompei.maths.difur.DiffUrDefault;
+import pompei.maths.difur.F;
+import pompei.maths.difur.Stepper_H3;
+import pompei.maths.difur.Stepper_H4_Hoine;
+import pompei.maths.difur.Stepper_H5_RungeKutta;
 
 public class DiffUrTest {
   
