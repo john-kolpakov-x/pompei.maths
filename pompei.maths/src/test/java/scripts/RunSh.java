@@ -14,7 +14,7 @@ public class RunSh {
     errT.join();
     outT.join();
     
-    System.out.println("OK exit code  = " + p.exitValue());
+    System.out.println("OK exit code = " + p.exitValue());
   }
   
   private static Thread assign(final InputStream in, final OutputStream out) {
