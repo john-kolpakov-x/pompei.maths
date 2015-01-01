@@ -34,4 +34,20 @@ public class Rezinka extends Svjaz {
     int y2 = to.centerY();
     g.drawLine(x1, y1, x2, y2);
   }
+  
+  @Override
+  public Vec2d getFromForse() {
+    return getToForse();
+  }
+  
+  @Override
+  public Vec2d getToForse() {
+    double dx = from.centerX() - to.centerX();
+    double dy = from.centerY() - to.centerY();
+    double dist = Math.sqrt(dx * dx + dy * dy);
+    double forse = dist * K;
+    dx /= dist;
+    dy /= dist;
+    return new Vec2d(forse * dx, forse * dy);
+  }
 }

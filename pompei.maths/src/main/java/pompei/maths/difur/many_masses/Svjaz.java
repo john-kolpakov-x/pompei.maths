@@ -19,4 +19,8 @@ public abstract class Svjaz {
   public abstract String asStr();
   
   public abstract void draw(Graphics2D g);
+  
+  public abstract Vec2d getFromForse();
+  
+  public abstract Vec2d getToForse();
 }

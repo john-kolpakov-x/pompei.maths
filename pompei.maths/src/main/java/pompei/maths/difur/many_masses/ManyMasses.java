@@ -10,8 +10,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import pompei.maths.difur.DiffUr;
+import pompei.maths.difur.F;
+import pompei.maths.difur.ModelAdapter;
 
 public class ManyMasses {
   public int width, height;
@@ -52,7 +58,21 @@ public class ManyMasses {
   }
   
   public void load(BufferedReader br) throws IOException {
-    
+    uzelMap.clear();
+    svjazMap.clear();
+    width = height = 0;
+    readData(br);
+    fillFromToSets();
+  }
+  
+  private void fillFromToSets() {
+    for (Svjaz s : svjazMap.values()) {
+      s.from.fromSet.add(s);
+      s.to.toSet.add(s);
+    }
+  }
+  
+  private void readData(BufferedReader br) throws IOException {
     WHILE: while (true) {
       final String line = br.readLine();
       if (line == null) {
@@ -105,6 +125,8 @@ public class ManyMasses {
     try {
       g.setColor(Color.WHITE);
       g.fillRect(0, 0, width, height);
+      g.setColor(Color.BLACK);
+      g.drawRect(0, 0, width - 1, height - 1);
       
       for (Svjaz svjaz : svjazMap.values()) {
         svjaz.draw(g);
@@ -118,5 +140,41 @@ public class ManyMasses {
       g.dispose();
     }
     return ret;
+  }
+  
+  public ModelAdapter createNewAdapter() {
+    final List<Shar> ids = new ArrayList<>();
+    for (Uzel uzel : uzelMap.values()) {
+      if (uzel instanceof Shar) {
+        ids.add((Shar)uzel);
+      }
+    }
+    return new ModelAdapter() {
+      @SuppressWarnings("unused")
+      DiffUr diffUr;
+      
+      @Override
+      public void writeToModel() {
+        // TODO Auto-generated method stub
+        
+      }
+      
+      @Override
+      public void readFromModel() {
+        // TODO Auto-generated method stub
+        
+      }
+      
+      @Override
+      public void prepare(DiffUr diffUrArg) {
+        diffUr = diffUrArg;
+        diffUrArg.prepare(ids.size() * 4, new F() {
+          @Override
+          public void f(double[] res, double t, double[] x) {
+            
+          }
+        });
+      }
+    };
   }
 }

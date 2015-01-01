@@ -39,4 +39,17 @@ public abstract class Uzel {
   public abstract int centerX();
   
   public abstract int centerY();
+  
+  public Vec2d getForse() {
+    Vec2d ret = new Vec2d(0, 0);
+    
+    for (Svjaz s : toSet) {
+      ret = ret.plus(s.getToForse());
+    }
+    for (Svjaz s : fromSet) {
+      ret = ret.minus(s.getFromForse());
+    }
+    
+    return ret;
+  }
 }
