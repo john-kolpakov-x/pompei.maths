@@ -1,8 +1,21 @@
 package pompei.maths.difur.many_masses;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+
 public class Shar extends Uzel {
   public double R, m;
   public double x, y, vx, vy;
+  
+  @Override
+  public int centerX() {
+    return (int)x;
+  }
+  
+  @Override
+  public int centerY() {
+    return (int)y;
+  }
   
   public Shar(String id) {
     super(id);
@@ -23,5 +36,13 @@ public class Shar extends Uzel {
     ret.vx = Double.parseDouble(split[9]);
     ret.vy = Double.parseDouble(split[10]);
     return ret;
+  }
+  
+  @Override
+  public void draw(Graphics2D g) {
+    g.setColor(Color.BLACK);
+    
+    int X = (int)x, Y = (int)y, RR = (int)R;
+    g.drawOval(X - RR, Y - RR, 2 * RR, 2 * RR);
   }
 }

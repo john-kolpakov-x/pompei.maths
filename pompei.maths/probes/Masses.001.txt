@@ -1,0 +1,14 @@
+
+Size 1200 800
+
+Point A 120 325
+Point B 1000 300
+
+Shar S1 Rm 50 1 xy 300 500 vxy 0 0
+Shar S2 Rm 50 1 xy 535 180 vxy 0 0
+Shar S3 Rm 50 1 xy 800 460 vxy 0 0
+
+Rezinka r1 K 1 from A  to S1
+Rezinka r2 K 1 from S1 to S2
+Rezinka r3 K 1 from S2 to S3
+Rezinka r4 K 1 from S3 to B
