@@ -1,5 +1,8 @@
 package pompei.maths.difur.many_masses;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+
 public class Rezinka extends Svjaz {
   public double K;
   
@@ -7,4 +10,28 @@ public class Rezinka extends Svjaz {
     super(id, from, to);
   }
   
+  @Override
+  public String asStr() {
+    return "Rezinka " + id + " K " + K + " from " + from.id + " to " + to.id;
+  }
+  
+  public static Rezinka parse(String[] split, UzelSource uzelSource) {
+    if (!"Rezinka".equals(split[0])) return null;
+    String id = split[1];
+    Uzel from = uzelSource.getUzelById(split[5]);
+    Uzel to = uzelSource.getUzelById(split[7]);
+    Rezinka ret = new Rezinka(id, from, to);
+    ret.K = Double.parseDouble(split[3]);
+    return ret;
+  }
+  
+  @Override
+  public void draw(Graphics2D g) {
+    g.setColor(Color.GREEN);
+    int x1 = from.centerX();
+    int y1 = from.centerY();
+    int x2 = to.centerX();
+    int y2 = to.centerY();
+    g.drawLine(x1, y1, x2, y2);
+  }
 }

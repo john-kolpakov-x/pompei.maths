@@ -2,6 +2,8 @@ package pompei.maths.difur.many_masses;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.awt.Graphics2D;
+
 public abstract class Svjaz {
   public final String id;
   public final Uzel from, to;
@@ -13,4 +15,8 @@ public abstract class Svjaz {
     this.from = from;
     this.to = to;
   }
+  
+  public abstract String asStr();
+  
+  public abstract void draw(Graphics2D g);
 }
