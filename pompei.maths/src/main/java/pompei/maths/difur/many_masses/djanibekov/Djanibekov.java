@@ -228,7 +228,7 @@ public class Djanibekov {
       
       double L = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) + (z1 - z2) * (z1 - z2));
       
-      double dL = L - L0;
+      double dL = L0 - L;
       
       if (dL > DU) return K_TR * dL;
       
@@ -237,7 +237,7 @@ public class Djanibekov {
       
       double v = nx * vx + ny * vy + nz * vz;
       
-      return -K_U * v;
+      return K_U * v;
     }
   }
   
@@ -246,7 +246,7 @@ public class Djanibekov {
   public static void main(String[] args) throws Exception {
     DiffUr ur = new DiffUrDefault(new Stepper_H4_Hoine());
     ur.prepare(48, f);
-    ur.setH(0.001);
+    
     ur.setT(0);
     
     double v1x = 0, v1y = 0, v1z = 0;
@@ -363,33 +363,52 @@ public class Djanibekov {
     ss(x, 45, 46, 47, v8x, v8y, v8z); // 8
     //@formatter:on
     
-    double saveStep = 1 / 24;
+    double saveStep = 1.0 / 24.0;
     double nextSave = saveStep;
+    ur.setH(0.0001);
     
     PrintStream out = new PrintStream("build/out.txt", "UTF-8");
+    PrintStream out2 = new PrintStream("build/out2.txt", "UTF-8");
     
-    save(out, ur);
+    save(out, out2, ur);
     while (ur.getT() < 20) {
       ur.step();
       if (ur.getT() > nextSave) {
-        save(out, ur);
+        save(out, out2, ur);
         nextSave += saveStep;
+        System.out.println("t = " + nextSave);
       }
     }
     
     out.close();
+    out2.close();
     System.out.println("Finish");
   }
   
-  private static void save(PrintStream out, DiffUr ur) {
+  private static void save(PrintStream out, PrintStream out2, DiffUr ur) {
     double[] x = ur.getX();
-    out.print(ur.getT());
-    out.print(' ');
-    for (int i = 0; i < x.length; i++) {
-      out.print(x[i]);
+    {
+      out.print(ur.getT());
       out.print(' ');
+      for (int i = 0; i < x.length; i++) {
+        out.print(x[i]);
+        out.print(' ');
+      }
+      out.println();
     }
-    out.println();
+    
+    {
+      out2.println("t=" + ur.getT() + "; l12=" + l(x, 1, 2));
+    }
+  }
+  
+  private static double l(double[] x, int i, int j) {
+    
+    double dx = x[(i - 1) * 6 + 0] - x[(j - 1) * 6 + 0];
+    double dy = x[(i - 1) * 6 + 1] - x[(j - 1) * 6 + 1];
+    double dz = x[(i - 1) * 6 + 2] - x[(j - 1) * 6 + 2];
+    
+    return sqrt(dx * dx + dy * dy + dz * dz);
   }
   
   private static void ss(double[] x, int xi, int yi, int zi, double X, double Y, double Z) {
