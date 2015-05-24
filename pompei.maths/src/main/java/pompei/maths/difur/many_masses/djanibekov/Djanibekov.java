@@ -247,8 +247,6 @@ public class Djanibekov {
     DiffUr ur = new DiffUrDefault(new Stepper_H4_Hoine());
     ur.prepare(48, f);
     
-    ur.setT(0);
-    
     double v1x = 0, v1y = 0, v1z = 0;
     double v2x = 0, v2y = 0, v2z = 0;
     double v3x = 0, v3y = 0, v3z = 0;
@@ -365,7 +363,8 @@ public class Djanibekov {
     
     double saveStep = 1.0 / 24.0;
     double nextSave = saveStep;
-    ur.setH(0.0001);
+    ur.setT(0);
+    ur.setH(0.00001);
     
     PrintStream out = new PrintStream("build/out.txt", "UTF-8");
     PrintStream out2 = new PrintStream("build/out2.txt", "UTF-8");
