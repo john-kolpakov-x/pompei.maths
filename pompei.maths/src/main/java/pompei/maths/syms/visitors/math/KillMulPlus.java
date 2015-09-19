@@ -16,11 +16,11 @@ public class KillMulPlus extends Scanner {
     Expr left = leftOrig, right = rightOrig;
     boolean needMinis = false;
     
-    if (left instanceof Minis) {
+    while (left instanceof Minis) {
       left = ((Minis)left).target;
       needMinis = !needMinis;
     }
-    if (right instanceof Minis) {
+    while (right instanceof Minis) {
       right = ((Minis)right).target;
       needMinis = !needMinis;
     }

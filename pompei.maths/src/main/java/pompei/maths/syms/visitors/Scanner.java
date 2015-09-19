@@ -1,6 +1,7 @@
 package pompei.maths.syms.visitors;
 
 import pompei.maths.syms.exceptions.SkobException;
+import pompei.maths.syms.top.Const;
 import pompei.maths.syms.top.Expr;
 import pompei.maths.syms.top.Visitor;
 import pompei.maths.syms.visitable.ConstDouble;
@@ -18,12 +19,16 @@ public class Scanner implements Visitor<Expr> {
   
   @Override
   public Expr visitConstDouble(ConstDouble constDouble) {
-    return constDouble;
+    return visitConst(constDouble);
   }
   
   @Override
   public Expr visitConstInt(ConstInt constInt) {
-    return constInt;
+    return visitConst(constInt);
+  }
+  
+  protected Expr visitConst(Const aconst) {
+    return aconst;
   }
   
   @Override

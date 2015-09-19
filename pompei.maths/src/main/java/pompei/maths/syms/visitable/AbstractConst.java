@@ -17,7 +17,8 @@ public abstract class AbstractConst implements Const {
   
   private static double d(Const x) {
     if (x instanceof ConstInt) return ((ConstInt)x).doubleValue();
-    return ((ConstDouble)x).value;
+    if (x instanceof ConstDouble) return ((ConstDouble)x).value;
+    throw new IllegalArgumentException("Unknown " + x.getClass());
   }
   
   @Override
