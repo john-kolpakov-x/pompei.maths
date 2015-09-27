@@ -173,11 +173,11 @@ public class ExpPainter implements Visitor<Void> {
       
       {
         int sx = x, sy = y - sh1;
-        SkobPainter.paint(sizer.g(), conf, sx, sy, sw, sh, false);
+        SkobPainter.paint(sizer.g(), sx, sy, sw, sh, false);
       }
       {
         int sx = x + sw + targetSize.w, sy = y - sh1;
-        SkobPainter.paint(sizer.g(), conf, sx, sy, sw, sh, true);
+        SkobPainter.paint(sizer.g(), sx, sy, sw, sh, true);
       }
     }
     

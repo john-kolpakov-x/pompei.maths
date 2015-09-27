@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 import pompei.maths.syms_diff.model.Const;
+import pompei.maths.syms_diff.model.Form;
 import pompei.maths.syms_diff.model.FormVisitor;
 import pompei.maths.syms_diff.visitable.Diff;
 import pompei.maths.syms_diff.visitable.Div;
@@ -27,10 +28,10 @@ public class PaintVisitor implements FormVisitor<Painter> {
     font = g.getFont();
   }
   
-  public float mainSize = 14;
-  public float powerSize = 10;
+  public float mainSize = 17;
+  public float powerSize = 12;
   
-  public float downFactor = 0.7f;
+  public float downFactor = 0.4f;
   
   @Override
   public Painter visitVar(Var constVar) {
@@ -67,7 +68,9 @@ public class PaintVisitor implements FormVisitor<Painter> {
   
   @Override
   public Painter visitDiff(Diff diff) {
-    throw new IllegalAccessError();
+    Painter formPainter = diff.form.visit(this);
+    if (diff.n == 1) return formPainter;
+    return painterInPower(formPainter, "" + diff.n, Color.RED);
   }
   
   @Override
@@ -79,31 +82,44 @@ public class PaintVisitor implements FormVisitor<Painter> {
   
   @Override
   public Painter visitDiv(Div div) {
-    throw new IllegalAccessError();
+    throw new UnsupportedOperationException();
   }
   
   @Override
   public Painter visitSkob(Skob skob) {
-    throw new IllegalAccessError();
+    Painter p = skob.form.visit(this);
+    Size pSize = p.getSize();
+    int h = pSize.heightBottom + pSize.heightTop;
+    int w = (int)(h * 0.3f + 0.5f);
+    Size skobSize = new Size(w, pSize.heightTop, pSize.heightBottom);
+    SkobPainter left = new SkobPainter(skobSize, false);
+    SkobPainter right = new SkobPainter(skobSize, true);
+    return OrderPainter.order(left, p, right);
   }
   
   @Override
   public Painter visitMinis(Minis minis) {
-    throw new IllegalAccessError();
+    StrPainter operPainter = new StrPainter(g, font.deriveFont(mainSize), "-", Color.BLACK);
+    return OrderPainter.order(operPainter, minis.form.visit(this));
   }
   
   @Override
   public Painter visitPlus(Plus plus) {
-    throw new IllegalAccessError();
+    return visitOper(plus.left, "+", plus.right);
   }
   
   @Override
   public Painter visitMinus(Minus minus) {
-    throw new IllegalAccessError();
+    return visitOper(minus.left, "-", minus.right);
+  }
+  
+  private Painter visitOper(Form left, String oper, Form right) {
+    StrPainter operPainter = new StrPainter(g, font.deriveFont(mainSize), oper, Color.BLACK);
+    return OrderPainter.order(left.visit(this), operPainter, right.visit(this));
   }
   
   @Override
   public Painter visitMul(Mul mul) {
-    throw new IllegalAccessError();
+    return visitOper(mul.left, "·", mul.right);
   }
 }

@@ -32,9 +32,9 @@ public class OffsetPainter implements Painter {
   @Override
   public void paintTo(Graphics2D g, int x, int y) {
     if (dx < 0) {
-      p.paintTo(g, x, y + dy);
+      p.paintTo(g, x, y - dy);
     } else {
-      p.paintTo(g, x + dx, y + dy);
+      p.paintTo(g, x + dx, y - dy);
     }
   }
   

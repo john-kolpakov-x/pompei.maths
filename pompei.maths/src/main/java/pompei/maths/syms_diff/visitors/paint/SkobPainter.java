@@ -1,11 +1,26 @@
-package pompei.maths.syms.visitors;
+package pompei.maths.syms_diff.visitors.paint;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
 
-public class SkobPainter {
+public class SkobPainter implements Painter {
+  private final boolean isRight;
+  private final Size size;
   
-  public static void paint(Graphics2D g, int x, int y, int w, int h, boolean isRight) {
+  public SkobPainter(int width, int heightTop, int heightBottom, boolean isRight) {
+    this(new Size(width, heightTop, heightBottom), isRight);
+  }
+  
+  public SkobPainter(Size size, boolean isRight) {
+    this.size = size;
+    this.isRight = isRight;
+  }
+  
+  @Override
+  public void paintTo(Graphics2D g, int x, int y) {
+    int w = size.width;
+    int h = size.heightTop + size.heightBottom;
+    
     double w2 = w / 2.0;
     double h2 = h / 2.0;
     double h8 = h / 8.0;
@@ -38,4 +53,8 @@ public class SkobPainter {
     g.fill(p);
   }
   
+  @Override
+  public Size getSize() {
+    return size;
+  }
 }

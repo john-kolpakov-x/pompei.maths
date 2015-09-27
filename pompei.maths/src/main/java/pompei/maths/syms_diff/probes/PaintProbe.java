@@ -44,8 +44,8 @@ public class PaintProbe {
   }
   
   private static Form getForm() {
-    Var a = new Var("A");
-    Power power = new Power(a, 3);
+    Var a = new Var("W");
+    Power power = new Power(a, -13);
     return power;
   }
 }

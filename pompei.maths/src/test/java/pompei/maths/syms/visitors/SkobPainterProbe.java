@@ -38,6 +38,6 @@ public class SkobPainterProbe {
     g.setColor(Color.BLUE);
     g.drawRect(x, y, w, h);
     g.setColor(Color.BLACK);
-    SkobPainter.paint(g, null, x, y, w, h, isRight);
+    SkobPainter.paint(g, x, y, w, h, isRight);
   }
 }
