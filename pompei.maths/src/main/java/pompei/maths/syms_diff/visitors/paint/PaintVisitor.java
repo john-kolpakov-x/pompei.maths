@@ -1,5 +1,7 @@
 package pompei.maths.syms_diff.visitors.paint;
 
+import static java.lang.Math.max;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -28,8 +30,8 @@ public class PaintVisitor implements FormVisitor<Painter> {
     font = g.getFont();
   }
   
-  public float mainSize = 17;
-  public float powerSize = 12;
+  public float mainSize = 24;
+  public float powerSize = 14;
   
   public float downFactor = 0.4f;
   
@@ -81,16 +83,11 @@ public class PaintVisitor implements FormVisitor<Painter> {
   }
   
   @Override
-  public Painter visitDiv(Div div) {
-    throw new UnsupportedOperationException();
-  }
-  
-  @Override
   public Painter visitSkob(Skob skob) {
     Painter p = skob.form.visit(this);
     Size pSize = p.getSize();
     int h = pSize.heightBottom + pSize.heightTop;
-    int w = (int)(h * 0.3f + 0.5f);
+    int w = (int)(h * 0.2f + 0.5f);
     Size skobSize = new Size(w, pSize.heightTop, pSize.heightBottom);
     SkobPainter left = new SkobPainter(skobSize, false);
     SkobPainter right = new SkobPainter(skobSize, true);
@@ -121,5 +118,46 @@ public class PaintVisitor implements FormVisitor<Painter> {
   @Override
   public Painter visitMul(Mul mul) {
     return visitOper(mul.left, "·", mul.right);
+  }
+  
+  @Override
+  public Painter visitDiv(Div div) {
+    final int DV = 3, DH = 2;
+    
+    final int UP = 5;
+    
+    final Painter top = div.top.visit(this);
+    final Painter bottom = div.bottom.visit(this);
+    
+    Size topSize = top.getSize();
+    Size bottomSize = bottom.getSize();
+    
+    final int w = max(topSize.width, bottomSize.width);
+    
+    final int dxTop = (w - topSize.width) / 2 + DV;
+    final int dxBottom = (w - bottomSize.width) / 2 + DV;
+    
+    final int dyTop = -topSize.heightBottom - DH - UP;
+    final int dyBottom = bottomSize.heightTop + DH - UP;
+    
+    final Size size = new Size(w + 2 * DV, topSize.height() + DH - UP, bottomSize.height() + DH
+        - UP);
+    
+    return new Painter() {
+      @Override
+      public void paintTo(Graphics2D g, int x, int y) {
+        top.paintTo(g, x + dxTop, y + dyTop);
+        bottom.paintTo(g, x + dxBottom, y + dyBottom);
+        
+        g.setColor(Color.BLACK);
+        g.fillRect(x, y - UP - 1, size.width, 2);
+        
+      }
+      
+      @Override
+      public Size getSize() {
+        return size;
+      }
+    };
   }
 }

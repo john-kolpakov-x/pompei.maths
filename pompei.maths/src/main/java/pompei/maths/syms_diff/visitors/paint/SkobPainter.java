@@ -1,5 +1,6 @@
 package pompei.maths.syms_diff.visitors.paint;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
 
@@ -20,6 +21,8 @@ public class SkobPainter implements Painter {
   public void paintTo(Graphics2D g, int x, int y) {
     int w = size.width;
     int h = size.heightTop + size.heightBottom;
+    
+    y -= size.heightTop;
     
     double w2 = w / 2.0;
     double h2 = h / 2.0;
@@ -50,6 +53,7 @@ public class SkobPainter implements Painter {
     p.curveTo(x7, y7, x7, y7, x0, y0);
     p.closePath();
     
+    g.setColor(Color.BLACK);
     g.fill(p);
   }
   

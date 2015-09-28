@@ -8,4 +8,8 @@ public class Size {
     this.heightTop = heightTop;
     this.heightBottom = heightBottom;
   }
+  
+  public int height() {
+    return heightTop + heightBottom;
+  }
 }
