@@ -124,7 +124,7 @@ public class PaintVisitor implements FormVisitor<Painter> {
   public Painter visitDiv(Div div) {
     final int DV = 3, DH = 2;
     
-    final int UP = 5;
+    final int UP = 9;
     
     final Painter top = div.top.visit(this);
     final Painter bottom = div.bottom.visit(this);
@@ -140,8 +140,9 @@ public class PaintVisitor implements FormVisitor<Painter> {
     final int dyTop = -topSize.heightBottom - DH - UP;
     final int dyBottom = bottomSize.heightTop + DH - UP;
     
-    final Size size = new Size(w + 2 * DV, topSize.height() + DH - UP, bottomSize.height() + DH
-        - UP);
+    final Size size = new Size(w + 2 * DV, //
+        topSize.height() + DH - UP, //
+        bottomSize.height() + DH - UP);
     
     return new Painter() {
       @Override
@@ -151,7 +152,6 @@ public class PaintVisitor implements FormVisitor<Painter> {
         
         g.setColor(Color.BLACK);
         g.fillRect(x, y - UP - 1, size.width, 2);
-        
       }
       
       @Override

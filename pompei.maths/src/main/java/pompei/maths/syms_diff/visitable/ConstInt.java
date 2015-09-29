@@ -24,6 +24,11 @@ public class ConstInt implements Const {
     return v.visitConst(this);
   }
   
+  @Override
+  public int sign() {
+    return top.signum() * bottom.signum();
+  }
+  
   private ConstInt(BigInteger top, BigInteger bottom) {
     if (top == null) throw new NullPointerException("top == null");
     if (bottom == null) throw new NullPointerException("bottom == null");

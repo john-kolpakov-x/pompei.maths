@@ -1,4 +1,4 @@
-package pompei.maths.syms_diff.probes;
+package pompei.maths.syms_diff;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
