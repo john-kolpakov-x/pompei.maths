@@ -3,7 +3,9 @@ package pompei.maths.syms_diff.visitors.paint;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -24,8 +26,8 @@ public class PaintUtil {
     BufferedImage tmpImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
     
     Graphics2D gtmp = tmpImage.createGraphics();
+    prepareG(gtmp);
     PaintVisitor vis = new PaintVisitor(gtmp);
-    gtmp.dispose();
     
     int width = 0, height = PADDING;
     
@@ -38,9 +40,12 @@ public class PaintUtil {
       height += s.height() + PADDING;
     }
     
+    gtmp.dispose();
+    
     BufferedImage image = new BufferedImage(width + 2 * PADDING, height, TYPE_INT_ARGB);
     
     Graphics2D g = image.createGraphics();
+    prepareG(g);
     g.setColor(Color.WHITE);
     g.fillRect(0, 0, image.getWidth(), image.getHeight());
     
@@ -54,6 +59,12 @@ public class PaintUtil {
     g.dispose();
     
     ImageIO.write(image, "png", new File(filename));
+  }
+  
+  private static void prepareG(Graphics2D g) {
+    g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+        RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HBGR);
+    g.setFont(new Font("Arial", Font.PLAIN, 12));
   }
   
 }
