@@ -14,6 +14,7 @@ public class Diff implements Form {
   }
   
   public Diff(Form form, int n) {
+    if (n < 0) throw new IllegalArgumentException("n = " + n);
     this.form = form;
     this.n = n;
   }

@@ -13,7 +13,7 @@ import pompei.maths.syms_diff.visitable.Var;
 
 public interface FormVisitor<T> {
   
-  T visitVar(Var constVar);
+  T visitVar(Var var);
   
   T visitFunc(Func func);
   

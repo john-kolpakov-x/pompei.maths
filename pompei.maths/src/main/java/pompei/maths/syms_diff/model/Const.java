@@ -4,4 +4,6 @@ public interface Const extends Form {
   String asStr();
   
   int sign();
+  
+  double doubleValue();
 }

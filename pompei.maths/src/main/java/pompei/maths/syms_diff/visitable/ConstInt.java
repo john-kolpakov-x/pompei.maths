@@ -96,6 +96,7 @@ public class ConstInt implements Const {
     return get(value, BigInteger.ONE);
   }
   
+  @Override
   public double doubleValue() {
     return top.doubleValue() / bottom.doubleValue();
   }
@@ -123,14 +124,14 @@ public class ConstInt implements Const {
     return asStr();
   }
   
-  public ConstInt innerSum(ConstInt other) {
+  public ConstInt innerPlus(ConstInt other) {
     BigInteger topValue = top.multiply(other.bottom).add(bottom.multiply(other.top));
     BigInteger bottomValue = bottom.multiply(other.bottom);
     
     return get(topValue, bottomValue);
   }
   
-  public ConstInt innerSub(ConstInt other) {
+  public ConstInt innerMinus(ConstInt other) {
     BigInteger topValue = top.multiply(other.bottom).subtract(bottom.multiply(other.top));
     BigInteger bottomValue = bottom.multiply(other.bottom);
     
@@ -147,6 +148,25 @@ public class ConstInt implements Const {
   
   public ConstInt innerInvert() {
     return get(bottom, top);
+  }
+  
+  public ConstInt innerPow(int n) {
+    if (n == 0) return ONE;
+    if (n == 1) return this;
+    
+    BigInteger up = top, down = bottom;
+    
+    if (n < 0) {
+      up = bottom;
+      down = top;
+      n = -n;
+    }
+    
+    return get(up.pow(n), down.pow(n));
+  }
+  
+  public ConstInt innerMinis() {
+    return get(top.negate(), bottom);
   }
   
 }

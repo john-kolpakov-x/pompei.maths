@@ -19,11 +19,16 @@ public class ConstDouble implements Const {
   @Override
   public int sign() {
     if (value == 0) return 0;
-    return value < 0 ? -1 : 1;
+    return value < 0 ? -1 :1;
   }
   
   @Override
   public String asStr() {
     return "" + value;
+  }
+  
+  @Override
+  public double doubleValue() {
+    return value;
   }
 }

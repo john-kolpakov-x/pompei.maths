@@ -13,8 +13,8 @@ import pompei.maths.syms_diff.visitable.Skob;
 public class AddSkobVisitor extends Scanner {
   @Override
   public Form visitMul(Mul mul) {
-    Form left = mul.left;
-    Form right = mul.right;
+    Form left = mul.left.visit(this);
+    Form right = mul.right.visit(this);
     
     left = skobForMul(left);
     right = skobForMul(right);
@@ -32,7 +32,7 @@ public class AddSkobVisitor extends Scanner {
   
   @Override
   public Form visitPower(Power power) {
-    Form form = power.form;
+    Form form = power.form.visit(this);
     
     if (isLessThenPower(form)) return new Power(new Skob(form), power.n);
     

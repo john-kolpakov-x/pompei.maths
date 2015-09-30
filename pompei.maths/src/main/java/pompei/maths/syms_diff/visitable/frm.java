@@ -53,7 +53,7 @@ public class frm {
       }
     }
     
-    return minis ? new Minis(var(s)) : var(s);
+    return minis ? new Minis(var(s)) :var(s);
   }
   
   public static Form f(String f1, String op, String f2) {
@@ -66,6 +66,14 @@ public class frm {
   
   public static Form f(Form f1, String op, String f2) {
     return f(f1, op, f(f2));
+  }
+  
+  public static Power p(Form form, int n) {
+    return new Power(form, n);
+  }
+  
+  public static Power p(String form, int n) {
+    return new Power(f(form), n);
   }
   
   public static Form f(Form f1, String op, Form f2) {
