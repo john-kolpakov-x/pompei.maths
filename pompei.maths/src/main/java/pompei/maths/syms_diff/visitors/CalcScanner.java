@@ -1,5 +1,6 @@
 package pompei.maths.syms_diff.visitors;
 
+import pompei.maths.syms.exceptions.DivByZero;
 import pompei.maths.syms_diff.model.Const;
 import pompei.maths.syms_diff.model.Form;
 import pompei.maths.syms_diff.model.FormVisitor;
@@ -61,9 +62,15 @@ public class CalcScanner implements FormVisitor<Form> {
     Form top = div.top.visit(this);
     Form bottom = div.bottom.visit(this);
     
-    if (top instanceof Const && bottom instanceof Const) {
+    final boolean topIsConst = top instanceof Const;
+    final boolean bottomIsConst = bottom instanceof Const;
+    
+    if (topIsConst && bottomIsConst) {
       return ConstOp.div((Const)top, (Const)bottom);
     }
+    
+    if (topIsConst && ((Const)top).sign() == 0) return ConstInt.ZERO;
+    if (bottomIsConst && ((Const)bottom).sign() == 0) throw new DivByZero();
     
     if (top == div.top && bottom == div.bottom) return div;
     return new Div(top, bottom);
@@ -93,9 +100,15 @@ public class CalcScanner implements FormVisitor<Form> {
     Form left = plus.left.visit(this);
     Form right = plus.right.visit(this);
     
-    if (left instanceof Const && right instanceof Const) {
+    boolean leftIsConst = left instanceof Const;
+    boolean rightIsConst = right instanceof Const;
+    
+    if (leftIsConst && rightIsConst) {
       return ConstOp.plus((Const)left, (Const)right);
     }
+    
+    if (leftIsConst && ((Const)left).sign() == 0) return right;
+    if (rightIsConst && ((Const)right).sign() == 0) return left;
     
     if (left == plus.left && right == plus.right) return plus;
     return new Plus(left, right);
@@ -106,8 +119,18 @@ public class CalcScanner implements FormVisitor<Form> {
     Form left = minus.left.visit(this);
     Form right = minus.right.visit(this);
     
-    if (left instanceof Const && right instanceof Const) {
+    boolean leftIsConst = left instanceof Const;
+    boolean rightIsConst = right instanceof Const;
+    
+    if (leftIsConst && rightIsConst) {
       return ConstOp.minus((Const)left, (Const)right);
+    }
+    
+    if (leftIsConst && ((Const)left).sign() == 0) {
+      return new Minis(right);
+    }
+    if (rightIsConst && ((Const)right).sign() == 0) {
+      return left;
     }
     
     if (left == minus.left && right == minus.right) return minus;
@@ -119,9 +142,15 @@ public class CalcScanner implements FormVisitor<Form> {
     Form left = mul.left.visit(this);
     Form right = mul.right.visit(this);
     
-    if (left instanceof Const && right instanceof Const) {
+    boolean leftIsConst = left instanceof Const;
+    boolean rightIsConst = right instanceof Const;
+    
+    if (leftIsConst && rightIsConst) {
       return ConstOp.mul((Const)left, (Const)right);
     }
+    
+    if (leftIsConst && ((Const)left).sign() == 0) return ConstInt.ZERO;
+    if (rightIsConst && ((Const)right).sign() == 0) return ConstInt.ZERO;
     
     if (left == mul.left && right == mul.right) return mul;
     return new Mul(left, right);

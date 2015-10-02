@@ -35,11 +35,7 @@ public class DiffVisitor implements FormVisitor<Form> {
   
   @Override
   public Form visitDiff(Diff diff) {
-    Form form = diff.form;
-    for (int i = 0, C = diff.n + 1; i < C; i++) {
-      form = form.visit(this);
-    }
-    return form;
+    throw new UnsupportedOperationException();
   }
   
   @Override

@@ -2,19 +2,70 @@ package pompei.maths.syms_diff.visitors;
 
 import pompei.maths.syms_diff.model.Const;
 import pompei.maths.syms_diff.model.Form;
+import pompei.maths.syms_diff.model.FormVisitor;
+import pompei.maths.syms_diff.visitable.ConstInt;
 import pompei.maths.syms_diff.visitable.ConstOp;
 import pompei.maths.syms_diff.visitable.Diff;
+import pompei.maths.syms_diff.visitable.Div;
+import pompei.maths.syms_diff.visitable.Func;
+import pompei.maths.syms_diff.visitable.Minis;
 import pompei.maths.syms_diff.visitable.Minus;
 import pompei.maths.syms_diff.visitable.Mul;
 import pompei.maths.syms_diff.visitable.Plus;
+import pompei.maths.syms_diff.visitable.Power;
+import pompei.maths.syms_diff.visitable.Skob;
+import pompei.maths.syms_diff.visitable.Var;
 
-public class MulPlusDiffConvertVisitor extends CalcScanner {
+public class MulPlusDiffConvertVisitor implements FormVisitor<Form> {
   
   private final DiffVisitor differ = new DiffVisitor();
   
   @Override
+  public Form visitDiff(Diff diff) {
+    
+    Form form = diff.form.visit(this);
+    
+    for (int i = 0, C = diff.n; i < C; i++) {
+      form = form.visit(differ).visit(this);
+    }
+    
+    return form;
+  }
+  
+  @Override
+  public Form visitConst(Const c) {
+    return c;
+  }
+  
+  @Override
+  public Form visitVar(Var var) {
+    return var;
+  }
+  
+  @Override
+  public Form visitFunc(Func func) {
+    return func;
+  }
+  
+  @Override
+  public Form visitDiv(Div div) {
+    return new Mul(div.top, new Power(-1, div.bottom)).visit(this);
+  }
+  
+  @Override
+  public Form visitSkob(Skob skob) {
+    return skob.form.visit(this);
+  }
+  
+  @Override
+  public Form visitMinis(Minis minis) {
+    return new Mul(ConstInt.M_ONE, minis.form).visit(this);
+    
+  }
+  
+  @Override
   public Form visitMinus(Minus minus) {
-    throw new LeftForm();
+    return new Plus(minus.left, new Mul(ConstInt.M_ONE, minus.right)).visit(this);
   }
   
   @Override
@@ -79,7 +130,13 @@ public class MulPlusDiffConvertVisitor extends CalcScanner {
       left = left.visit(this);
       right = right.visit(this);
       
-      if (left instanceof Const && right instanceof Const) {
+      boolean leftIsConst = left instanceof Const;
+      boolean rightIsConst = right instanceof Const;
+      
+      if (leftIsConst && ((Const)left).sign() == 0) return ConstInt.ZERO;
+      if (rightIsConst && ((Const)right).sign() == 0) return ConstInt.ZERO;
+      
+      if (leftIsConst && rightIsConst) {
         return ConstOp.mul((Const)left, (Const)right);
       }
       
@@ -89,10 +146,29 @@ public class MulPlusDiffConvertVisitor extends CalcScanner {
   }
   
   @Override
-  public Form visitDiff(Diff diff) {
-    if (diff.n == 0) return diff.form.visit(this);
+  public Form visitPower(Power power) {
+    Form form = power.form;
+    int n = power.n;
+    if (n == 0) return ConstInt.ONE;
     
-    return new Diff(diff.n - 1, diff.form.visit(differ)).visit(this);
+    if (n > 0) {
+      Form ret = form;
+      for (int i = 1; i < n; i++) {
+        ret = new Mul(ret, form);
+      }
+      return form.visit(this);
+    }
+    
+    {
+      
+      throw new CannotMulPlusDiffConvertVisitorForPower(power);
+    }
+  }
+  
+  @Override
+  public Form visitPlus(Plus plus) {
+    // TODO Auto-generated method stub
+    return null;
   }
   
 }
