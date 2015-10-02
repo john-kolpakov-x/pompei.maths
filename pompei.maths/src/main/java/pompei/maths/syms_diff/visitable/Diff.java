@@ -13,7 +13,7 @@ public class Diff implements Form {
     return v.visitDiff(this);
   }
   
-  public Diff(Form form, int n) {
+  public Diff(int n, Form form) {
     if (n < 0) throw new IllegalArgumentException("n = " + n);
     this.form = form;
     this.n = n;

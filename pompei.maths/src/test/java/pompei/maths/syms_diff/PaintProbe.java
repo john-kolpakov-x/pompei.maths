@@ -52,7 +52,7 @@ public class PaintProbe {
   
   static Form getForm1() {
     Var w = new Var("W");
-    Power power = new Power(w, -13);
+    Power power = new Power(-13, w);
     
     Var b = new Var("B");
     

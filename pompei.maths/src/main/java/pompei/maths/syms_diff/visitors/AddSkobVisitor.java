@@ -2,6 +2,7 @@ package pompei.maths.syms_diff.visitors;
 
 import pompei.maths.syms_diff.model.Const;
 import pompei.maths.syms_diff.model.Form;
+import pompei.maths.syms_diff.visitable.Diff;
 import pompei.maths.syms_diff.visitable.Div;
 import pompei.maths.syms_diff.visitable.Minis;
 import pompei.maths.syms_diff.visitable.Minus;
@@ -9,6 +10,7 @@ import pompei.maths.syms_diff.visitable.Mul;
 import pompei.maths.syms_diff.visitable.Plus;
 import pompei.maths.syms_diff.visitable.Power;
 import pompei.maths.syms_diff.visitable.Skob;
+import pompei.maths.syms_diff.visitable.Var;
 
 public class AddSkobVisitor extends Scanner {
   @Override
@@ -34,9 +36,26 @@ public class AddSkobVisitor extends Scanner {
   public Form visitPower(Power power) {
     Form form = power.form.visit(this);
     
-    if (isLessThenPower(form)) return new Power(new Skob(form), power.n);
+    if (isLessThenPower(form)) return new Power(power.n, new Skob(form));
     
     return power;
+  }
+  
+  @Override
+  public Form visitDiff(Diff diff) {
+    Form form = diff.form.visit(this);
+    if (needSkobInDiffFor(form)) {
+      return new Diff(diff.n, new Skob(form));
+    }
+    if (form == diff.form) return diff;
+    return new Diff(diff.n, form);
+  }
+  
+  private boolean needSkobInDiffFor(Form form) {
+    if (form instanceof Skob) return false;
+    if (form instanceof Var) return false;
+    if (form instanceof Const) return ((Const)form).sign() < 0;
+    return true;
   }
   
   private boolean isLessThenPower(Form form) {

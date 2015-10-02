@@ -15,13 +15,13 @@ public class frm {
     }
     
     if (split.length == 1) return new Var(split[0]);
-    if (split.length == 2) return new Power(new Var(split[0]), Integer.parseInt(split[1]));
+    if (split.length == 2) return new Power(Integer.parseInt(split[1]), new Var(split[0]));
     
     throw new IllegalArgumentException("s = " + s);
   }
   
   public static Diff diff(Form form, int n) {
-    return new Diff(form, n);
+    return new Diff(n, form);
   }
   
   public static Form f(String s) {
@@ -60,6 +60,46 @@ public class frm {
     return f(f(f1), op, f(f2));
   }
   
+  public static Form dn(int n, Form form) {
+    return new Diff(n, form);
+  }
+  
+  public static Form dn(int n, String a) {
+    return new Diff(n, f(a));
+  }
+  
+  public static Form d(Form form) {
+    return dn(1, form);
+  }
+  
+  public static Form d(String a) {
+    return dn(1, a);
+  }
+  
+  public static Form d2(Form form) {
+    return dn(2, form);
+  }
+  
+  public static Form d2(String a) {
+    return dn(2, a);
+  }
+  
+  public static Form d3(Form form) {
+    return dn(3, form);
+  }
+  
+  public static Form d3(String a) {
+    return dn(3, a);
+  }
+  
+  public static Form d4(Form form) {
+    return dn(4, form);
+  }
+  
+  public static Form d4(String a) {
+    return dn(4, a);
+  }
+  
   public static Form f(String f1, String op, Form f2) {
     return f(f(f1), op, f2);
   }
@@ -69,11 +109,11 @@ public class frm {
   }
   
   public static Power p(Form form, int n) {
-    return new Power(form, n);
+    return new Power(n, form);
   }
   
   public static Power p(String form, int n) {
-    return new Power(f(form), n);
+    return new Power(n, f(form));
   }
   
   public static Form f(Form f1, String op, Form f2) {
@@ -83,5 +123,13 @@ public class frm {
     if ("·".equals(op)) return new Mul(f1, f2);
     if ("/".equals(op)) return new Div(f1, f2);
     throw new IllegalArgumentException("op = " + op);
+  }
+  
+  public static Form mul(Form first, Form second, Form... form) {
+    Form ret = new Mul(first, second);
+    for (Form x : form) {
+      ret = new Mul(ret, x);
+    }
+    return ret;
   }
 }

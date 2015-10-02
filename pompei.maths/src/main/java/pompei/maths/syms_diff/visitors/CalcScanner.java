@@ -41,7 +41,7 @@ public class CalcScanner implements FormVisitor<Form> {
     
     if (form == diff.form) return diff;
     
-    return new Diff(form, diff.n);
+    return new Diff(diff.n, form);
   }
   
   @Override
@@ -53,7 +53,7 @@ public class CalcScanner implements FormVisitor<Form> {
     }
     
     if (form == power.form) return power;
-    return new Power(form, power.n);
+    return new Power(power.n, form);
   }
   
   @Override

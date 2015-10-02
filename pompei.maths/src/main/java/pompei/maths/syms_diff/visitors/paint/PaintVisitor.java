@@ -71,7 +71,7 @@ public class PaintVisitor implements FormVisitor<Painter> {
   @Override
   public Painter visitDiff(Diff diff) {
     Painter formPainter = diff.form.visit(this);
-    if (diff.n == 1) return formPainter;
+    if (diff.n == 0) return formPainter;
     return painterInPower(formPainter, "" + diff.n, Color.RED);
   }
   

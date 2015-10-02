@@ -12,7 +12,7 @@ import pompei.maths.syms_diff.visitable.Power;
 public class KillDivVisitor extends CalcScanner {
   @Override
   public Form visitDiv(Div div) {
-    return new Mul(div.top, new Power(div.bottom, -1)).visit(this);
+    return new Mul(div.top, new Power(-1, div.bottom)).visit(this);
   }
   
   @Override
@@ -31,13 +31,13 @@ public class KillDivVisitor extends CalcScanner {
       int n = power.n * sub.n;
       if (n == 0) return ConstInt.ONE;
       if (n == 1) return subForm.visit(this);
-      return new Power(subForm, n).visit(this);
+      return new Power(n, subForm).visit(this);
     }
     
     if (form instanceof Mul) {
       Mul mul = (Mul)form;
-      Form left = new Power(mul.left, power.n);
-      Form right = new Power(mul.right, power.n);
+      Form left = new Power(power.n, mul.left);
+      Form right = new Power(power.n, mul.right);
       return new Mul(left, right).visit(this);
     }
     
@@ -47,7 +47,7 @@ public class KillDivVisitor extends CalcScanner {
       int n = power.n;
       if (n < 0) n = -n;
       if (n % 2 == 0) return subForm.visit(this);
-      return new Minis(new Power(subForm, power.n)).visit(this);
+      return new Minis(new Power(power.n, subForm)).visit(this);
     }
     
     return power;

@@ -13,7 +13,7 @@ public class Power implements Form {
     return v.visitPower(this);
   }
   
-  public Power(Form form, int n) {
+  public Power(int n, Form form) {
     this.form = form;
     this.n = n;
   }

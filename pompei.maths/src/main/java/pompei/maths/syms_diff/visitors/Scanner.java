@@ -34,14 +34,14 @@ public class Scanner implements FormVisitor<Form> {
   public Form visitDiff(Diff diff) {
     Form form = diff.form.visit(this);
     if (form == diff.form) return diff;
-    return new Diff(form, diff.n);
+    return new Diff(diff.n, form);
   }
   
   @Override
   public Form visitPower(Power power) {
     Form form = power.form.visit(this);
     if (form == power.form) return power;
-    return new Power(form, power.n);
+    return new Power(power.n, form);
   }
   
   @Override
