@@ -18,8 +18,7 @@ public class ConstDouble implements Const {
   
   @Override
   public int sign() {
-    if (value == 0) return 0;
-    return value < 0 ? -1 :1;
+    return value == 0 ? 0 : (value > 0 ? 1 : -1);
   }
   
   @Override
@@ -30,5 +29,30 @@ public class ConstDouble implements Const {
   @Override
   public double doubleValue() {
     return value;
+  }
+  
+  @Override
+  public int hashCode() {
+    long tmp = Double.doubleToLongBits(value);
+    return 31 + (int)(tmp ^ (tmp >>> 32));
+  }
+  
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
+    ConstDouble other = (ConstDouble)obj;
+    return value == other.value;
+  }
+  
+  @Override
+  public Const minis() {
+    return new ConstDouble(-value);
+  }
+  
+  @Override
+  public boolean isOne() {
+    return value == 1.0;
   }
 }

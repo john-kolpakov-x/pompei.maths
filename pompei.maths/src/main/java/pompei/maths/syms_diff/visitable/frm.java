@@ -53,7 +53,7 @@ public class frm {
       }
     }
     
-    return minis ? new Minis(var(s)) :var(s);
+    return minis ? new Minis(var(s)) : var(s);
   }
   
   public static Form f(String f1, String op, String f2) {
@@ -129,6 +129,27 @@ public class frm {
     Form ret = new Mul(first, second);
     for (Form x : form) {
       ret = new Mul(ret, x);
+    }
+    return ret;
+  }
+  
+  public static Form plus(Object... oo) {
+    if (oo.length == 0) throw new IllegalArgumentException();
+    Form ret = null;
+    for (Object o : oo) {
+      if (o == null) continue;
+      Form add = null;
+      if (o instanceof Form) {
+        add = (Form)o;
+      } else if (o instanceof String) {
+        add = f((String)o);
+      } else throw new IllegalArgumentException("o = " + o.getClass() + ":" + o);
+      
+      if (ret == null) {
+        ret = add;
+      } else {
+        ret = new Plus(ret, add);
+      }
     }
     return ret;
   }

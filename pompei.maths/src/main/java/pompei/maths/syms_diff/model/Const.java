@@ -6,4 +6,8 @@ public interface Const extends Form {
   int sign();
   
   double doubleValue();
+  
+  Const minis();
+  
+  boolean isOne();
 }

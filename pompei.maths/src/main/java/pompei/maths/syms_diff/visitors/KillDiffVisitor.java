@@ -15,8 +15,10 @@ import pompei.maths.syms_diff.visitable.Plus;
 import pompei.maths.syms_diff.visitable.Power;
 import pompei.maths.syms_diff.visitable.Skob;
 import pompei.maths.syms_diff.visitable.Var;
+import pompei.maths.syms_diff.visitors.podob.CannotExtractPodob;
+import pompei.maths.syms_diff.visitors.podob.Podob;
 
-public class MulPlusDiffConvertVisitor implements FormVisitor<Form> {
+public class KillDiffVisitor implements FormVisitor<Form> {
   
   private final DiffVisitor differ = new DiffVisitor();
   
@@ -167,8 +169,32 @@ public class MulPlusDiffConvertVisitor implements FormVisitor<Form> {
   
   @Override
   public Form visitPlus(Plus plus) {
-    // TODO Auto-generated method stub
-    return null;
+    Form left = plus.left.visit(this);
+    Form right = plus.right.visit(this);
+    
+    try {
+      
+      Podob leftPodob = Podob.extract(left);
+      Podob rightPodob = Podob.extract(right);
+      
+      return leftPodob.plus(rightPodob).form();
+      
+    } catch (CannotExtractPodob e) {
+      
+      boolean isLeftConst = left instanceof Const;
+      boolean isRightConst = right instanceof Const;
+      
+      if (isLeftConst && isRightConst) {
+        return ConstOp.plus((Const)left, (Const)right);
+      }
+      
+      if (isLeftConst && ((Const)left).sign() == 0) return right;
+      if (isRightConst && ((Const)right).sign() == 0) return left;
+      
+      if (left == plus.left && right == plus.right) return plus;
+      
+      return new Plus(left, right);
+    }
   }
   
 }

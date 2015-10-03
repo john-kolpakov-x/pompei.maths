@@ -107,6 +107,7 @@ public class ConstInt implements Const {
     return top + "/" + bottom;
   }
   
+  @Override
   public boolean isOne() {
     return top.compareTo(BigInteger.ONE) == 0 && bottom.compareTo(BigInteger.ONE) == 0;
   }
@@ -169,4 +170,8 @@ public class ConstInt implements Const {
     return get(top.negate(), bottom);
   }
   
+  @Override
+  public Const minis() {
+    return innerMinis();
+  }
 }

@@ -45,7 +45,7 @@ public class ConstOp {
     return new ConstDouble(left.doubleValue() - right.doubleValue());
   }
   
-  public static Form mul(Const left, Const right) {
+  public static Const mul(Const left, Const right) {
     if (left instanceof ConstInt && right instanceof ConstInt) {
       return ((ConstInt)left).innerMul((ConstInt)right);
     }
