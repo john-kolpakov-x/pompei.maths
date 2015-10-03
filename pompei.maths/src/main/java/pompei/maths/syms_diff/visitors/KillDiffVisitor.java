@@ -161,10 +161,31 @@ public class KillDiffVisitor implements FormVisitor<Form> {
       return form.visit(this);
     }
     
-    {
-      
-      throw new CannotMulPlusDiffConvertVisitorForPower(power);
+    form = form.visit(this);
+    
+    if (form instanceof Const) {
+      return ConstOp.pow((Const)form, n);
     }
+    
+    if (form instanceof Power) {
+      Power subPower = (Power)form;
+      
+      int newN = n + subPower.n;
+      if (newN == 0) return ConstInt.ONE;
+      if (newN == 1) return subPower.form;
+      return new Power(newN, subPower.form).visit(this);
+    }
+    
+    if (form instanceof Mul) {
+      Mul mul = (Mul)form;
+      
+      Power left = new Power(n, mul.left);
+      Power right = new Power(n, mul.right);
+      
+      return new Mul(left, right).visit(this);
+    }
+    
+    throw new CannotKillDiffVisitorForPower(power);
   }
   
   @Override
@@ -196,5 +217,4 @@ public class KillDiffVisitor implements FormVisitor<Form> {
       return new Plus(left, right);
     }
   }
-  
 }

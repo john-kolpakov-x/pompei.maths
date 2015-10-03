@@ -2,11 +2,11 @@ package pompei.maths.syms_diff.visitors;
 
 import pompei.maths.syms_diff.visitable.Power;
 
-public class CannotMulPlusDiffConvertVisitorForPower extends RuntimeException {
+public class CannotKillDiffVisitorForPower extends RuntimeException {
   
   public final Power power;
   
-  public CannotMulPlusDiffConvertVisitorForPower(Power power) {
+  public CannotKillDiffVisitorForPower(Power power) {
     this.power = power;
   }
 }
