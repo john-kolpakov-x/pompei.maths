@@ -69,7 +69,14 @@ public class Podob {
       if (ret == null) {
         ret = form;
       } else {
-        ret = new Plus(ret, form);
+        if (form instanceof Const) {
+          Const c = (Const)form;
+          if (c.sign() != 0) {
+            ret = new Plus(ret, form);
+          }
+        } else {
+          ret = new Plus(ret, form);
+        }
       }
     }
     return ret;

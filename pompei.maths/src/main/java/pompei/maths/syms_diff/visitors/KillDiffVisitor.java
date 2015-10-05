@@ -28,7 +28,8 @@ public class KillDiffVisitor implements FormVisitor<Form> {
     Form form = diff.form.visit(this);
     
     for (int i = 0, C = diff.n; i < C; i++) {
-      form = form.visit(differ).visit(this);
+      form = form.visit(differ);
+      form = form.visit(this);
     }
     
     return form;
@@ -183,6 +184,11 @@ public class KillDiffVisitor implements FormVisitor<Form> {
       Power right = new Power(n, mul.right);
       
       return new Mul(left, right).visit(this);
+    }
+    
+    if (form instanceof Func || form instanceof Var) {
+      if (form == power.form) return power;
+      return new Power(power.n, form);
     }
     
     throw new CannotKillDiffVisitorForPower(power);
