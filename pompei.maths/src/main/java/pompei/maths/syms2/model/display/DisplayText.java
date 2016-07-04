@@ -1,6 +1,8 @@
 package pompei.maths.syms2.model.display;
 
-import java.awt.*;
+import pompei.maths.utils.WhileNotWorks;
+
+import java.awt.Color;
 
 public class DisplayText implements DisplayExpr {
   public final int level;
@@ -15,5 +17,25 @@ public class DisplayText implements DisplayExpr {
     this.color = color;
     this.bold = bold;
     this.italic = italic;
+  }
+
+  @Override
+  public void setPort(DisplayPort port) {
+    
+  }
+
+  @Override
+  public void reset() {
+    throw new WhileNotWorks();
+  }
+
+  @Override
+  public void displayTo(int x, int y) {
+    throw new WhileNotWorks();
+  }
+
+  @Override
+  public Size size() {
+    throw new WhileNotWorks();
   }
 }

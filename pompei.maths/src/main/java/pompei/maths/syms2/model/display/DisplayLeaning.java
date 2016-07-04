@@ -1,5 +1,7 @@
 package pompei.maths.syms2.model.display;
 
+import pompei.maths.utils.WhileNotWorks;
+
 import java.util.Collection;
 
 public class DisplayLeaning implements DisplayExpr {
@@ -39,5 +41,26 @@ public class DisplayLeaning implements DisplayExpr {
       order[index++] = displayExpr;
     }
     return displayOrder(order, 0, size);
+  }
+
+  @Override
+  public void setPort(DisplayPort port) {
+    base.setPort(port);
+    leaning.setPort(port);
+  }
+
+  @Override
+  public void reset() {
+    throw new WhileNotWorks();
+  }
+
+  @Override
+  public void displayTo(int x, int y) {
+    throw new WhileNotWorks();
+  }
+
+  @Override
+  public Size size() {
+    throw new WhileNotWorks();
   }
 }

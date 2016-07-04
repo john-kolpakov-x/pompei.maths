@@ -27,4 +27,8 @@ public class Size {
     width = size.width;
     return this;
   }
+
+  public int height() {
+    return top + bottom;
+  }
 }

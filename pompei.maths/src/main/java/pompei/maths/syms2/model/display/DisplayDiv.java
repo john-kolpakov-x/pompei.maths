@@ -1,5 +1,7 @@
 package pompei.maths.syms2.model.display;
 
+import pompei.maths.utils.WhileNotWorks;
+
 public class DisplayDiv implements DisplayExpr {
   public final int level;
   public final DisplayExpr top;
@@ -9,5 +11,26 @@ public class DisplayDiv implements DisplayExpr {
     this.level = level;
     this.top = top;
     this.bottom = bottom;
+  }
+
+  @Override
+  public void setPort(DisplayPort port) {
+    top.setPort(port);
+    bottom.setPort(port);
+  }
+
+  @Override
+  public void reset() {
+    throw new WhileNotWorks();
+  }
+
+  @Override
+  public void displayTo(int x, int y) {
+    throw new WhileNotWorks();
+  }
+
+  @Override
+  public Size size() {
+    throw new WhileNotWorks();
   }
 }

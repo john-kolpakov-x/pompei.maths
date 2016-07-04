@@ -6,7 +6,7 @@ public interface DisplayExpr {
 
   void reset();
 
-  void display();
+  void displayTo(int x, int y);
 
   Size size();
 }
