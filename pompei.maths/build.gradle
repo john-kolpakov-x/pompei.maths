@@ -2,12 +2,13 @@
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'eclipse'
+apply plugin: 'idea'
 
 repositories {
   mavenCentral()
 }
 
-sourceCompatibility = '1.7'
+sourceCompatibility = '1.8'
 
 dependencies {
   compile 'org.easytesting:fest-assert:1.4'
