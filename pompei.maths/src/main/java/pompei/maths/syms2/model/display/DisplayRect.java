@@ -1,6 +1,7 @@
 package pompei.maths.syms2.model.display;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 
 public class DisplayRect implements DisplayExpr {
 
@@ -26,16 +27,20 @@ public class DisplayRect implements DisplayExpr {
 
   @Override
   public void displayTo(int x, int y) {
+    Graphics2D g = (Graphics2D) port.graphics().create();
+
     if (background != null) {
-      port.graphics().setColor(background);
-      port.graphics().fillRect(x, y - size.top, size.width, size.height());
+      g.setColor(background);
+      g.fillRect(x, y - size.top, size.width, size.height());
     }
 
     if (border != null) {
-      port.graphics().setColor(border);
-      port.graphics().drawRect(x, y - size.top, size.width, size.height());
-      port.graphics().drawLine(x, y, x + size.width, y);
+      g.setColor(border);
+      g.drawRect(x, y - size.top, size.width, size.height());
+      g.drawLine(x, y, x + size.width, y);
     }
+
+    g.dispose();
   }
 
   @Override

@@ -1,5 +1,7 @@
 package pompei.maths.syms2.model.display;
 
+import org.testng.annotations.Test;
+
 import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -8,11 +10,8 @@ import java.io.File;
 
 
 public class DisplayRectTest {
-  public static void main(String[] args) throws Exception {
-    new DisplayRectTest().execute();
-  }
-
-  private void execute() throws Exception {
+  @Test
+  public void display() throws Exception  {
     DisplayExpr rect = new DisplayRect(new Size(50, 50, 100),
         new Color(255, 0, 0),
         new Color(181, 200, 46)
