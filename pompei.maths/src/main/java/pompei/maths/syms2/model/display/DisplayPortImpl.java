@@ -30,12 +30,6 @@ public class DisplayPortImpl implements DisplayPort {
 
   @Override
   public float getFontSize(int level) {
-    float ret = getFontInner(level);
-    System.out.println(ret + " = getFontSize(" + level + ") : levelOffset = " + levelOffset);
-    return ret;
-  }
-
-  private float getFontInner(int level) {
     int realLevel = level + levelOffset;
 
     if (realLevel >= 0) {

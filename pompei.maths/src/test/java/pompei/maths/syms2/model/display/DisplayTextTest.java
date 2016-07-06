@@ -19,6 +19,11 @@ public class DisplayTextTest {
         new Object[]{"asd", false, false, 1},
         new Object[]{"asd", false, false, 2},
 
+        new Object[]{"Style", false, false, 0},
+        new Object[]{"Style", true, false, 0},
+        new Object[]{"Style", true, true, 0},
+        new Object[]{"Style", false, true, 0},
+
     };
   }
 
@@ -42,5 +47,4 @@ public class DisplayTextTest {
         + (bold ? "_bold" : "") + (italic ? "_italic" : "") + '_' + levelOffset
     );
   }
-
 }
