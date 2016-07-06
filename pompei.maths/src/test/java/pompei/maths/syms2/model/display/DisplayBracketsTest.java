@@ -3,10 +3,10 @@ package pompei.maths.syms2.model.display;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.File;
+
+import static pompei.maths.syms2.model.display.TestDisplayUtil.displayToFile;
 
 public class DisplayBracketsTest {
 
@@ -30,32 +30,19 @@ public class DisplayBracketsTest {
 
     DisplayBrackets displayBrackets = new DisplayBrackets(in, bracketsType, new Color(0, 0, 0));
 
-    DisplayPort port = new DisplayPort();
+    DisplayPortImpl port = new DisplayPortImpl();
     displayBrackets.setPort(port);
 
     {
       BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 
-      port.graphics = image.createGraphics();
+      port.setGraphics(image.createGraphics());
 
       displayBrackets.size();
 
-      port.graphics.dispose();
+      port.graphics().dispose();
     }
 
-    {
-      Size size = displayBrackets.size();
-      BufferedImage image = new BufferedImage(size.width + 20, size.height() + 20, BufferedImage.TYPE_INT_ARGB);
-
-      port.graphics = image.createGraphics();
-
-      displayBrackets.displayTo(10, 10 + size.top);
-
-      port.graphics.dispose();
-
-      new File("build").mkdirs();
-      ImageIO.write(image, "png", new File("build/" + getClass().getSimpleName() + '_' + bracketsType + ".png"));
-      System.out.println("OK");
-    }
+    displayToFile(displayBrackets, port, getClass().getSimpleName() + '_' + bracketsType);
   }
 }

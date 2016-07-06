@@ -29,6 +29,7 @@ public class DisplayBrackets implements DisplayExpr {
   @Override
   public void reset() {
     size = null;
+    in.reset();
   }
 
   private int top, bottom, leftWidth, leftSpace, centerWidth, rightSpace, rightWidth;
