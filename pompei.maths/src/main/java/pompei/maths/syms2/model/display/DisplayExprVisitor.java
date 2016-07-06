@@ -48,7 +48,7 @@ public class DisplayExprVisitor implements ExprVisitor<DisplayExpr> {
       level++;
       DisplayExpr right = exprOper2.right.visit(this);
       level--;
-      return new DisplayLeaning(left, right, true, 0.9);
+      return new DisplayLeaning(left, right, true, 0.9, 0.05);
     }
 
     {

@@ -23,6 +23,5 @@ public class TestDisplayUtil {
     new File("build").mkdirs();
 
     ImageIO.write(image, "png", new File("build/" + fileName + ".png"));
-    System.out.println("OK");
   }
 }
