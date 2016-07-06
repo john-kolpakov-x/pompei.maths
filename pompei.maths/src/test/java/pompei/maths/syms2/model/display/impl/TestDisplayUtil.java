@@ -11,17 +11,27 @@ import java.io.IOException;
 
 public class TestDisplayUtil {
   public static void displayToFile(DisplayExpr displayExpr, DisplayPortImpl port, String fileName) throws IOException {
-    Size size = displayExpr.size();
-    BufferedImage image = new BufferedImage(size.width + 20, size.height() + 20, BufferedImage.TYPE_INT_ARGB);
 
-    port.setGraphics(image.createGraphics());
+    {
+      BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+      port.setGraphics(image.createGraphics());
+      displayExpr.size();
+      port.graphics().dispose();
+    }
 
-    displayExpr.displayTo(10, 10 + size.top);
+    {
+      Size size = displayExpr.size();
+      BufferedImage image = new BufferedImage(size.width + 20, size.height() + 20, BufferedImage.TYPE_INT_ARGB);
 
-    port.graphics().dispose();
+      port.setGraphics(image.createGraphics());
 
-    new File("build").mkdirs();
+      displayExpr.displayTo(10, 10 + size.top);
 
-    ImageIO.write(image, "png", new File("build/" + fileName + ".png"));
+      port.graphics().dispose();
+
+      new File("build").mkdirs();
+
+      ImageIO.write(image, "png", new File("build/" + fileName + ".png"));
+    }
   }
 }

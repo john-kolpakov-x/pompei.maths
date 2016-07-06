@@ -7,6 +7,8 @@ import pompei.maths.syms2.model.display.DisplayPortImpl;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import static pompei.maths.syms2.model.display.impl.TestDisplayUtil.displayToFile;
+
 public class DisplayTextTest {
   @DataProvider
   public Object[][] dataProvider() {
@@ -42,7 +44,7 @@ public class DisplayTextTest {
       port.graphics().dispose();
     }
 
-    TestDisplayUtil.displayToFile(expr, port, getClass().getSimpleName() + '_' + text
+    displayToFile(expr, port, getClass().getSimpleName() + '_' + text
         + (bold ? "_bold" : "") + (italic ? "_italic" : "") + '_' + levelOffset
     );
   }

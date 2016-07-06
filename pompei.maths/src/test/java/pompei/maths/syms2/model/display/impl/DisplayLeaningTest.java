@@ -9,6 +9,8 @@ import pompei.maths.syms2.model.display.Size;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import static pompei.maths.syms2.model.display.impl.TestDisplayUtil.displayToFile;
+
 public class DisplayLeaningTest {
 
   enum Side {
@@ -52,15 +54,6 @@ public class DisplayLeaningTest {
     port.levelOffset = 0;
     expr.setPort(port);
 
-    {
-      BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-      port.setGraphics(image.createGraphics());
-      expr.size();
-      port.graphics().dispose();
-    }
-
-    TestDisplayUtil.displayToFile(expr, port, getClass().getSimpleName()
-        + '_' + side.name() + '_' + upFactor + '_' + spaceFactor
-    );
+    displayToFile(expr, port, getClass().getSimpleName() + '_' + side.name() + '_' + upFactor + '_' + spaceFactor);
   }
 }

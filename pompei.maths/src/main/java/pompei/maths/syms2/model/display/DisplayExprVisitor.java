@@ -63,7 +63,7 @@ public class DisplayExprVisitor implements ExprVisitor<DisplayExpr> {
           return getDisplayTextOper(left, "⋅", right);
         case Div:
           //noinspection SuspiciousNameCombination
-          return new DisplayDiv(level, left, right);
+          return new DisplayDiv(level, left, right, 0.04f, new Color(0, 0, 0));
       }
       throw new IllegalArgumentException("Cannot display oper2 " + exprOper2.oper2);
     }
