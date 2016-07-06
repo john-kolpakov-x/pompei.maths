@@ -1,6 +1,10 @@
-package pompei.maths.syms2.model.display;
+package pompei.maths.syms2.model.display.impl;
 
 import org.testng.annotations.Test;
+import pompei.maths.syms2.model.display.DisplayExpr;
+import pompei.maths.syms2.model.display.DisplayPortImpl;
+import pompei.maths.syms2.model.display.Size;
+import pompei.maths.syms2.model.display.impl.DisplayRect;
 
 import javax.imageio.ImageIO;
 import java.awt.Color;

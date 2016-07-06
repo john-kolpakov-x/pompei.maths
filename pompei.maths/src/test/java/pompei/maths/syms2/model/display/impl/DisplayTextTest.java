@@ -1,12 +1,11 @@
-package pompei.maths.syms2.model.display;
+package pompei.maths.syms2.model.display.impl;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import pompei.maths.syms2.model.display.DisplayPortImpl;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-
-import static pompei.maths.syms2.model.display.TestDisplayUtil.displayToFile;
 
 public class DisplayTextTest {
   @DataProvider
@@ -43,7 +42,7 @@ public class DisplayTextTest {
       port.graphics().dispose();
     }
 
-    displayToFile(expr, port, getClass().getSimpleName() + '_' + text
+    TestDisplayUtil.displayToFile(expr, port, getClass().getSimpleName() + '_' + text
         + (bold ? "_bold" : "") + (italic ? "_italic" : "") + '_' + levelOffset
     );
   }

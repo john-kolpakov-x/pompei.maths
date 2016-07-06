@@ -1,12 +1,16 @@
 package pompei.maths.syms2.model.display;
 
+import pompei.maths.syms2.model.display.impl.DisplayBrackets;
+import pompei.maths.syms2.model.display.impl.DisplayDiv;
+import pompei.maths.syms2.model.display.impl.DisplayLeaning;
+import pompei.maths.syms2.model.display.impl.DisplayText;
 import pompei.maths.syms2.model.universe.*;
 
 import java.awt.Color;
 import java.util.LinkedList;
 
 import static pompei.maths.syms2.model.display.BracketsType.SQUARE;
-import static pompei.maths.syms2.model.display.DisplayLeaning.displayOrder;
+import static pompei.maths.syms2.model.display.impl.DisplayLeaning.displayOrder;
 
 public class DisplayExprVisitor implements ExprVisitor<DisplayExpr> {
 

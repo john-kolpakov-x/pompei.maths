@@ -1,4 +1,8 @@
-package pompei.maths.syms2.model.display;
+package pompei.maths.syms2.model.display.impl;
+
+import pompei.maths.syms2.model.display.DisplayExpr;
+import pompei.maths.syms2.model.display.DisplayPortImpl;
+import pompei.maths.syms2.model.display.Size;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

@@ -1,4 +1,9 @@
-package pompei.maths.syms2.model.display;
+package pompei.maths.syms2.model.display.impl;
+
+import pompei.maths.syms2.model.display.BracketsType;
+import pompei.maths.syms2.model.display.DisplayExpr;
+import pompei.maths.syms2.model.display.DisplayPort;
+import pompei.maths.syms2.model.display.Size;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

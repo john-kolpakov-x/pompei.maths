@@ -1,5 +1,8 @@
-package pompei.maths.syms2.model.display;
+package pompei.maths.syms2.model.display.impl;
 
+import pompei.maths.syms2.model.display.DisplayExpr;
+import pompei.maths.syms2.model.display.DisplayPort;
+import pompei.maths.syms2.model.display.Size;
 import pompei.maths.utils.WhileNotWorks;
 
 import java.awt.Color;
@@ -45,13 +48,9 @@ public class DisplayText implements DisplayExpr {
   @Override
   public void displayTo(int x, int y) {
     size();
-
     Graphics2D g = (Graphics2D) port.graphics().create();
-
     prepare(g);
-
     g.drawString(text, x, y);
-
     g.dispose();
   }
 
