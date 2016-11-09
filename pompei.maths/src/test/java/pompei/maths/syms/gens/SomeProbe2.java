@@ -13,7 +13,7 @@ import pompei.maths.syms.visitors.math.Dividing;
 import pompei.maths.syms.visitors.math.EvalConsts;
 import pompei.maths.syms.visitors.math.KillMulPlus;
 import pompei.maths.syms.visitors.math.Minising;
-import pompei.maths.syms.visitors.math.podobnye.Podobnye;
+import pompei.maths.syms.visitors.math.podobnye.Similar;
 
 public class SomeProbe2 {
   public static void main(String[] args) throws Exception {
@@ -34,7 +34,7 @@ public class SomeProbe2 {
     ProbeUtil.paint(image, x, y += st, Skobing.add(out));
     out = out.visit(new KillMulPlus());
     ProbeUtil.paint(image, x, y += st, Skobing.add(out));
-    out = out.visit(new Podobnye(true));
+    out = out.visit(new Similar(true));
     out = out.visit(new EvalConsts());
     ProbeUtil.paint(image, x, y += st, Skobing.add(out));
     

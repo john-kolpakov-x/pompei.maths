@@ -58,9 +58,9 @@ public class PaintVisitor implements FormVisitor<Painter> {
     int dx = expSize.width;
     int dy = expSize.heightTop - downStep;
     
-    Painter powOffseted = OffsetPainter.offset(pow, dx, dy);
+    Painter powOffset = OffsetPainter.offset(pow, dx, dy);
     
-    return UnionPainter.union(exp, powOffseted);
+    return UnionPainter.union(exp, powOffset);
   }
   
   @Override

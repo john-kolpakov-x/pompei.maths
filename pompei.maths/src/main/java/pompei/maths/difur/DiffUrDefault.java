@@ -12,8 +12,8 @@ public class DiffUrDefault implements DiffUr {
   }
   
   @Override
-  public int poryadok() {
-    return stepper.poryadok();
+  public int level() {
+    return stepper.level();
   }
   
   @Override

@@ -3,7 +3,7 @@ package pompei.maths.difur.many_masses;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class Point extends Uzel {
+public class Point extends Node {
   
   public double x, y;
   

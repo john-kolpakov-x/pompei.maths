@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import static pompei.maths.syms2.model.display.BracketsType.SQUARE;
 import static pompei.maths.syms2.model.display.impl.DisplayLeaning.displayOrder;
 
+@SuppressWarnings("unused")
 public class DisplayExprVisitor implements ExprVisitor<DisplayExpr> {
 
   /**

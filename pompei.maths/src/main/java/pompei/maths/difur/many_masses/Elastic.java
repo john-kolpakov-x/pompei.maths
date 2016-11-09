@@ -3,10 +3,10 @@ package pompei.maths.difur.many_masses;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class Rezinka extends Svjaz {
+public class Elastic extends Connection {
   public double K;
   
-  public Rezinka(String id, Uzel from, Uzel to) {
+  public Elastic(String id, Node from, Node to) {
     super(id, from, to);
   }
   
@@ -15,12 +15,12 @@ public class Rezinka extends Svjaz {
     return "Rezinka " + id + " K " + K + " from " + from.id + " to " + to.id;
   }
   
-  public static Rezinka parse(String[] split, UzelSource uzelSource) {
+  public static Elastic parse(String[] split, NodeSource nodeSource) {
     if (!"Rezinka".equals(split[0])) return null;
     String id = split[1];
-    Uzel from = uzelSource.getUzelById(split[5]);
-    Uzel to = uzelSource.getUzelById(split[7]);
-    Rezinka ret = new Rezinka(id, from, to);
+    Node from = nodeSource.getNodeById(split[5]);
+    Node to = nodeSource.getNodeById(split[7]);
+    Elastic ret = new Elastic(id, from, to);
     ret.K = Double.parseDouble(split[3]);
     return ret;
   }

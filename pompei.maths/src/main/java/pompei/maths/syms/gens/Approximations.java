@@ -4,30 +4,30 @@ import pompei.maths.syms.top.Expr;
 import pompei.maths.syms.visitable.ex;
 
 public class Approximations {
-  public static Expr lagranj(String fvar, String xvar, int count) {
+  public static Expr laGrange(String fVar, String xVar, int count) {
     Expr ret = null;
-    
+
     for (int i = 1; i <= count; i++) {
-      Expr part = ex.mul(ex.var(fvar + i), basePolinom(xvar, i, count));
+      Expr part = ex.mul(ex.var(fVar + i), basePolynomial(xVar, i, count));
       if (ret == null) {
         ret = part;
       } else {
         ret = ex.plus(ret, part);
       }
     }
-    
+
     return ret;
   }
-  
-  private static Expr basePolinom(String xvar, int i, int count) {
+
+  private static Expr basePolynomial(String xVar, int i, int count) {
     Expr top = null;
     Expr bottom = null;
-    
+
     for (int j = 1; j <= count; j++) {
       if (i == j) continue;
-      Expr topPart = ex.minus(ex.var(xvar), ex.var(xvar + j));
-      Expr bottomPart = ex.minus(ex.var(xvar + i), ex.var(xvar + j));
-      
+      Expr topPart = ex.minus(ex.var(xVar), ex.var(xVar + j));
+      Expr bottomPart = ex.minus(ex.var(xVar + i), ex.var(xVar + j));
+
       if (top == null) {
         top = topPart;
         bottom = bottomPart;
@@ -36,7 +36,7 @@ public class Approximations {
         bottom = ex.mul(bottom, bottomPart);
       }
     }
-    
+
     return ex.div(top, bottom);
   }
 }

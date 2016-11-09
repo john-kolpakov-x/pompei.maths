@@ -4,11 +4,11 @@ import java.awt.Graphics2D;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class Uzel {
+public abstract class Node {
   public final String id;
-  final Set<Svjaz> fromSet = new HashSet<>(), toSet = new HashSet<>();
+  final Set<Connection> fromSet = new HashSet<>(), toSet = new HashSet<>();
   
-  public Uzel(String id) {
+  public Node(String id) {
     this.id = id;
   }
   
@@ -25,7 +25,7 @@ public abstract class Uzel {
     if (this == obj) return true;
     if (obj == null) return false;
     if (getClass() != obj.getClass()) return false;
-    Uzel other = (Uzel)obj;
+    Node other = (Node)obj;
     if (id == null) {
       if (other.id != null) return false;
     } else if (!id.equals(other.id)) return false;
@@ -43,10 +43,10 @@ public abstract class Uzel {
   public Vec2d getForse() {
     Vec2d ret = new Vec2d(0, 0);
     
-    for (Svjaz s : toSet) {
+    for (Connection s : toSet) {
       ret = ret.plus(s.getToForse());
     }
-    for (Svjaz s : fromSet) {
+    for (Connection s : fromSet) {
       ret = ret.minus(s.getFromForse());
     }
     

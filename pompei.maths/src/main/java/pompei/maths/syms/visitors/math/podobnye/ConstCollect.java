@@ -10,7 +10,7 @@ import pompei.maths.syms.visitable.Minis;
 import pompei.maths.syms.visitable.Mul;
 
 public class ConstCollect {
-  final List<Expr> list = new ArrayList<Expr>();
+  final List<Expr> list = new ArrayList<>();
   boolean minis = false;
   
   void addConst(Expr expr, int pow) {

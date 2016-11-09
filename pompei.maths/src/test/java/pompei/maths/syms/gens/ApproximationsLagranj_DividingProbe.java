@@ -17,7 +17,7 @@ public class ApproximationsLagranj_DividingProbe {
     int width = 1800, height = 600;
     
     BufferedImage image = ProbeUtil.createImage(width, height);
-    Expr in = Approximations.lagranj("x", "t", 3);
+    Expr in = Approximations.laGrange("x", "t", 3);
     
     ProbeUtil.paint(image, 20, 150, Skobing.add(in));
     

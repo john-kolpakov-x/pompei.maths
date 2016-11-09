@@ -13,7 +13,7 @@ import pompei.maths.syms.visitors.Skobing;
 import pompei.maths.syms.visitors.math.EvalConsts;
 import pompei.maths.syms.visitors.math.KillMulPlus;
 import pompei.maths.syms.visitors.math.Minising;
-import pompei.maths.syms.visitors.math.podobnye.Podobnye;
+import pompei.maths.syms.visitors.math.podobnye.Similar;
 
 public class ApproximationsLagranjProbe {
   public static void main(String[] args) throws Exception {
@@ -24,7 +24,7 @@ public class ApproximationsLagranjProbe {
     
     int NUM = 10;
     
-    Expr in = Approximations.lagranj("x", "t", NUM);
+    Expr in = Approximations.laGrange("x", "t", NUM);
     
     int x = 20, y = 0, st = 75;
     
@@ -52,7 +52,7 @@ public class ApproximationsLagranjProbe {
     ProbeUtil.paint(image, x, y += st, Skobing.add(out));
     System.out.println("2");
     
-    out = out.visit(new Podobnye(true));
+    out = out.visit(new Similar(true));
     ProbeUtil.paint(image, x, y += st, Skobing.add(out));
     System.out.println("3");
     

@@ -3,14 +3,14 @@ package pompei.maths.syms.visitors;
 import pompei.maths.syms.top.Expr;
 import pompei.maths.syms.visitable.Skob;
 
-public class Unskobing extends Scanner {
+public class UnSkobing extends Scanner {
   
-  public Unskobing() {}
+  public UnSkobing() {}
   
   public int removedSkobs = 0;
   
   public static Expr remove(Expr expr) {
-    return expr.visit(new Unskobing());
+    return expr.visit(new UnSkobing());
   }
   
   @Override

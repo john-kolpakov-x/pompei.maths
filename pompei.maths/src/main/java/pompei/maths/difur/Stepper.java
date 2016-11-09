@@ -7,6 +7,6 @@ public interface Stepper {
   
   void step(F f, double t, double h, int N);
   
-  int poryadok();
+  int level();
   
 }

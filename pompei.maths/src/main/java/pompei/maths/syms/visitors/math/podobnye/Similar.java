@@ -6,11 +6,11 @@ import pompei.maths.syms.visitable.Mul;
 import pompei.maths.syms.visitable.Plus;
 import pompei.maths.syms.visitors.Scanner;
 
-public class Podobnye extends Scanner {
+public class Similar extends Scanner {
   
   public final boolean withDiv;
   
-  public Podobnye(boolean withDiv) {
+  public Similar(boolean withDiv) {
     this.withDiv = withDiv;
   }
   

@@ -3,7 +3,7 @@ package pompei.maths.difur.many_masses;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class Shar extends Uzel {
+public class Ball extends Node {
   public double R, m;
   public double x, y, vx, vy;
   
@@ -17,7 +17,7 @@ public class Shar extends Uzel {
     return (int)y;
   }
   
-  public Shar(String id) {
+  public Ball(String id) {
     super(id);
   }
   
@@ -26,9 +26,9 @@ public class Shar extends Uzel {
     return "Shar " + id + " Rm " + R + ' ' + m + " xy " + x + ' ' + y + " vxy " + vx + ' ' + vy;
   }
   
-  public static Shar parse(String split[]) {
+  public static Ball parse(String split[]) {
     if (!"Shar".equals(split[0])) return null;
-    Shar ret = new Shar(split[1]);
+    Ball ret = new Ball(split[1]);
     ret.R = Double.parseDouble(split[3]);
     ret.m = Double.parseDouble(split[4]);
     ret.x = Double.parseDouble(split[6]);

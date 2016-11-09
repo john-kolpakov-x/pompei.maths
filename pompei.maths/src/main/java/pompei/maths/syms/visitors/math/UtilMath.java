@@ -3,6 +3,7 @@ package pompei.maths.syms.visitors.math;
 import java.math.BigInteger;
 
 public class UtilMath {
+  @SuppressWarnings("unused")
   public static long gcd(long a, long b) {
     if (a > b) return gcdInner(a, b);
     return gcdInner(b, a);

@@ -7,7 +7,7 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
-public class CapcherToImgFiles {
+public class СatcherToImgFiles {
   private final static String ZZ = "000000000000000000000000000000000000000000000";
   private final static int I_LEN = 3;
   
@@ -18,7 +18,8 @@ public class CapcherToImgFiles {
     Robot ro = new Robot();
     
     Rectangle rec = new Rectangle(433, 205, 857, 483);
-    
+
+    //noinspection InfiniteLoopStatement
     for (int i = 0;; i++) {
       String I = "" + i;
       if (I.length() < I_LEN) I = ZZ.substring(0, I_LEN - I.length()) + i;

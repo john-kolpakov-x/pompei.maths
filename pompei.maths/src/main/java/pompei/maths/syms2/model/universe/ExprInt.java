@@ -1,7 +1,5 @@
 package pompei.maths.syms2.model.universe;
 
-import pompei.maths.syms2.model.universe.Expr;
-
 import java.math.BigInteger;
 
 public class ExprInt extends Expr {

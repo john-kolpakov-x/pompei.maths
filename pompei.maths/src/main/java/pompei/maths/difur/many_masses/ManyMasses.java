@@ -1,86 +1,79 @@
 package pompei.maths.difur.many_masses;
 
+import pompei.maths.difur.DiffUr;
+import pompei.maths.difur.ModelAdapter;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.util.ArrayList;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import pompei.maths.difur.DiffUr;
-import pompei.maths.difur.F;
-import pompei.maths.difur.ModelAdapter;
+import java.util.stream.Collectors;
 
 public class ManyMasses {
   public int width, height;
-  
-  public final Map<String, Uzel> uzelMap = new HashMap<>();
-  public final Map<String, Svjaz> svjazMap = new HashMap<>();
-  
-  private final UzelSource uzelSource = new UzelSource() {
-    @Override
-    public Uzel getUzelById(String id) {
-      if (!uzelMap.containsKey(id)) {
-        throw new IllegalArgumentException("No uzel with id = " + id);
-      }
-      return uzelMap.get(id);
+
+  public final Map<String, Node> nodeMap = new HashMap<>();
+  public final Map<String, Connection> connectionMap = new HashMap<>();
+
+  private final NodeSource nodeSource = id -> {
+    if (!nodeMap.containsKey(id)) {
+      throw new IllegalArgumentException("No node with id = " + id);
     }
+    return nodeMap.get(id);
   };
-  
+
+  @SuppressWarnings("unused")
   public void save(PrintStream out) {
     out.println("Size " + width + ' ' + height);
-    for (Uzel uzel : uzelMap.values()) {
-      out.println(uzel.asStr());
+    for (Node node : nodeMap.values()) {
+      out.println(node.asStr());
     }
-    for (Svjaz svjaz : svjazMap.values()) {
-      out.println(svjaz.asStr());
+    for (Connection connection : connectionMap.values()) {
+      out.println(connection.asStr());
     }
   }
-  
+
   public void load(String filename) throws IOException {
     load(new FileInputStream(filename));
   }
-  
+
+  @SuppressWarnings("unused")
   public void load(File file) throws IOException {
     load(new FileInputStream(file));
   }
-  
+
   public void load(InputStream inputStream) throws IOException {
     load(new BufferedReader(new InputStreamReader(inputStream, "UTF-8")));
   }
-  
+
   public void load(BufferedReader br) throws IOException {
-    uzelMap.clear();
-    svjazMap.clear();
+    nodeMap.clear();
+    connectionMap.clear();
     width = height = 0;
     readData(br);
     fillFromToSets();
   }
-  
+
   private void fillFromToSets() {
-    for (Svjaz s : svjazMap.values()) {
+    for (Connection s : connectionMap.values()) {
       s.from.fromSet.add(s);
       s.to.toSet.add(s);
     }
   }
-  
+
   private void readData(BufferedReader br) throws IOException {
-    WHILE: while (true) {
+    WHILE:
+    while (true) {
       final String line = br.readLine();
       if (line == null) {
         br.close();
         return;
       }
       if (line.trim().startsWith("#")) continue WHILE;
-      
+
       String[] split = line.split("\\s+");
       if ("Size".equals(split[0])) {
         width = Integer.parseInt(split[1]);
@@ -90,35 +83,35 @@ public class ManyMasses {
       {
         Point point = Point.parse(split);
         if (point != null) {
-          addUzel(point);
+          addNode(point);
           continue WHILE;
         }
       }
       {
-        Shar shar = Shar.parse(split);
-        if (shar != null) {
-          addUzel(shar);
+        Ball ball = Ball.parse(split);
+        if (ball != null) {
+          addNode(ball);
           continue WHILE;
         }
       }
       {
-        Rezinka rezinka = Rezinka.parse(split, uzelSource);
-        if (rezinka != null) {
-          addSvjaz(rezinka);
+        Elastic elastic = Elastic.parse(split, nodeSource);
+        if (elastic != null) {
+          addConnection(elastic);
           continue WHILE;
         }
       }
     }
   }
-  
-  private void addSvjaz(Svjaz svjaz) {
-    svjazMap.put(svjaz.id, svjaz);
+
+  private void addConnection(Connection connection) {
+    connectionMap.put(connection.id, connection);
   }
-  
-  private void addUzel(Uzel uzel) {
-    uzelMap.put(uzel.id, uzel);
+
+  private void addNode(Node node) {
+    nodeMap.put(node.id, node);
   }
-  
+
   public BufferedImage print() {
     BufferedImage ret = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
     Graphics2D g = ret.createGraphics();
@@ -127,52 +120,48 @@ public class ManyMasses {
       g.fillRect(0, 0, width, height);
       g.setColor(Color.BLACK);
       g.drawRect(0, 0, width - 1, height - 1);
-      
-      for (Svjaz svjaz : svjazMap.values()) {
-        svjaz.draw(g);
+
+      for (Connection connection : connectionMap.values()) {
+        connection.draw(g);
       }
-      
-      for (Uzel uzel : uzelMap.values()) {
-        uzel.draw(g);
+
+      for (Node node : nodeMap.values()) {
+        node.draw(g);
       }
-      
+
     } finally {
       g.dispose();
     }
     return ret;
   }
-  
+
+  @SuppressWarnings("unused")
   public ModelAdapter createNewAdapter() {
-    final List<Shar> ids = new ArrayList<>();
-    for (Uzel uzel : uzelMap.values()) {
-      if (uzel instanceof Shar) {
-        ids.add((Shar)uzel);
-      }
-    }
+    final List<Ball> ids = nodeMap.values().stream()
+        .filter(node -> node instanceof Ball)
+        .map(node -> (Ball) node)
+        .collect(Collectors.toList());
     return new ModelAdapter() {
       @SuppressWarnings("unused")
       DiffUr diffUr;
-      
+
       @Override
       public void writeToModel() {
         // TODO Auto-generated method stub
-        
+        throw new UnsupportedOperationException();
       }
-      
+
       @Override
       public void readFromModel() {
         // TODO Auto-generated method stub
-        
+        throw new UnsupportedOperationException();
       }
-      
+
       @Override
       public void prepare(DiffUr diffUrArg) {
         diffUr = diffUrArg;
-        diffUrArg.prepare(ids.size() * 4, new F() {
-          @Override
-          public void f(double[] res, double t, double[] x) {
-            
-          }
+        diffUrArg.prepare(ids.size() * 4, (res, t, x) -> {
+          throw new UnsupportedOperationException();
         });
       }
     };

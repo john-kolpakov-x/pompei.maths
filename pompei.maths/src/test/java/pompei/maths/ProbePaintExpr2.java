@@ -14,7 +14,7 @@ import pompei.maths.syms.visitable.Plus;
 import pompei.maths.syms.visitable.Var;
 import pompei.maths.syms.visitable.ex;
 import pompei.maths.syms.visitors.Skobing;
-import pompei.maths.syms.visitors.Unskobing;
+import pompei.maths.syms.visitors.UnSkobing;
 
 public class ProbePaintExpr2 {
   public static void main(String[] args) throws Exception {
@@ -27,7 +27,7 @@ public class ProbePaintExpr2 {
     ProbeUtil.paint(image, 100, 150, expr);
     Expr exprS = Skobing.add(expr);
     ProbeUtil.paint(image, 100, 300, exprS);
-    Expr expr2 = Unskobing.remove(exprS);
+    Expr expr2 = UnSkobing.remove(exprS);
     ProbeUtil.paint(image, 100, 450, expr2);
     
     ImageIO.write(image, "png", new File("build/probe-paint2.png"));

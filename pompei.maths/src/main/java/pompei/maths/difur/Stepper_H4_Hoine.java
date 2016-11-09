@@ -55,7 +55,7 @@ public class Stepper_H4_Hoine implements Stepper {
   }
   
   @Override
-  public int poryadok() {
+  public int level() {
     return 4;
   }
 }

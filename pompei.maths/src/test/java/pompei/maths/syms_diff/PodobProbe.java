@@ -10,7 +10,7 @@ import pompei.maths.syms_diff.visitable.frm;
 import pompei.maths.syms_diff.visitors.AddSkobVisitor;
 import pompei.maths.syms_diff.visitors.KillMinusSkobVisitor;
 import pompei.maths.syms_diff.visitors.paint.PaintUtil;
-import pompei.maths.syms_diff.visitors.podob.Podob;
+import pompei.maths.syms_diff.visitors.podob.Similar;
 
 public class PodobProbe {
   private static final AddSkobVisitor S = new AddSkobVisitor();
@@ -26,7 +26,7 @@ public class PodobProbe {
     
     Form a = frm.plus(a1, a2, a3, a4);
     
-    Podob res = Podob.extract(a);
+    Similar res = Similar.extract(a);
     
     PaintUtil.paintToFile("build/PodobProbe.png", a.visit(S), res.form().visit(S));
     
