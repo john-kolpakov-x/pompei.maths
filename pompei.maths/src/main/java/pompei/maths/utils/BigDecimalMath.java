@@ -23,13 +23,8 @@ public class BigDecimalMath {
     return expPositive(x);
   }
 
-  public static void main(String[] args) {
-    BigDecimal bd = BigDecimal.valueOf(234.3242);
-    System.out.println(bd.ulp());
-  }
-  
   private BigDecimal expPositive(BigDecimal x) {
-    
+
     return expPositiveSmall(x);
   }
 
@@ -45,13 +40,57 @@ public class BigDecimalMath {
 
       BigDecimal newResult = result.add(delta, mc);
 
-      if (newResult.subtract(result, mc).compareTo(BigDecimal.ZERO) == 0) return result;
+      BigDecimal subtracted = newResult.subtract(result, mc);
+      if (subtracted.compareTo(BigDecimal.ZERO) == 0) return result;
 
       result = newResult;
 
       i++;
       top = top.multiply(x, mc);
       bottom = bottom.multiply(BigInteger.valueOf(i));
+    }
+  }
+
+  public final BigDecimal pow(BigDecimal x, BigInteger n) {
+
+    int xZeroCompared = x.compareTo(BigDecimal.ZERO);
+    int nZeroCompared = n.compareTo(BigInteger.ZERO);
+
+    {
+      if (xZeroCompared == 0 && nZeroCompared == 0) throw new IllegalArgumentException("Unknown result of 0^0");
+      if (xZeroCompared == 0) return BigDecimal.ZERO;
+      if (nZeroCompared == 0) return BigDecimal.ONE;
+    }
+
+    if (n.compareTo(BigInteger.ONE) == 0) return x;
+
+    {
+      if (nZeroCompared > 0) return powPlus(x, n);
+
+      if (xZeroCompared < 0) throw new IllegalArgumentException("Unknown result of negative^negative");
+
+      return powMinus(x, n);
+    }
+  }
+
+  private BigDecimal powMinus(BigDecimal x, BigInteger n) {
+    return null;
+  }
+
+  private static final BigInteger POW_PLUS_LIMIT = BigInteger.valueOf(13);
+
+  private BigDecimal powPlus(BigDecimal x, BigInteger n) {
+    if (n.compareTo(POW_PLUS_LIMIT) < 0) {
+      BigDecimal result = x;
+      for (int i = 0, N = n.intValue() - 1; i < N; i++) {
+        result = result.multiply(x, mc);
+      }
+      return result;
+    }
+
+    {
+
+      return null;
     }
   }
 }
