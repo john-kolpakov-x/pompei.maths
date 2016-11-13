@@ -1,7 +1,7 @@
 package pompei.maths.difur;
 
 public interface DiffUr {
-  int poryadok();
+  int level();
   
   void prepare(int N, F f);
   

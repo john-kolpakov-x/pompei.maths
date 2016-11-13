@@ -13,7 +13,7 @@ public class KillMinusSkobVisitor extends Scanner {
     Form right = minus.right.visit(this);
     return new Plus(left, new Minis(right));
   }
-  
+
   @Override
   public Form visitSkob(Skob skob) {
     return skob.form.visit(this);

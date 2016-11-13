@@ -61,9 +61,9 @@ class CollectPlusArgs implements Visitor<Void> {
     return new Mul(constExpr, varMulExpr);
   }
   
-  private void addConst(VarMul varMul, Expr aconst) {
+  private void addConst(VarMul varMul, Expr aConst) {
     ConstCollect cc = new ConstCollect();
-    cc.addConst(aconst);
+    cc.addConst(aConst);
     addConstCollect(varMul, cc);
   }
   

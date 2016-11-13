@@ -17,7 +17,7 @@ import pompei.maths.syms.visitors.math.KillIntPower;
 import pompei.maths.syms.visitors.math.KillMulOne;
 import pompei.maths.syms.visitors.math.KillMulPlus;
 import pompei.maths.syms.visitors.math.Minising;
-import pompei.maths.syms.visitors.math.podobnye.Podobnye;
+import pompei.maths.syms.visitors.math.podobnye.Similar;
 
 public class StepeniProbe {
   public static void main(String[] args) throws Exception {
@@ -40,7 +40,7 @@ public class StepeniProbe {
     out = out.visit(new KillMulPlus());
     ProbeUtil.paint(image, x, y += st, Skobing.add(out));
     
-    out = out.visit(new Podobnye(true));
+    out = out.visit(new Similar(true));
     ProbeUtil.paint(image, x, y += st, Skobing.add(out));
     
     out = out.visit(new EvalConsts());

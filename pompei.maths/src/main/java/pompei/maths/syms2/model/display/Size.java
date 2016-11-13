@@ -16,6 +16,7 @@ public class Size {
     if (size != null) copyFrom(size);
   }
 
+  @SuppressWarnings("unused")
   public Size copy() {
     return new Size(this);
   }

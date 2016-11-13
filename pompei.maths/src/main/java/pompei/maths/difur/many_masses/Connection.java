@@ -4,11 +4,11 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import java.awt.Graphics2D;
 
-public abstract class Svjaz {
+public abstract class Connection {
   public final String id;
-  public final Uzel from, to;
+  public final Node from, to;
   
-  public Svjaz(String id, Uzel from, Uzel to) {
+  public Connection(String id, Node from, Node to) {
     this.id = id;
     assertThat(from).isNotNull();
     assertThat(to).isNotNull();

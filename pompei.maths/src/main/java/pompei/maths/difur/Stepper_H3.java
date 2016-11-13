@@ -45,7 +45,7 @@ public class Stepper_H3 implements Stepper {
   }
   
   @Override
-  public int poryadok() {
+  public int level() {
     return 3;
   }
 }

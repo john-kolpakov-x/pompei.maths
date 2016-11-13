@@ -3,13 +3,11 @@ package pompei.maths.syms2.model.display.impl;
 import pompei.maths.syms2.model.display.DisplayExpr;
 import pompei.maths.syms2.model.display.DisplayPort;
 import pompei.maths.syms2.model.display.Size;
-import pompei.maths.utils.WhileNotWorks;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
-import java.text.AttributedCharacterIterator;
 
 public class DisplayText implements DisplayExpr {
   public final int level;
@@ -44,7 +42,7 @@ public class DisplayText implements DisplayExpr {
         .deriveFont((bold ? Font.BOLD : 0) | (italic ? Font.ITALIC : 0))
     );
   }
-  
+
   @Override
   public void displayTo(int x, int y) {
     size();
@@ -67,9 +65,9 @@ public class DisplayText implements DisplayExpr {
     int top = fm.getAscent();
     int bottom = fm.getDescent();
     int width = fm.stringWidth(text);
-    
+
     g.dispose();
-    
-    return size = new Size(top,bottom,width);
+
+    return size = new Size(top, bottom, width);
   }
 }

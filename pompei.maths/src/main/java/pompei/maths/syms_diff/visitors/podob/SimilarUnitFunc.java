@@ -3,11 +3,11 @@ package pompei.maths.syms_diff.visitors.podob;
 import pompei.maths.syms_diff.model.Form;
 import pompei.maths.syms_diff.visitable.Func;
 
-public class PodoUnitFunc extends PodoUnit {
+public class SimilarUnitFunc extends SimilarUnit {
   public final String name;
   public final int n;
   
-  public PodoUnitFunc(String name, int n) {
+  public SimilarUnitFunc(String name, int n) {
     this.name = name;
     this.n = n;
   }
@@ -36,7 +36,7 @@ public class PodoUnitFunc extends PodoUnit {
     if (this == obj) return true;
     if (obj == null) return false;
     if (getClass() != obj.getClass()) return false;
-    PodoUnitFunc other = (PodoUnitFunc)obj;
+    SimilarUnitFunc other = (SimilarUnitFunc)obj;
     if (n != other.n) return false;
     if (name == null) {
       if (other.name != null) return false;
@@ -45,11 +45,11 @@ public class PodoUnitFunc extends PodoUnit {
   }
   
   @Override
-  public int compareTo(PodoUnit o) {
+  public int compareTo(SimilarUnit o) {
     if (equals(o)) return 0;
-    if (o instanceof PodoUnitVar) return 1;
-    if (o instanceof PodoUnitFunc) {
-      PodoUnitFunc func = (PodoUnitFunc)o;
+    if (o instanceof SimilarUnitVar) return 1;
+    if (o instanceof SimilarUnitFunc) {
+      SimilarUnitFunc func = (SimilarUnitFunc)o;
       int cmp = name.compareTo(func.name);
       if (cmp != 0) return cmp;
       return n - func.n;

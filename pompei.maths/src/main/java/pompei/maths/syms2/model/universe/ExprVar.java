@@ -1,7 +1,5 @@
 package pompei.maths.syms2.model.universe;
 
-import pompei.maths.syms2.model.universe.Expr;
-
 public class ExprVar extends Expr {
   public final String name;
 

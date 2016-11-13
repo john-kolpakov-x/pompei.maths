@@ -27,8 +27,8 @@ public class Scanner implements Visitor<Expr> {
     return visitConst(constInt);
   }
   
-  protected Expr visitConst(Const aconst) {
-    return aconst;
+  protected Expr visitConst(Const aConst) {
+    return aConst;
   }
   
   @Override

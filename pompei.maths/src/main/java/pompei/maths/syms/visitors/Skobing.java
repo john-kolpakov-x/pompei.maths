@@ -3,24 +3,19 @@ package pompei.maths.syms.visitors;
 import pompei.maths.syms.top.Const;
 import pompei.maths.syms.top.Expr;
 import pompei.maths.syms.top.SimpleExpr;
-import pompei.maths.syms.visitable.IntPower;
-import pompei.maths.syms.visitable.Minis;
-import pompei.maths.syms.visitable.Minus;
-import pompei.maths.syms.visitable.Mul;
-import pompei.maths.syms.visitable.Plus;
-import pompei.maths.syms.visitable.Skob;
-import pompei.maths.syms.visitable.Var;
+import pompei.maths.syms.visitable.*;
 
 public class Skobing extends Scanner {
-  
-  public Skobing() {}
-  
+
+  public Skobing() {
+  }
+
   public int addedSkobs = 0;
-  
+
   public static Expr add(Expr expr) {
     return expr.visit(new Skobing());
   }
-  
+
   @Override
   public Expr visitMul(Mul mul) {
     Expr left = onMulArg(mul.left.visit(this));
@@ -28,18 +23,18 @@ public class Skobing extends Scanner {
     if (left == mul.left && right == mul.right) return mul;
     return new Mul(left, right);
   }
-  
+
   private Expr onMulArg(Expr arg) {
     if (arg instanceof Plus) return s(arg);
     if (arg instanceof Minus) return s(arg);
     return arg;
   }
-  
+
   private Expr s(Expr target) {
     addedSkobs++;
     return new Skob(target);
   }
-  
+
   @Override
   public Expr visitIntPower(IntPower intPower) {
     Expr exp = intPower.exp.visit(this);
@@ -49,14 +44,14 @@ public class Skobing extends Scanner {
     }
     return new IntPower(s(exp), intPower.pow);
   }
-  
+
   @Override
   public Expr visitSkob(Skob skob) {
     Expr target = skob.target.visit(this);
     if (target == skob.target) return skob;
     return new Skob(target);
   }
-  
+
   @Override
   public Expr visitMinis(Minis minis) {
     Expr target = minis.target.visit(this);
@@ -66,7 +61,7 @@ public class Skobing extends Scanner {
     if (target == minis.target) return minis;
     return new Minis(target);
   }
-  
+
   @Override
   public Expr visitMinus(Minus minus) {
     if (minus.right instanceof Minus) {
@@ -74,5 +69,5 @@ public class Skobing extends Scanner {
     }
     return super.visitMinus(minus);
   }
-  
+
 }

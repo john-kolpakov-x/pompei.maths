@@ -17,42 +17,42 @@ import pompei.maths.syms_diff.visitable.Mul;
 import pompei.maths.syms_diff.visitable.Power;
 import pompei.maths.syms_diff.visitable.Var;
 
-public class PodoPart {
+public class SimilarPart {
   public final Const c;
   
-  private final Map<PodoUnit, Integer> map;
+  private final Map<SimilarUnit, Integer> map;
   
-  public PodoPart(Var var, int pow) {
+  public SimilarPart(Var var, int pow) {
     if (pow == 0) throw new IllegalArgumentException("pow = 0");
     
     c = ConstInt.ONE;
     
-    HashMap<PodoUnit, Integer> tmp = new HashMap<>();
-    tmp.put(new PodoUnitVar(var.name), pow);
+    HashMap<SimilarUnit, Integer> tmp = new HashMap<>();
+    tmp.put(new SimilarUnitVar(var.name), pow);
     map = unmodifiableMap(tmp);
   }
   
-  public PodoPart(Func func, int pow) {
+  public SimilarPart(Func func, int pow) {
     if (pow == 0) throw new IllegalArgumentException("pow = 0");
     c = ConstInt.ONE;
-    HashMap<PodoUnit, Integer> tmp = new HashMap<>();
-    tmp.put(new PodoUnitFunc(func.name, func.n), pow);
+    HashMap<SimilarUnit, Integer> tmp = new HashMap<>();
+    tmp.put(new SimilarUnitFunc(func.name, func.n), pow);
     map = unmodifiableMap(tmp);
   }
   
   @SuppressWarnings("unchecked")
-  public PodoPart(Const c) {
+  public SimilarPart(Const c) {
     this.c = c;
     map = Collections.EMPTY_MAP;
   }
   
-  private PodoPart(Map<PodoUnit, Integer> map, Const c) {
+  private SimilarPart(Map<SimilarUnit, Integer> map, Const c) {
     this.map = map;
     this.c = c;
   }
   
-  private ArrayList<PodoUnit> sortedUnits() {
-    ArrayList<PodoUnit> units = new ArrayList<>();
+  private ArrayList<SimilarUnit> sortedUnits() {
+    ArrayList<SimilarUnit> units = new ArrayList<>();
     units.addAll(map.keySet());
     Collections.sort(units);
     return units;
@@ -63,7 +63,7 @@ public class PodoPart {
     StringBuilder sb = new StringBuilder();
     sb.append(c.asStr());
     
-    for (PodoUnit unit : sortedUnits()) {
+    for (SimilarUnit unit : sortedUnits()) {
       sb.append(unit).append(map.get(unit));
     }
     return sb.toString();
@@ -79,22 +79,22 @@ public class PodoPart {
     if (this == obj) return true;
     if (obj == null) return false;
     if (getClass() != obj.getClass()) return false;
-    return map.equals(((PodoPart)obj).map);
+    return map.equals(((SimilarPart)obj).map);
   }
   
-  public PodoPart minis() {
-    return new PodoPart(map, c.minis());
+  public SimilarPart minis() {
+    return new SimilarPart(map, c.minis());
   }
   
-  public PodoPart mul(PodoPart a) {
+  public SimilarPart mul(SimilarPart a) {
     Const mul = ConstOp.mul(c, a.c);
-    if (mul.sign() == 0) return new PodoPart(mul);
+    if (mul.sign() == 0) return new SimilarPart(mul);
     
-    Map<PodoUnit, Integer> all = new HashMap<>();
+    Map<SimilarUnit, Integer> all = new HashMap<>();
     all.putAll(map);
     
-    for (Entry<PodoUnit, Integer> e : a.map.entrySet()) {
-      PodoUnit unit = e.getKey();
+    for (Entry<SimilarUnit, Integer> e : a.map.entrySet()) {
+      SimilarUnit unit = e.getKey();
       int pow = e.getValue();
       
       {
@@ -109,12 +109,12 @@ public class PodoPart {
       }
     }
     
-    return new PodoPart(all, mul);
+    return new SimilarPart(all, mul);
   }
   
   public Form form(Const value) {
     Form ret = value.isOne() ? null : value;
-    for (PodoUnit unit : sortedUnits()) {
+    for (SimilarUnit unit : sortedUnits()) {
       if (ret == null) {
         ret = formUnit(unit);
       } else {
@@ -124,7 +124,7 @@ public class PodoPart {
     return ret;
   }
   
-  private Form formUnit(PodoUnit unit) {
+  private Form formUnit(SimilarUnit unit) {
     int pow = map.get(unit);
     if (pow == 1) return unit.form();
     return new Power(pow, unit.form());
