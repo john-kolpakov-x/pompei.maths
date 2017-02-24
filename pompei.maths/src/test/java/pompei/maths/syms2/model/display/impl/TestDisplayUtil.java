@@ -1,13 +1,12 @@
 package pompei.maths.syms2.model.display.impl;
 
-import pompei.maths.syms2.model.display.DisplayExpr;
-import pompei.maths.syms2.model.display.DisplayPortImpl;
-import pompei.maths.syms2.model.display.Size;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
+import pompei.maths.syms2.model.display.DisplayExpr;
+import pompei.maths.syms2.model.display.DisplayPortImpl;
+import pompei.maths.syms2.model.display.Size;
 
 public class TestDisplayUtil {
   public static void displayToFile(DisplayExpr displayExpr, DisplayPortImpl port, String fileName) throws IOException {

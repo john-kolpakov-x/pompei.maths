@@ -1,7 +1,5 @@
-package pompei.maths.syms_diff;
+package pompei.maths.syms2.diff;
 
-import static pompei.maths.syms_diff.R.D;
-import static pompei.maths.syms_diff.R.S;
 import static pompei.maths.syms_diff.visitable.frm.f;
 import static pompei.maths.syms_diff.visitable.frm.p;
 
@@ -19,9 +17,9 @@ public class KillDivVisitorProbe {
     
     KillDivVisitor killDiv = new KillDivVisitor();
     
-    Form to = from.visit(D).visit(killDiv);
+    Form to = from.visit(R.D).visit(killDiv);
     
-    PaintUtil.paintToFile("build/KillDivVisitorProbe.png", from.visit(S), to.visit(S));
+    PaintUtil.paintToFile("build/KillDivVisitorProbe.png", from.visit(R.S), to.visit(R.S));
     
     System.out.println("Complete");
   }

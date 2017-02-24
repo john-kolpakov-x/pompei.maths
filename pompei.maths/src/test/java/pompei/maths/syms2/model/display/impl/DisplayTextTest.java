@@ -1,11 +1,11 @@
 package pompei.maths.syms2.model.display.impl;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pompei.maths.syms2.model.display.DisplayPortImpl;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
 
 import static pompei.maths.syms2.model.display.impl.TestDisplayUtil.displayToFile;
 
@@ -14,16 +14,16 @@ public class DisplayTextTest {
   public Object[][] dataProvider() {
     return new Object[][]{
 
-        new Object[]{"asd", false, false, -2},
-        new Object[]{"asd", false, false, -1},
-        new Object[]{"asd", false, false, 0},
-        new Object[]{"asd", false, false, 1},
-        new Object[]{"asd", false, false, 2},
+      new Object[]{"asd", false, false, -2},
+      new Object[]{"asd", false, false, -1},
+      new Object[]{"asd", false, false, 0},
+      new Object[]{"asd", false, false, 1},
+      new Object[]{"asd", false, false, 2},
 
-        new Object[]{"Style", false, false, 0},
-        new Object[]{"Style", true, false, 0},
-        new Object[]{"Style", true, true, 0},
-        new Object[]{"Style", false, true, 0},
+      new Object[]{"Style", false, false, 0},
+      new Object[]{"Style", true, false, 0},
+      new Object[]{"Style", true, true, 0},
+      new Object[]{"Style", false, true, 0},
 
     };
   }
@@ -45,7 +45,7 @@ public class DisplayTextTest {
     }
 
     displayToFile(expr, port, getClass().getSimpleName() + '_' + text
-        + (bold ? "_bold" : "") + (italic ? "_italic" : "") + '_' + levelOffset
+      + (bold ? "_bold" : "") + (italic ? "_italic" : "") + '_' + levelOffset
     );
   }
 }

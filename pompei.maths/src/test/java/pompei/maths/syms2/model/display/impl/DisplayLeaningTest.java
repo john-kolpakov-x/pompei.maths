@@ -1,13 +1,12 @@
 package pompei.maths.syms2.model.display.impl;
 
+import java.awt.Color;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pompei.maths.syms2.model.display.DisplayExpr;
 import pompei.maths.syms2.model.display.DisplayPortImpl;
 import pompei.maths.syms2.model.display.Size;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
 
 import static pompei.maths.syms2.model.display.impl.TestDisplayUtil.displayToFile;
 
@@ -20,18 +19,18 @@ public class DisplayLeaningTest {
   @DataProvider
   public Object[][] dataProvider() {
     return new Object[][]{
-        new Object[]{Side.LEFT, 0, 0.05},
+      new Object[]{Side.LEFT, 0, 0.05},
 
-        new Object[]{Side.RIGHT, 0, 0.05},
+      new Object[]{Side.RIGHT, 0, 0.05},
 
-        new Object[]{Side.RIGHT, 1, 0.05},
-        new Object[]{Side.RIGHT, -1, 0.05},
+      new Object[]{Side.RIGHT, 1, 0.05},
+      new Object[]{Side.RIGHT, -1, 0.05},
 
-        new Object[]{Side.RIGHT, 0.5, 0.05},
-        new Object[]{Side.RIGHT, -0.5, 0.05},
+      new Object[]{Side.RIGHT, 0.5, 0.05},
+      new Object[]{Side.RIGHT, -0.5, 0.05},
 
-        new Object[]{Side.RIGHT, 0.8, 0.05},
-        new Object[]{Side.RIGHT, -0.8, 0.05},
+      new Object[]{Side.RIGHT, 0.8, 0.05},
+      new Object[]{Side.RIGHT, -0.8, 0.05},
     };
   }
 
@@ -39,13 +38,13 @@ public class DisplayLeaningTest {
   public void display(Side side, double upFactor, double spaceFactor) throws Exception {
 
     DisplayExpr base = new DisplayRect(new Size(50, 50, 100),
-        new Color(255, 0, 0),
-        new Color(181, 200, 46)
+      new Color(255, 0, 0),
+      new Color(181, 200, 46)
     );
 
     DisplayExpr leaning = new DisplayRect(new Size(30, 30, 70),
-        new Color(192, 0, 0),
-        new Color(142, 161, 41)
+      new Color(192, 0, 0),
+      new Color(142, 161, 41)
     );
 
     DisplayLeaning expr = new DisplayLeaning(base, leaning, side == Side.RIGHT, upFactor, spaceFactor);

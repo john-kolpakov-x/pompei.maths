@@ -1,4 +1,4 @@
-package pompei.maths.syms_diff;
+package pompei.maths.syms2.diff;
 
 import static pompei.maths.syms_diff.visitable.frm.f;
 import static pompei.maths.syms_diff.visitable.frm.p;

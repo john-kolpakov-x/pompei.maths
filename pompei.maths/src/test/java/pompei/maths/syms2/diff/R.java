@@ -1,4 +1,4 @@
-package pompei.maths.syms_diff;
+package pompei.maths.syms2.diff;
 
 import pompei.maths.syms_diff.visitors.AddSkobVisitor;
 import pompei.maths.syms_diff.visitors.KillMinusSkobVisitor;
