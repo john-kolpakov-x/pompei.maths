@@ -31,13 +31,13 @@ public class DiffVisitor implements FormVisitor<Form> {
 
   @Override
   public Form visitPower(Power p) {
-    if (p.n == 0) return ConstInt.ZERO;
-    if (p.n == 1) return p.form.visit(this);
+    if (p.power == 0) return ConstInt.ZERO;
+    if (p.power == 1) return p.form.visit(this);
 
-    // (a^n)' = n a^(n-1) a'
+    // (a^power)' = power a^(power-1) a'
 
-    ConstInt n = ConstInt.get(p.n);
-    Power pn1 = new Power(p.n - 1, p.form);
+    ConstInt n = ConstInt.get(p.power);
+    Power pn1 = new Power(p.power - 1, p.form);
     Form pp = p.form.visit(this);
 
     return mul(n, pn1, pp);

@@ -4,8 +4,6 @@ import pompei.maths.syms_diff.model.Const;
 import pompei.maths.syms_diff.model.Form;
 import pompei.maths.syms_diff.model.FormVisitor;
 import pompei.maths.syms_diff.visitable.*;
-import pompei.maths.syms_diff.visitors.podob.CannotExtractSimilar;
-import pompei.maths.syms_diff.visitors.podob.Similar;
 
 public class KillDiffVisitor implements FormVisitor<Form> {
 
@@ -52,7 +50,11 @@ public class KillDiffVisitor implements FormVisitor<Form> {
   @Override
   public Form visitMinis(Minis minis) {
     return new Mul(ConstInt.M_ONE, minis.form).visit(this);
+  }
 
+  @Override
+  public Form visitPlus(Plus plus) {
+    return new Plus(plus.left.visit(this), plus.right.visit(this));
   }
 
   @Override
@@ -60,6 +62,7 @@ public class KillDiffVisitor implements FormVisitor<Form> {
     return new Plus(minus.left, new Mul(ConstInt.M_ONE, minus.right)).visit(this);
   }
 
+  @SuppressWarnings("UnnecessaryLocalVariable")
   @Override
   public Form visitMul(Mul mul) {
     Form left = mul.left;
@@ -140,7 +143,7 @@ public class KillDiffVisitor implements FormVisitor<Form> {
   @Override
   public Form visitPower(Power power) {
     Form form = power.form;
-    int n = power.n;
+    int n = power.power;
     if (n == 0) return ConstInt.ONE;
 
     if (n > 0) {
@@ -160,7 +163,7 @@ public class KillDiffVisitor implements FormVisitor<Form> {
     if (form instanceof Power) {
       Power subPower = (Power) form;
 
-      int newN = n + subPower.n;
+      int newN = n + subPower.power;
       if (newN == 0) return ConstInt.ONE;
       if (newN == 1) return subPower.form;
       return new Power(newN, subPower.form).visit(this);
@@ -177,39 +180,9 @@ public class KillDiffVisitor implements FormVisitor<Form> {
 
     if (form instanceof Func || form instanceof Var) {
       if (form == power.form) return power;
-      return new Power(power.n, form);
+      return new Power(power.power, form);
     }
 
     throw new CannotKillDiffVisitorForPower(power);
-  }
-
-  @Override
-  public Form visitPlus(Plus plus) {
-    Form left = plus.left.visit(this);
-    Form right = plus.right.visit(this);
-
-    try {
-
-      Similar leftSimilar = Similar.extract(left);
-      Similar rightSimilar = Similar.extract(right);
-
-      return leftSimilar.plus(rightSimilar).form();
-
-    } catch (CannotExtractSimilar e) {
-
-      boolean isLeftConst = left instanceof Const;
-      boolean isRightConst = right instanceof Const;
-
-      if (isLeftConst && isRightConst) {
-        return ConstOp.plus((Const) left, (Const) right);
-      }
-
-      if (isLeftConst && ((Const) left).sign() == 0) return right;
-      if (isRightConst && ((Const) right).sign() == 0) return left;
-
-      if (left == plus.left && right == plus.right) return plus;
-
-      return new Plus(left, right);
-    }
   }
 }

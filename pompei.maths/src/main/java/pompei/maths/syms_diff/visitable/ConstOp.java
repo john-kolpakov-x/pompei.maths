@@ -37,7 +37,7 @@ public class ConstOp {
     return new ConstDouble(left.doubleValue() + right.doubleValue());
   }
 
-  public static Form minus(Const left, Const right) {
+  public static Const minus(Const left, Const right) {
     if (left instanceof ConstInt && right instanceof ConstInt) {
       return ((ConstInt) left).innerMinus((ConstInt) right);
     }

@@ -28,7 +28,7 @@ public class AddSkobVisitor extends Scanner {
   public Form visitPower(Power power) {
     Form form = power.form.visit(this);
 
-    if (isLessThenPower(form)) return new Power(power.n, new Skob(form));
+    if (isLessThenPower(form)) return new Power(power.power, new Skob(form));
 
     return power;
   }
@@ -62,5 +62,4 @@ public class AddSkobVisitor extends Scanner {
         || form instanceof Power
         ;
   }
-
 }

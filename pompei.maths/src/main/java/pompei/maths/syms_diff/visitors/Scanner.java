@@ -32,7 +32,7 @@ public class Scanner implements FormVisitor<Form> {
   public Form visitPower(Power power) {
     Form form = power.form.visit(this);
     if (form == power.form) return power;
-    return new Power(power.n, form);
+    return new Power(power.power, form);
   }
 
   @Override

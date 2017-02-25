@@ -56,7 +56,7 @@ public class CryptTeach {
     BigInteger n = p1.multiply(p2);
     
     ___(len);
-    System.out.println(U.splt("n = " + n, len));
+    System.out.println(U.splt("power = " + n, len));
     
     BigInteger p1m = p1.subtract(BigInteger.ONE);
     BigInteger p2m = p2.subtract(BigInteger.ONE);

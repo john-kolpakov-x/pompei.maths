@@ -69,7 +69,7 @@ public class EvalConstsProbe {
     
     IntPower cd17 = ex.power(cd, -1);
     
-    //    Mul mul = ex.mul(ex.s(ab), ex.s(cd));
+    //    Mul add = ex.add(ex.s(ab), ex.s(cd));
     Mul mul = ex.mul((ab), (cd17));
     
     Plus plus = ex.plus(mul, ex.div(ex.fix(1), ex.fix(2)));

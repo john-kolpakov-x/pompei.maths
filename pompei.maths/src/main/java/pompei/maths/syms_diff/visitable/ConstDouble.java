@@ -32,6 +32,11 @@ public class ConstDouble implements Const {
   }
 
   @Override
+  public boolean isZero() {
+    return value == 0;
+  }
+
+  @Override
   public int hashCode() {
     long tmp = Double.doubleToLongBits(value);
     return 31 + (int) (tmp ^ (tmp >>> 32));

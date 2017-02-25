@@ -78,8 +78,8 @@ public class PaintVisitor implements FormVisitor<Painter> {
   @Override
   public Painter visitPower(Power power) {
     Painter formPainter = power.form.visit(this);
-    if (power.n == 1) return formPainter;
-    return painterInPower(formPainter, "" + power.n, Color.BLACK);
+    if (power.power == 1) return formPainter;
+    return painterInPower(formPainter, "" + power.power, Color.BLACK);
   }
   
   @Override

@@ -39,11 +39,11 @@ public class CalcScanner implements FormVisitor<Form> {
     Form form = power.form.visit(this);
 
     if (form instanceof Const) {
-      return ConstOp.pow((Const) form, power.n);
+      return ConstOp.pow((Const) form, power.power);
     }
 
     if (form == power.form) return power;
-    return new Power(power.n, form);
+    return new Power(power.power, form);
   }
 
   @Override

@@ -9,7 +9,7 @@ public class Func implements Form {
   public final int n;
 
   public Func(String name, int n) {
-    if (n < 0) throw new IllegalArgumentException("n = " + n);
+    if (n < 0) throw new IllegalArgumentException("power = " + n);
     this.name = name;
     this.n = n;
   }

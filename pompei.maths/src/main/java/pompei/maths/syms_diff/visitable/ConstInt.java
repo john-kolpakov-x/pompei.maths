@@ -1,10 +1,9 @@
 package pompei.maths.syms_diff.visitable;
 
+import java.math.BigInteger;
 import pompei.maths.syms.exceptions.DivByZero;
 import pompei.maths.syms_diff.model.Const;
 import pompei.maths.syms_diff.model.FormVisitor;
-
-import java.math.BigInteger;
 
 public class ConstInt implements Const {
 
@@ -115,7 +114,7 @@ public class ConstInt implements Const {
     return top.compareTo(BI_M_ONE) == 0 && bottom.compareTo(BigInteger.ONE) == 0;
   }
 
-  @SuppressWarnings("unused")
+  @Override
   public boolean isZero() {
     return top.compareTo(BigInteger.ZERO) == 0;
   }

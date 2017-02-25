@@ -10,4 +10,6 @@ public interface Const extends Form {
   Const minis();
   
   boolean isOne();
+
+  boolean isZero();
 }
