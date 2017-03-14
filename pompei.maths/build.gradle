@@ -20,6 +20,8 @@ dependencies {
 
   compile 'org.jcodec:jcodec:0.1.9'
 
+  compile group: 'org.rocksdb', name: 'rocksdbjni', version: '5.1.2'
+
 }
 
 test { useTestNG() }
