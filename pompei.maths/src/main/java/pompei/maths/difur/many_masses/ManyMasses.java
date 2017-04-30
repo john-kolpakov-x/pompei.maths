@@ -147,13 +147,11 @@ public class ManyMasses {
 
       @Override
       public void writeToModel() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException();
       }
 
       @Override
       public void readFromModel() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException();
       }
 
