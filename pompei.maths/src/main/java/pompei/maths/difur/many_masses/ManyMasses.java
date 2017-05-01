@@ -1,16 +1,21 @@
 package pompei.maths.difur.many_masses;
 
-import pompei.maths.difur.DiffUr;
-import pompei.maths.difur.ModelAdapter;
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import pompei.maths.difur.DiffUr;
+import pompei.maths.difur.ModelAdapter;
 
 public class ManyMasses {
   public int width, height;
@@ -138,9 +143,9 @@ public class ManyMasses {
   @SuppressWarnings("unused")
   public ModelAdapter createNewAdapter() {
     final List<Ball> ids = nodeMap.values().stream()
-        .filter(node -> node instanceof Ball)
-        .map(node -> (Ball) node)
-        .collect(Collectors.toList());
+      .filter(node -> node instanceof Ball)
+      .map(node -> (Ball) node)
+      .collect(Collectors.toList());
     return new ModelAdapter() {
       @SuppressWarnings("unused")
       DiffUr diffUr;
