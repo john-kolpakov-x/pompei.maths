@@ -300,8 +300,6 @@ public class BigMath {
       if (cmp < 0) return lnMoreOne(BigDecimal.ONE.divide(x, mc)).negate();
       return lnMoreOne(x);
     }
-
-
   }
 
   private BigDecimal lnMoreOne(BigDecimal x) {
@@ -361,5 +359,82 @@ public class BigMath {
    */
   public BigDecimal pow(BigDecimal a, BigDecimal b) {
     return exp(b.multiply(ln(a), mc));
+  }
+
+  /**
+   * Calculates x^n
+   *
+   * @param x base
+   * @param n exponent
+   * @return result
+   */
+  public BigDecimal powInt(BigDecimal x, long n) {
+    if (n == 0) return BigDecimal.ONE;
+    boolean invert = n < 0;
+    if (invert) n = -n;
+
+    BigDecimal result = BigDecimal.ONE;
+
+    while (n != 0) {
+      if (n % 2 > 0) result = result.multiply(x, mc);
+      n >>= 1;
+      x = x.multiply(x, mc);
+    }
+
+    return invert ? BigDecimal.ONE.divide(result, mc) : result;
+  }
+
+  /**
+   * Calculates x^n
+   *
+   * @param x base
+   * @param n exponent
+   * @return result
+   */
+  public BigDecimal powBigInt(BigDecimal x, BigInteger n) {
+    int cmpZero = n.compareTo(BigInteger.ZERO);
+    if (cmpZero == 0) return BigDecimal.ONE;
+    boolean invert = cmpZero < 0;
+    if (invert) n = n.negate();
+
+    BigDecimal result = BigDecimal.ONE;
+
+    for (int i = 0, c = n.bitLength(); i < c; i++) {
+      if (n.testBit(i)) {
+        result = result.multiply(x, mc);
+      }
+      x = x.multiply(x, mc);
+    }
+
+    return invert ? BigDecimal.ONE.divide(result, mc) : result;
+  }
+
+  /**
+   * Calculates x^(1/n)
+   *
+   * @param x base
+   * @param n inverted integer exponent
+   * @return result
+   */
+  public BigDecimal root(BigDecimal x, long n) {
+    if (n == 0) throw new IllegalArgumentException("n == 0");
+    boolean invert = n < 0;
+    if (invert) n = -n;
+
+    if (n == 1) return invert ? BigDecimal.ONE.divide(x, mc) : x;
+
+    BigDecimal result = BigDecimal.ONE;
+
+    while (true) {
+
+      BigDecimal rightInner = x.divide(powInt(result, n - 1), mc);
+      BigDecimal right = result.subtract(rightInner, mc).divide(BigDecimal.valueOf(n), mc);
+
+      BigDecimal newResult = result.subtract(right, mc);
+
+      if (newResult.compareTo(result) == 0) return invert ? BigDecimal.ONE.divide(result, mc) : result;
+
+      result = newResult;
+    }
   }
 }

@@ -4,6 +4,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -391,5 +392,77 @@ public class BigMathTest {
     System.out.println("a   = " + a);
     System.out.println("b   = " + b);
     System.out.println("a^b = " + c);
+  }
+
+  @DataProvider
+  public Object[][] root_DataProvider() {
+    return new Object[][]{
+      {123.456, 7},
+      {1.23456, 5},
+      {8.1672e12, 17},
+      {8.16712e12, 3},
+      {8.2e12, -13},
+    };
+  }
+
+  @Test(dataProvider = "root_DataProvider")
+  public void root(double a, long n) throws Exception {
+    BigMath bigMath = new BigMath(15);
+    MathContext mcCmp = new MathContext(9);
+
+    BigDecimal expected = BigDecimal.valueOf(Math.pow(a, 1d / n));
+
+    //
+    //
+    BigDecimal actual = bigMath.root(new BigDecimal(a), n);
+    //
+    //
+
+    assertThat(actual.round(mcCmp)).isEqualByComparingTo(expected.round(mcCmp));
+  }
+
+  @DataProvider
+  public Object[][] powInt_DataProvider() {
+    return new Object[][]{
+      {2.3457, 156},
+      {1.35701, 56},
+      {13.701, 7},
+      {17.3401, -7},
+    };
+  }
+
+  @Test(dataProvider = "powInt_DataProvider")
+  public void powInt(double a, long n) throws Exception {
+
+    BigMath bigMath = new BigMath(15);
+    MathContext mcCmp = new MathContext(9);
+
+    BigDecimal expected = BigDecimal.valueOf(Math.pow(a, n));
+
+    //
+    //
+    BigDecimal actual = bigMath.powInt(new BigDecimal(a), n);
+    //
+    //
+
+    assertThat(actual.round(mcCmp)).isEqualByComparingTo(expected.round(mcCmp));
+  }
+
+
+  @Test(dataProvider = "powInt_DataProvider")
+  public void powBigInt(double a, long n) throws Exception {
+
+    BigMath bigMath = new BigMath(15);
+    MathContext mcCmp = new MathContext(9);
+
+    BigDecimal expected = BigDecimal.valueOf(Math.pow(a, n));
+
+    //
+    //
+    BigDecimal actual = bigMath.powBigInt(new BigDecimal(a), BigInteger.valueOf(n));
+    //
+    //
+
+    assertThat(actual.round(mcCmp)).isEqualByComparingTo(expected.round(mcCmp));
   }
 }
