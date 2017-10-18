@@ -96,7 +96,7 @@ public class SortUtil {
     new MergeSortPart(ss, new String[ss.length], 0, ss.length).fork().join();
   }
 
-  private static void sortMerge2(String[] ss, int from) {
+  private static void sort2elems(String[] ss, int from) {
     String s1 = ss[from];
     String s2 = ss[from + 1];
     if (s1.compareTo(s2) <= 0) return;
@@ -104,7 +104,7 @@ public class SortUtil {
     ss[from + 1] = s1;
   }
 
-  private static void sortMerge3(String[] ss, int from) {
+  private static void sort3elems(String[] ss, int from) {
     String s1 = ss[from];
     String s2 = ss[from + 1];
     String s3 = ss[from + 2];
@@ -132,7 +132,7 @@ public class SortUtil {
     if (s3Change) ss[from + 2] = s3;
   }
 
-  private static void sortMerge4(String[] ss, int from) {
+  private static void sort4elems(String[] ss, int from) {
     String s1 = ss[from];
     String s2 = ss[from + 1];
     String s3 = ss[from + 2];
@@ -218,22 +218,131 @@ public class SortUtil {
       case 1:
         return true;
       case 2:
-        sortMerge2(ss, from);
+        sort2elems(ss, from);
         return true;
       case 3:
-        sortMerge3(ss, from);
+        sort3elems(ss, from);
         return true;
       case 4:
-        sortMerge4(ss, from);
+        sort4elems(ss, from);
         return true;
+
       case 5:
+        sort5elements(ss, from);
+        return true;
       case 6:
+        sort6elements(ss, from);
+        return true;
       case 7:
+        sort7elements(ss, from);
+        return true;
       case 8:
-        sortMergeSmallBoob(ss, from, to);
+        sort8elements(ss, from);
+        return true;
+      case 9:
+        sort9elements(ss, from);
         return true;
     }
     return false;
+  }
+
+  private static void sort9elements(String[] ss, int from) {
+
+    swapIfNeed(ss, from + 0, from + 5);
+    swapIfNeed(ss, from + 1, from + 6);
+    swapIfNeed(ss, from + 2, from + 7);
+    swapIfNeed(ss, from + 3, from + 8);
+
+    swapIfNeed(ss, from + 0, from + 4);
+    swapIfNeed(ss, from + 1, from + 5);
+    swapIfNeed(ss, from + 2, from + 6);
+    swapIfNeed(ss, from + 3, from + 7);
+
+    while (true) {
+      boolean ok1 = !swapIfNeed(ss, from + 0, from + 1);
+      boolean ok2 = !swapIfNeed(ss, from + 2, from + 3);
+      boolean ok3 = !swapIfNeed(ss, from + 4, from + 5);
+      boolean ok4 = !swapIfNeed(ss, from + 6, from + 7);
+
+      boolean ok5 = !swapIfNeed(ss, from + 1, from + 2);
+      boolean ok6 = !swapIfNeed(ss, from + 3, from + 4);
+      boolean ok7 = !swapIfNeed(ss, from + 5, from + 6);
+      boolean ok8 = !swapIfNeed(ss, from + 7, from + 8);
+
+      if ((ok1 && ok2) && (ok3 && ok4) && (ok5 && ok6) && (ok7 && ok8)) return;
+    }
+  }
+
+
+  private static void sort8elements(String[] ss, int from) {
+
+    swapIfNeed(ss, from + 0, from + 4);
+    swapIfNeed(ss, from + 1, from + 5);
+    swapIfNeed(ss, from + 2, from + 6);
+    swapIfNeed(ss, from + 3, from + 7);
+
+    while (true) {
+      boolean ok1 = !swapIfNeed(ss, from + 0, from + 1);
+      boolean ok2 = !swapIfNeed(ss, from + 2, from + 3);
+      boolean ok3 = !swapIfNeed(ss, from + 4, from + 5);
+      boolean ok4 = !swapIfNeed(ss, from + 6, from + 7);
+
+      ok2 = ok2 && !swapIfNeed(ss, from + 1, from + 2);
+      ok3 = ok3 && !swapIfNeed(ss, from + 3, from + 4);
+      ok4 = ok4 && !swapIfNeed(ss, from + 5, from + 6);
+
+      if ((ok1 && ok2) && (ok3 && ok4)) return;
+    }
+  }
+
+  private static void sort7elements(String[] ss, int from) {
+    swapIfNeed(ss, from + 0, from + 4);
+    swapIfNeed(ss, from + 1, from + 5);
+    swapIfNeed(ss, from + 2, from + 6);
+
+    while (true) {
+      boolean ok1 = !swapIfNeed(ss, from + 0, from + 1);
+      boolean ok2 = !swapIfNeed(ss, from + 2, from + 3);
+      boolean ok3 = !swapIfNeed(ss, from + 4, from + 5);
+
+      boolean ok4 = !swapIfNeed(ss, from + 1, from + 2);
+      boolean ok5 = !swapIfNeed(ss, from + 3, from + 4);
+      boolean ok6 = !swapIfNeed(ss, from + 5, from + 6);
+
+      if ((ok1 && ok2) && (ok3 && ok4) && (ok5 && ok6)) return;
+    }
+  }
+
+  private static void sort6elements(String[] ss, int from) {
+    swapIfNeed(ss, from + 0, from + 3);
+    swapIfNeed(ss, from + 1, from + 4);
+    swapIfNeed(ss, from + 2, from + 5);
+
+    while (true) {
+      boolean ok1 = !swapIfNeed(ss, from + 0, from + 1);
+      boolean ok2 = !swapIfNeed(ss, from + 2, from + 3);
+      boolean ok3 = !swapIfNeed(ss, from + 4, from + 5);
+
+      boolean ok4 = !swapIfNeed(ss, from + 1, from + 2);
+      boolean ok5 = !swapIfNeed(ss, from + 3, from + 4);
+
+      if ((ok1 && ok2) && (ok3 && ok4) && ok5) return;
+    }
+  }
+
+  private static void sort5elements(String[] ss, int from) {
+    swapIfNeed(ss, from + 0, from + 3);
+    swapIfNeed(ss, from + 1, from + 4);
+
+    while (true) {
+      boolean ok1 = !swapIfNeed(ss, from + 0, from + 1);
+      boolean ok2 = !swapIfNeed(ss, from + 2, from + 3);
+
+      boolean ok3 = !swapIfNeed(ss, from + 1, from + 2);
+      boolean ok4 = !swapIfNeed(ss, from + 3, from + 4);
+
+      if ((ok1 && ok2) && (ok3 && ok4)) return;
+    }
   }
 
   public static void sortMergeFromTo(String[] ss, int from, int to, String[] ss2) {

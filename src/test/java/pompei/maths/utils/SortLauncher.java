@@ -7,11 +7,11 @@ import static pompei.maths.utils.SortUtil.shuffle;
 public class SortLauncher {
 
   public static void main(String[] args) {
-    String[] ss = new String[2_000_000];
+    String[] ss = new String[4_000_000];
     fill(ss);
 
-    final int warmCount = 7;
-    final int probeCount = 7;
+    final int warmCount = 6;
+    final int probeCount = 6;
 
     if (ss.length <= 10_000) {
       for (int i = 0; i < warmCount; i++) {
