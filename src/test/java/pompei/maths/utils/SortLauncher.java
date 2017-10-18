@@ -7,21 +7,88 @@ import static pompei.maths.utils.SortUtil.shuffle;
 public class SortLauncher {
 
   public static void main(String[] args) {
-    String[] ss = new String[1_000_000];
+    String[] ss = new String[2_000_000];
     fill(ss);
 
+    final int warmCount = 7;
+    final int probeCount = 7;
+
     if (ss.length <= 10_000) {
-      shuffle(ss);
-      sortBoob(ss);
+      for (int i = 0; i < warmCount; i++) {
+        shuffle(ss);
+        sortBoob(ss);
+      }
+      int count = 0;
+      long time = 0;
+      for (int i = 0; i < probeCount; i++) {
+        shuffle(ss);
+        time += sortBoob(ss);
+        count++;
+      }
+
+      checkSorted(ss, "Sort Boob");
+      showInfo("Boob", ss.length, (double) time / count);
+    }
+    if (ss.length <= 10_000) {
+      for (int i = 0; i < warmCount; i++) {
+        shuffle(ss);
+        sortBoob2(ss);
+      }
+      int count = 0;
+      long time = 0;
+      for (int i = 0; i < probeCount; i++) {
+        shuffle(ss);
+        time += sortBoob2(ss);
+        count++;
+      }
+
+      checkSorted(ss, "Sort Boob2");
+      showInfo("Boob2", ss.length, (double) time / count);
     }
     {
-      shuffle(ss);
-      sortNative(ss);
+      for (int i = 0; i < warmCount; i++) {
+        shuffle(ss);
+        sortNative(ss);
+      }
+      int count = 0;
+      long time = 0;
+      for (int i = 0; i < probeCount; i++) {
+        shuffle(ss);
+        time += sortNative(ss);
+        count++;
+      }
+      checkSorted(ss, "Sort Native");
+      showInfo("Native", ss.length, (double) time / count);
     }
     {
-      shuffle(ss);
-//      System.out.println("{\"" + Arrays.stream(ss).collect(Collectors.joining("\", \"")) + "\"}");
-      sortMerge(ss);
+      for (int i = 0; i < warmCount; i++) {
+        shuffle(ss);
+        sortMerge(ss);
+      }
+      int count = 0;
+      long time = 0;
+      for (int i = 0; i < probeCount; i++) {
+        shuffle(ss);
+        time += sortMerge(ss);
+        count++;
+      }
+      checkSorted(ss, "Sort Merge");
+      showInfo("Merge (written by me)", ss.length, (double) time / count);
+    }
+    {
+      for (int i = 0; i < warmCount; i++) {
+        shuffle(ss);
+        sortMergeParallel(ss);
+      }
+      int count = 0;
+      long time = 0;
+      for (int i = 0; i < probeCount; i++) {
+        shuffle(ss);
+        time += sortMergeParallel(ss);
+        count++;
+      }
+      checkSorted(ss, "Sort MergeParallel");
+      showInfo("Merge Parallel (written by me)", ss.length, (double) time / count);
     }
   }
 
@@ -35,49 +102,49 @@ public class SortLauncher {
     }
   }
 
-  private static void sortBoob(String[] ss) {
+  private static long sortBoob(String[] ss) {
     long started = System.nanoTime();
     SortUtil.sortBoob(ss);
-    long time = System.nanoTime() - started;
+    return System.nanoTime() - started;
+  }
 
+  private static long sortBoob2(String[] ss) {
+    long started = System.nanoTime();
+    SortUtil.sortBoob2(ss);
+    return System.nanoTime() - started;
+  }
+
+  private static void checkSorted(String[] ss, String title) {
     for (int i = 0, n = ss.length - 1; i < n; i++) {
-      if (ss[i].compareTo(ss[i + 1]) >= 0) throw new RuntimeException("Sort Boob: i = " + i);
+      if (ss[i].compareTo(ss[i + 1]) >= 0) throw new RuntimeException(title + ": i = " + i);
     }
-
-    System.out.println("\nUsing Boob");
-    System.out.println("          n = " + ss.length);
-    System.out.println("  sort time = " + time);
   }
 
 
-  private static void sortNative(String[] ss) {
+  private static long sortNative(String[] ss) {
     long started = System.nanoTime();
     Arrays.sort(ss);
-    long time = System.nanoTime() - started;
-
-    for (int i = 0, n = ss.length - 1; i < n; i++) {
-      if (ss[i].compareTo(ss[i + 1]) >= 0) throw new RuntimeException("Sort Boob: i = " + i);
-    }
-
-    System.out.println("\nUsing Native");
-    System.out.println("          n = " + ss.length);
-    System.out.println("  sort time = " + time);
+    return System.nanoTime() - started;
   }
 
-  private static void sortMerge(String[] ss) {
+  private static long sortMerge(String[] ss) {
     long started = System.nanoTime();
     SortUtil.sortMerge(ss);
-    long time = System.nanoTime() - started;
+    return System.nanoTime() - started;
+  }
 
-//    System.out.println("{\"" + Arrays.stream(ss).collect(Collectors.joining("\", \"")) + "\"}");
+  private static long sortMergeParallel(String[] ss) {
+    long started = System.nanoTime();
+    SortUtil.sortMergeParallel(ss);
+    return System.nanoTime() - started;
+  }
 
-    for (int i = 0, n = ss.length - 1; i < n; i++) {
-      if (ss[i].compareTo(ss[i + 1]) >= 0) throw new RuntimeException("Sort Merge: i = " + i);
-    }
+  final static double GIG = 1e9;
 
-    System.out.println("\nUsing Merge (written by me)");
-    System.out.println("          n = " + ss.length);
-    System.out.println("  sort time = " + time);
+  private static void showInfo(String caption, int n, double time) {
+    System.out.println("\nUsing " + caption);
+    System.out.println("          n = " + n);
+    System.out.println("  sort time = " + time / GIG + " s");
   }
 
 }
