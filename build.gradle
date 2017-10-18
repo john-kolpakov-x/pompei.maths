@@ -26,3 +26,8 @@ dependencies {
 }
 
 test { useTestNG() }
+
+task SortTester(type: JavaExec) {
+  main = 'pompei.maths.utils.SortLauncher'
+  classpath sourceSets.test.runtimeClasspath
+}
