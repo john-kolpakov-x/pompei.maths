@@ -15,7 +15,9 @@ dependencies {
   compile 'org.easytesting:fest-assert:1.4'
   compile 'commons-collections:commons-collections:3.2'
   //compile 'org.springframework:spring-full:1.2.8'
-  //compile 'commons-io:commons-io:2.4'
+  compile 'commons-io:commons-io:2.6'
+
+//  compile group: 'com.google.guava', name: 'guava', version: '23.0'
 
   testCompile 'org.testng:testng:6.5.1'
 
