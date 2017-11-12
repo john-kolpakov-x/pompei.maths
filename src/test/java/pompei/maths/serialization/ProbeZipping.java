@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -20,6 +22,9 @@ public class ProbeZipping {
   private void exec() throws Exception {
     File zipFile = new File("out/archive/archive-from-java.zip");
     zipFile.getParentFile().mkdirs();
+
+    TreeMap m;
+    HashMap m1;
 
     try (ZipOutputStream zip = new ZipOutputStream(new FileOutputStream(zipFile))) {
 
