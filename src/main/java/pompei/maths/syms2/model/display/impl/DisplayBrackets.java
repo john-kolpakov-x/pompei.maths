@@ -83,7 +83,7 @@ public class DisplayBrackets implements DisplayExpr {
         drawBracket_ROUND(x, y, width, height);
         return;
     }
-    throw new RuntimeException("Cannot draw bracket with type = " + type);
+    throw new RuntimeException("Cannot drawSides bracket with type = " + type);
   }
 
   private void drawBracket_ROUND(int x, int y, int width, int height) {
