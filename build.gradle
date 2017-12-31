@@ -39,10 +39,10 @@ task SortTester(type: JavaExec) {
 compileJava.options.encoding = "UTF-8"
 compileTestJava.options.encoding = "UTF-8"
 
-sourceSets.main.java.srcDirs = ["src", "src_resources"]
+sourceSets.main.java.srcDirs = ["src"]
 sourceSets.main.resources.srcDirs = ["src", "src_resources"]
-sourceSets.test.java.srcDirs = ["test_src", "test_src_resources"]
-sourceSets.test.resources.srcDirs = ["test_src", "test_src_resources"]
+sourceSets.test.java.srcDirs = ["test_src"]
+sourceSets.test.resources.srcDirs = ["test_src", "test_resources"]
 
 jar {
   manifest {
