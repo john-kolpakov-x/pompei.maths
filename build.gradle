@@ -11,6 +11,8 @@ repositories {
 //noinspection GroovyUnusedAssignment
 sourceCompatibility = '1.9'
 
+version = '0.0.1'
+
 dependencies {
   compile 'org.easytesting:fest-assert:1.4'
   compile 'commons-collections:commons-collections:3.2'
@@ -32,4 +34,22 @@ test { useTestNG() }
 task SortTester(type: JavaExec) {
   main = 'pompei.maths.utils.SortLauncher'
   classpath sourceSets.test.runtimeClasspath
+}
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+sourceSets.main.java.srcDirs = ["src", "src_resources"]
+sourceSets.main.resources.srcDirs = ["src", "src_resources"]
+sourceSets.test.java.srcDirs = ["test_src", "test_src_resources"]
+sourceSets.test.resources.srcDirs = ["test_src", "test_src_resources"]
+
+jar {
+  manifest {
+    attributes 'Implementation-Title': project.name
+    attributes 'Implementation-Version': version
+    attributes 'Implementation-Vendor': "greetgo!"
+    attributes 'Created-By': System.getProperty("user.name")
+    attributes 'Created-At': new Date().format("yyyy-MM-dd/HH:mm:ss")
+  }
 }
