@@ -59,27 +59,55 @@ public class Task1 {
         cell.p3 = pointIndex.getNearestIndex(cell.x2, cell.y2);
         cell.p4 = pointIndex.getNearestIndex(cell.x1, cell.y2);
 
-        cell.sides.add(findSide(cell.p1, cell.p2, sideIndex));
-        cell.sides.add(findSide(cell.p2, cell.p3, sideIndex));
-        cell.sides.add(findSide(cell.p3, cell.p4, sideIndex));
-        cell.sides.add(findSide(cell.p4, cell.p1, sideIndex));
+        cell.sides.add(findSide(cell, cell.p1, cell.p2, sideIndex));
+        cell.sides.add(findSide(cell, cell.p2, cell.p3, sideIndex));
+        cell.sides.add(findSide(cell, cell.p3, cell.p4, sideIndex));
+        cell.sides.add(findSide(cell, cell.p4, cell.p1, sideIndex));
 
       }
     }
 
+    for (Cell cell : scene.cellList) {
+      for (SideRef ref : cell.sides) {
+        if (ref.right) {
+          ref.side.rightRef = ref;
+        } else {
+          ref.side.leftRef = ref;
+        }
+      }
+    }
+
+    for (Side side : scene.sideList) {
+      Point p1 = scene.pointList.get(side.p1);
+      Point p2 = scene.pointList.get(side.p2);
+      double dpx = p2.x - p1.x, dpy = p2.y - p1.y;
+      double len = Math.sqrt(dpx * dpx + dpy * dpy);
+      side.S = len;
+      side.px = dpx / len;
+      side.py = dpy / len;
+      side.nx = -side.py;// (x, y) ---> (-y, x)  ==  rotated to right on 90 deg
+      side.ny = side.px;
+    }
+
+    for (Cell cell : scene.cellList) {
+      cell.p = 1;
+      cell.ro = 1;
+      cell.vx = cell.vy = 0;
+      cell.V = Math.abs((cell.x1 - cell.x2) * (cell.y1 - cell.y2));
+    }
 
   }
 
-  private static SideRef findSide(int p1, int p2, Map<IntPair, Side> sideIndex) {
+  private static SideRef findSide(Cell owner, int p1, int p2, Map<IntPair, Side> sideIndex) {
 
     {
       Side side = sideIndex.get(new IntPair(p1, p2));
-      if (side != null) return new SideRef(side, false);
+      if (side != null) return new SideRef(owner, side, false);
     }
 
     {
       Side side = sideIndex.get(new IntPair(p2, p1));
-      if (side != null) return new SideRef(side, true);
+      if (side != null) return new SideRef(owner, side, true);
     }
 
     throw new RuntimeException("Cannot find side for " + p1 + " -> " + p2);

@@ -6,6 +6,7 @@ import static pompei.maths.utils.SortUtil.shuffle;
 
 public class SortLauncher {
 
+  @SuppressWarnings("ConstantConditions")
   public static void main(String[] args) {
     String[] ss = new String[4_000_000];
     fill(ss);

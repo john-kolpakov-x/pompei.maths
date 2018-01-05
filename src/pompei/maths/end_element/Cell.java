@@ -16,4 +16,33 @@ public class Cell {
     this.x2 = x2;
     this.y2 = y2;
   }
+
+  public double V;//объём
+
+  public double ro;//плотность
+  public double p;//давление
+  public double vx, vy;//скорость
+
+  public void step(Context c) {
+    double dm = 0, dqx = 0, dqy = 0;
+
+    for (SideRef side : sides) {
+      Side s = side.side;
+      double dqp = s.dqp;
+      double dqn = s.dqn * (side.right ? +1 : -1);
+      dm += s.dm;
+      dqx += dqp * s.px + dqn * s.nx;
+      dqy += dqp * s.py + dqn * s.ny;
+    }
+
+    double roOld = ro;
+    double mOld = roOld * V;
+    double pOld = p;
+    double qxOld = mOld * vx, qyOld = mOld * vy;
+
+    double mNew = mOld + dm;
+    double qxNew = qxOld + dqx, qyNew = qyOld + dqy;
+    double roNew = mNew / V;
+    double pNew = pOld * roNew / roOld;//p * ro == const
+  }
 }
