@@ -21,3 +21,5 @@ And see something like this:
     Using Merge Parallel (written by me)
               n = 4000000
       sort time = 0.8255354031666666 s
+
+Hi
