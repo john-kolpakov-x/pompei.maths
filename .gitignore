@@ -1,8 +1,8 @@
-/*.iws
-/*.ipr
-/*.iml
+*.iws
+*.ipr
+*.iml
 /bin/
-/build/
+build/
 /.gradle/
 /.settings/
 /test-output/

@@ -9,7 +9,7 @@ repositories {
 }
 
 //noinspection GroovyUnusedAssignment
-sourceCompatibility = '1.9'
+sourceCompatibility = '1.8'
 
 version = '0.0.1'
 
