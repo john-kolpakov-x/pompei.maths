@@ -39,17 +39,14 @@ public class TriMassy {
   
   private final static double k0m0_k1m0_k2m0 = k0m0 + k1m0 + k2m0;
   
-  private final static F f = new F() {
-    @Override
-    public void f(double[] res, double t, double[] x) {
-      res[0] = x[3];
-      res[1] = x[4];
-      res[2] = x[5];
-      
-      res[3] = k1m0 * x[1] + k2m0 * x[2] - k0m0_k1m0_k2m0 * x[0];
-      res[4] = k1m1 * (x[0] - x[1]);
-      res[5] = k2m2 * (x[0] - x[2]);
-    }
+  private final static F f = (res, t, x) -> {
+    res[0] = x[3];
+    res[1] = x[4];
+    res[2] = x[5];
+
+    res[3] = k1m0 * x[1] + k2m0 * x[2] - k0m0_k1m0_k2m0 * x[0];
+    res[4] = k1m1 * (x[0] - x[1]);
+    res[5] = k2m2 * (x[0] - x[2]);
   };
   
   private final static double h = 0.0001;
@@ -130,9 +127,9 @@ public class TriMassy {
     
     g.dispose();
     
-    String I = "" + index;
+    StringBuilder I = new StringBuilder("" + index);
     while (I.length() < 4) {
-      I = "0" + I;
+      I.insert(0, "0");
     }
     File file = new File("build/images/img-" + I + ".png");
     file.getParentFile().mkdirs();
