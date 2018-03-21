@@ -45,4 +45,8 @@ public class RND {
   public static int plusInt(int bound) {
     return RANDOM.nextInt(bound);
   }
+
+  public static boolean bool() {
+    return RANDOM.nextBoolean();
+  }
 }

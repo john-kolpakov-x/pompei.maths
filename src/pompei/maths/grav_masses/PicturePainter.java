@@ -76,9 +76,7 @@ public class PicturePainter {
     ImageIO.write(image, "png", file);
   }
 
-  public int pointSize = 3;
-
-  public void paintPoint(Vec3 p) {
+  public void paintPoint(Vec3 p, int pointSize) {
     int X = calcX(p.x);
     int Y = calcY(p.y);
     for (int y = Y - pointSize; y <= Y + pointSize; y++) {

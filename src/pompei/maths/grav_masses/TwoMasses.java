@@ -62,9 +62,9 @@ public class TwoMasses extends GravitySystem {
     picturePainter.initPicture();
 
     picturePainter.g.setColor(Color.BLACK);
-    picturePainter.paintPoint(getPlace(0));
+    picturePainter.paintPoint(getPlace(0), 3);
     picturePainter.g.setColor(Color.BLUE);
-    picturePainter.paintPoint(getPlace(1));
+    picturePainter.paintPoint(getPlace(1), 3);
 
     picturePainter.saveTo(file);
     return file;
