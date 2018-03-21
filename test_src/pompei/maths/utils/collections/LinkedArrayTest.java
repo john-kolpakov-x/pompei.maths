@@ -14,7 +14,7 @@ import static org.fest.assertions.Assertions.assertThat;
 
 public class LinkedArrayTest extends LinkedArrayTestParent {
 
-  private <E> LinkedArray<E> createArray() {
+  protected  <E> LinkedArray<E> createArray() {
     return LinkedArray.create();
   }
 
@@ -181,7 +181,6 @@ public class LinkedArrayTest extends LinkedArrayTestParent {
           break;
         }
         case "getFirst": {
-
           String actual = testing.getAndRemoveFirst();
           String expected = std.getAndRemoveFirst();
 
@@ -190,7 +189,6 @@ public class LinkedArrayTest extends LinkedArrayTestParent {
           break;
         }
         case "getLast": {
-
           String actual = testing.getAndRemoveLast();
           String expected = std.getAndRemoveLast();
 
@@ -200,6 +198,9 @@ public class LinkedArrayTest extends LinkedArrayTestParent {
         }
         default:
           throw new RuntimeException("Unknown command " + command);
+      }
+      {
+
       }
     }
 
@@ -277,5 +278,14 @@ public class LinkedArrayTest extends LinkedArrayTestParent {
 
     assertThat(actualCount).isEqualTo(count);
     assertThat(newSet).isEqualTo(set);
+  }
+
+  @Test
+  public void test_toString() throws Exception {
+    final LinkedArray<String> testing = createArray();
+
+    testing.putLast("A").putLast("B").putLast("C");
+
+    assertThat(testing.toString()).isEqualTo("[A, B, C]");
   }
 }

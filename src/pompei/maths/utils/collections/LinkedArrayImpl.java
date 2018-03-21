@@ -1,8 +1,9 @@
 package pompei.maths.utils.collections;
 
 import java.util.Iterator;
+import java.util.stream.Collectors;
 
-class LinkedArrayImpl<Element> extends AbstractLinkedArray<Element> {
+class LinkedArrayImpl<Element> implements LinkedArray<Element> {
   private final Object mutex = new Object();
 
   static class Node<Element> {
@@ -42,11 +43,12 @@ class LinkedArrayImpl<Element> extends AbstractLinkedArray<Element> {
     Node<Element> node = new Node<>(element);
 
     synchronized (mutex) {
-      if (first == null) {
+      Node<Element> F = first;
+      if (F == null) {
         first = last = node;
       } else {
-        node.next = first;
-        first.prev = node;
+        node.next = F;
+        F.prev = node;
         first = node;
       }
       count++;
@@ -59,13 +61,14 @@ class LinkedArrayImpl<Element> extends AbstractLinkedArray<Element> {
   @SuppressWarnings("Duplicates")
   public Element getAndRemoveFirst() {
     synchronized (mutex) {
-      if (first == null) return null;
-      Element ret = first.element;
-      first = first.next;
-      if (first == null) {
+      Node<Element> F = this.first;
+      if (F == null) return null;
+      Element ret = F.element;
+      F = first = F.next;
+      if (F == null) {
         last = null;
       } else {
-        first.prev = null;
+        F.prev = null;
       }
       count--;
       return ret;
@@ -76,13 +79,14 @@ class LinkedArrayImpl<Element> extends AbstractLinkedArray<Element> {
   @SuppressWarnings("Duplicates")
   public Element getAndRemoveLast() {
     synchronized (mutex) {
-      if (last == null) return null;
-      Element ret = last.element;
-      last = last.prev;
-      if (last == null) {
+      Node<Element> L = last;
+      if (L == null) return null;
+      Element ret = L.element;
+      L = last = L.prev;
+      if (L == null) {
         first = null;
       } else {
-        last.next = null;
+        L.next = null;
       }
       count--;
       return ret;
@@ -98,7 +102,65 @@ class LinkedArrayImpl<Element> extends AbstractLinkedArray<Element> {
 
   @Override
   public LinkedArray<Element> reverse() {
-    throw new UnsupportedOperationException();
+    return new LinkedArray<Element>() {
+      @Override
+      public LinkedArray<Element> putLast(Element element) {
+        LinkedArrayImpl.this.putFirst(element);
+        return this;
+      }
+
+      @Override
+      public LinkedArray<Element> putFirst(Element element) {
+        LinkedArrayImpl.this.putLast(element);
+        return this;
+      }
+
+      @Override
+      public Element getAndRemoveFirst() {
+        return LinkedArrayImpl.this.getAndRemoveLast();
+      }
+
+      @Override
+      public Element getAndRemoveLast() {
+        return LinkedArrayImpl.this.getAndRemoveFirst();
+      }
+
+      @Override
+      public int count() {
+        synchronized (mutex) {
+          return count;
+        }
+      }
+
+      @Override
+      public LinkedArray<Element> reverse() {
+        return LinkedArrayImpl.this;
+      }
+
+      @Override
+      public Iterator<Element> iterator() {
+        return new Iterator<Element>() {
+          Node<Element> current = last;
+
+          @Override
+          public boolean hasNext() {
+            return current != null;
+          }
+
+          @Override
+          public Element next() {
+            Element ret = current.element;
+            current = current.prev;
+            return ret;
+          }
+        };
+      }
+
+      @Override
+      public String toString() {
+        return stream().map(Object::toString).collect(Collectors.joining(", ", "[", "]"));
+      }
+    };
   }
 
   @Override
@@ -118,5 +180,10 @@ class LinkedArrayImpl<Element> extends AbstractLinkedArray<Element> {
         return ret;
       }
     };
+  }
+
+  @Override
+  public String toString() {
+    return stream().map(Object::toString).collect(Collectors.joining(", ", "[", "]"));
   }
 }
