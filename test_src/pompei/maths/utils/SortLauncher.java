@@ -8,7 +8,7 @@ public class SortLauncher {
 
   @SuppressWarnings("ConstantConditions")
   public static void main(String[] args) {
-    String[] ss = new String[4_000_000];
+    String[] ss = new String[14_000_000];
     fill(ss);
 
     final int warmCount = 6;

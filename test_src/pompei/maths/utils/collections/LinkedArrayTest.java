@@ -5,16 +5,19 @@ import org.testng.annotations.Test;
 import pompei.maths.utils.RND;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 import static java.lang.System.identityHashCode;
 import static org.fest.assertions.Assertions.assertThat;
 
 public class LinkedArrayTest extends LinkedArrayTestParent {
 
-  protected  <E> LinkedArray<E> createArray() {
+  protected <E> LinkedArray<E> createArray() {
     return LinkedArray.create();
   }
 
@@ -287,5 +290,94 @@ public class LinkedArrayTest extends LinkedArrayTestParent {
     testing.putLast("A").putLast("B").putLast("C");
 
     assertThat(testing.toString()).isEqualTo("[A, B, C]");
+  }
+
+  @Test
+  public void putAndGetInManyThreads() throws Exception {
+    final LinkedArray<String> testing = createArray();
+    List<String> control = new ArrayList<>();
+    for (int i = 0; i < 100; i++) {
+      String str = RND.str(11);
+      control.add(str);
+      testing.putLast(str);
+    }
+
+    final AtomicBoolean working = new AtomicBoolean(true);
+
+    class LocalThread extends Thread {
+
+      final AtomicBoolean getLast = new AtomicBoolean();
+      final List<String> list = new ArrayList<>(control.size());
+      int nullCount = 0;
+
+      LocalThread(boolean getLast) {this.getLast.set(getLast);}
+
+      String get() {
+        return getLast.get() ? testing.getAndRemoveLast() : testing.getAndRemoveFirst();
+      }
+
+      @Override
+      public void run() {
+        while (working.get() || !testing.isEmpty()) work();
+      }
+
+      private void work() {
+        String element = get();
+        if (element == null) {
+          nullCount++;
+        } else {
+          list.add(element);
+        }
+      }
+
+      void invert() {
+        getLast.set(!getLast.get());
+      }
+    }
+
+    final List<LocalThread> threadList = new ArrayList<>();
+
+    for (int i = 0; i < 16 * 2; i++) {
+      threadList.add(new LocalThread(i % 2 == 0));
+    }
+
+    threadList.forEach(Thread::start);
+
+    for (int u = 0; u < 10; u++) {
+
+      for (int i = 0; i < 100; i++) {
+        String str = RND.str(7);
+        control.add(str);
+        testing.putFirst(str);
+      }
+
+      threadList.forEach(LocalThread::invert);
+    }
+
+    int waitCount = 0;
+
+    while (true) {
+      if (testing.isEmpty()) break;
+      waitCount++;
+    }
+
+    System.out.println("waitCount = " + waitCount);
+
+    working.set(false);
+    for (LocalThread localThread : threadList) {
+      localThread.join();
+    }
+
+    assertThat(testing.count()).isZero();
+
+    int totalCount = threadList.stream().mapToInt(x -> x.list.size()).sum();
+    assertThat(totalCount).isEqualTo(control.size());
+    Collections.sort(control);
+
+    List<String> actualList = threadList.stream().flatMap(x -> x.list.stream()).sorted().collect(Collectors.toList());
+    assertThat(actualList).isEqualTo(control);
+
+    int totalNullCount = threadList.stream().mapToInt(x -> x.nullCount).sum();
+    System.out.println("totalNullCount = " + totalNullCount);
   }
 }
