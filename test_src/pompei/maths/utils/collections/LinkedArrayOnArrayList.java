@@ -59,6 +59,11 @@ public class LinkedArrayOnArrayList<E> implements LinkedArray<E> {
   }
 
   @Override
+  public int maxCount() {
+    return 0;
+  }
+
+  @Override
   public LinkedArray<E> reverse() {
     synchronized (mutex) {
       ArrayList<E> rev = new ArrayList<>(list.size());

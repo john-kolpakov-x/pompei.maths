@@ -17,6 +17,8 @@ public interface LinkedArray<Element> extends Iterable<Element> {
 
   int count();
 
+  int maxCount();
+
   default boolean isEmpty() {
     return count() == 0;
   }

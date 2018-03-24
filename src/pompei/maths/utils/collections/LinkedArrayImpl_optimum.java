@@ -3,7 +3,7 @@ package pompei.maths.utils.collections;
 import java.util.Iterator;
 import java.util.stream.Collectors;
 
-class LinkedArrayImpl<Element> implements LinkedArray<Element> {
+class LinkedArrayImpl_optimum<Element> implements LinkedArray<Element> {
   private final Object mutex = new Object();
 
   static class Node<Element> {
@@ -118,24 +118,24 @@ class LinkedArrayImpl<Element> implements LinkedArray<Element> {
     return new LinkedArray<Element>() {
       @Override
       public LinkedArray<Element> putLast(Element element) {
-        LinkedArrayImpl.this.putFirst(element);
+        LinkedArrayImpl_optimum.this.putFirst(element);
         return this;
       }
 
       @Override
       public LinkedArray<Element> putFirst(Element element) {
-        LinkedArrayImpl.this.putLast(element);
+        LinkedArrayImpl_optimum.this.putLast(element);
         return this;
       }
 
       @Override
       public Element getAndRemoveFirst() {
-        return LinkedArrayImpl.this.getAndRemoveLast();
+        return LinkedArrayImpl_optimum.this.getAndRemoveLast();
       }
 
       @Override
       public Element getAndRemoveLast() {
-        return LinkedArrayImpl.this.getAndRemoveFirst();
+        return LinkedArrayImpl_optimum.this.getAndRemoveFirst();
       }
 
       @Override
@@ -152,7 +152,7 @@ class LinkedArrayImpl<Element> implements LinkedArray<Element> {
 
       @Override
       public LinkedArray<Element> reverse() {
-        return LinkedArrayImpl.this;
+        return LinkedArrayImpl_optimum.this;
       }
 
       @Override
