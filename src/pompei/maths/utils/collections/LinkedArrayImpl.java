@@ -1,6 +1,7 @@
 package pompei.maths.utils.collections;
 
 import java.util.Iterator;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 class LinkedArrayImpl<Element> implements LinkedArray<Element> {
@@ -17,7 +18,7 @@ class LinkedArrayImpl<Element> implements LinkedArray<Element> {
 
   Node<Element> first = null;
   Node<Element> last = null;
-  int count = 0;
+  final AtomicInteger count = new AtomicInteger(0);
   int maxCount = 0;
 
   @Override
@@ -32,7 +33,7 @@ class LinkedArrayImpl<Element> implements LinkedArray<Element> {
         last.next = node;
         last = node;
       }
-      count++;
+      count.incrementAndGet();
       checkMaxCount();
     }
 
@@ -41,7 +42,7 @@ class LinkedArrayImpl<Element> implements LinkedArray<Element> {
   }
 
   private void checkMaxCount() {
-    int count = this.count;
+    int count = this.count.get();
     if (maxCount < count) maxCount = count;
   }
 
@@ -58,7 +59,7 @@ class LinkedArrayImpl<Element> implements LinkedArray<Element> {
         F.prev = node;
         first = node;
       }
-      count++;
+      count.incrementAndGet();
       checkMaxCount();
     }
 
@@ -78,7 +79,7 @@ class LinkedArrayImpl<Element> implements LinkedArray<Element> {
       } else {
         F.prev = null;
       }
-      count--;
+      count.decrementAndGet();
       return ret;
     }
   }
@@ -96,16 +97,14 @@ class LinkedArrayImpl<Element> implements LinkedArray<Element> {
       } else {
         L.next = null;
       }
-      count--;
+      count.decrementAndGet();
       return ret;
     }
   }
 
   @Override
   public int count() {
-    synchronized (mutex) {
-      return count;
-    }
+    return count.get();
   }
 
   @Override
@@ -140,9 +139,7 @@ class LinkedArrayImpl<Element> implements LinkedArray<Element> {
 
       @Override
       public int count() {
-        synchronized (mutex) {
-          return count;
-        }
+        return count.get();
       }
 
       @Override

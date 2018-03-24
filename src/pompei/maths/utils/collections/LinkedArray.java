@@ -41,6 +41,6 @@ public interface LinkedArray<Element> extends Iterable<Element> {
   }
 
   static <Element> LinkedArray<Element> create() {
-    return new LinkedArrayImpl<>();
+    return new LinkedArrayImpl_optimum<>();
   }
 }

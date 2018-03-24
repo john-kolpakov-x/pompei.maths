@@ -193,6 +193,7 @@ public class LinkedArray_optimizations_Test {
     }
 
     public Pair invert() {
+      //noinspection SuspiciousNameCombination
       return new Pair(top, left);
     }
   }
@@ -262,8 +263,8 @@ public class LinkedArray_optimizations_Test {
     Stream<Indicator> optimum = timing(createOptimum(), "Optimum").filter(Indicator::ok);
 
     IndicatorTable table = new IndicatorTable();
-    table.put("Original", original);
-    table.put("Optimum", optimum);
+    table.put("A Orig", original);
+    table.put("B Opt", optimum);
 
     table.T();
 
