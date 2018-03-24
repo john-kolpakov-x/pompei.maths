@@ -20,12 +20,28 @@ import java.util.stream.Stream;
 import static java.util.stream.Stream.concat;
 
 public class LinkedArray_optimizations_Test {
+  public static final String START_BOLD = "\033[0;1m";
+  public static final String END_BOLD = "\033[0;0m";
 
   interface Value {
     String asStr();
 
     default boolean isNone() {
       return false;
+    }
+  }
+
+  static class StrValue implements Value {
+
+    private final String strValue;
+
+    public StrValue(String strValue) {
+      this.strValue = strValue;
+    }
+
+    @Override
+    public String asStr() {
+      return strValue;
     }
   }
 
@@ -131,7 +147,8 @@ public class LinkedArray_optimizations_Test {
     public Stream<Indicator> indicators() {
       return Stream.of(
         new Indicator("call", oneTimeSec(notNullTime, notNullCount)),
-        new Indicator("not null", oneTimeSec(nullTime, nullCount))
+        new Indicator("not null", oneTimeSec(nullTime, nullCount)),
+        new Indicator("count", new StrValue("" + (nullCount + notNullCount)))
       );
     }
 
@@ -166,7 +183,10 @@ public class LinkedArray_optimizations_Test {
 
     @Override
     public Stream<Indicator> indicators() {
-      return Stream.of(new Indicator("put", oneTimeSec(putTime, putCount)));
+      return Stream.of(
+        new Indicator("put", oneTimeSec(putTime, putCount)),
+        new Indicator("count", new StrValue("" + putCount))
+      );
     }
   }
 
@@ -535,7 +555,9 @@ public class LinkedArray_optimizations_Test {
               lastPutting.indicators("putting last  "),
               concat(
                 firstPutting.indicators("putting first "),
-                Stream.of(new Indicator("max count ", () -> "" + maxCount))
+                Stream.of(
+                  new Indicator("max count ", () -> "" + maxCount)
+                )
               )
             )
           )
@@ -545,11 +567,14 @@ public class LinkedArray_optimizations_Test {
 
     final Threads tt = new Threads();
 
-    for (int i = 0; i < 8; i++) {
-      tt.lastGettingThreads.add(new LastGettingThread());
-      tt.firstGettingThreads.add(new FirstGettingThread());
+    //TODO THREAD Setting
+    for (int i = 0; i < 2; i++) {
       tt.lastPuttingThreads.add(new LastPuttingThread());
       tt.firstPuttingThreads.add(new FirstPuttingThread());
+    }
+    for (int i = 0; i < 6; i++) {
+      tt.lastGettingThreads.add(new LastGettingThread());
+      tt.firstGettingThreads.add(new FirstGettingThread());
     }
 
     tt.all().forEach(Thread::start);
@@ -566,7 +591,7 @@ public class LinkedArray_optimizations_Test {
 
       Thread.sleep(100);
       showInfo.set(true);
-      Thread.sleep(600);
+      Thread.sleep(1000);
       showInfo.set(false);
       Thread.sleep(300);
 
@@ -611,7 +636,5 @@ public class LinkedArray_optimizations_Test {
     );
   }
 
-  public static final String START_BOLD = "\033[0;1m";
-  public static final String END_BOLD = "\033[0;0m";
 
 }

@@ -2,10 +2,11 @@ package pompei.maths.utils.collections;
 
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 class LinkedArrayImpl_optimum<Element> implements LinkedArray<Element> {
-  private final Object mutex = new Object();
+  private final ReentrantLock lock = new ReentrantLock();
 
   static class Node<Element> {
     final Element element;
@@ -25,7 +26,8 @@ class LinkedArrayImpl_optimum<Element> implements LinkedArray<Element> {
   public LinkedArray<Element> putLast(Element element) {
     Node<Element> node = new Node<>(element);
 
-    synchronized (mutex) {
+    lock.lock();
+    try {
       if (last == null) {
         first = last = node;
       } else {
@@ -35,6 +37,8 @@ class LinkedArrayImpl_optimum<Element> implements LinkedArray<Element> {
       }
       count.incrementAndGet();
       checkMaxCount();
+    } finally {
+      lock.unlock();
     }
 
     return this;
@@ -50,7 +54,8 @@ class LinkedArrayImpl_optimum<Element> implements LinkedArray<Element> {
   public LinkedArray<Element> putFirst(Element element) {
     Node<Element> node = new Node<>(element);
 
-    synchronized (mutex) {
+    lock.lock();
+    try {
       Node<Element> F = first;
       if (F == null) {
         first = last = node;
@@ -61,6 +66,8 @@ class LinkedArrayImpl_optimum<Element> implements LinkedArray<Element> {
       }
       count.incrementAndGet();
       checkMaxCount();
+    } finally {
+      lock.unlock();
     }
 
     return this;
@@ -69,7 +76,8 @@ class LinkedArrayImpl_optimum<Element> implements LinkedArray<Element> {
   @Override
   @SuppressWarnings("Duplicates")
   public Element getAndRemoveFirst() {
-    synchronized (mutex) {
+    lock.lock();
+    try {
       Node<Element> F = this.first;
       if (F == null) return null;
       Element ret = F.element;
@@ -81,13 +89,16 @@ class LinkedArrayImpl_optimum<Element> implements LinkedArray<Element> {
       }
       count.decrementAndGet();
       return ret;
+    } finally {
+      lock.unlock();
     }
   }
 
   @Override
   @SuppressWarnings("Duplicates")
   public Element getAndRemoveLast() {
-    synchronized (mutex) {
+    lock.lock();
+    try {
       Node<Element> L = last;
       if (L == null) return null;
       Element ret = L.element;
@@ -99,6 +110,8 @@ class LinkedArrayImpl_optimum<Element> implements LinkedArray<Element> {
       }
       count.decrementAndGet();
       return ret;
+    } finally {
+      lock.unlock();
     }
   }
 
