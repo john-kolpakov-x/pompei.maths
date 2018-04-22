@@ -1,4 +1,4 @@
-package scripts;
+package pompei.maths.euler_calculations;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;

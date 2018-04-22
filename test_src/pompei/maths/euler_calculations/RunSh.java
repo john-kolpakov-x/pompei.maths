@@ -1,4 +1,4 @@
-package scripts;
+package pompei.maths.euler_calculations;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -18,19 +18,16 @@ public class RunSh {
   }
   
   private static Thread assign(final InputStream in, final OutputStream out) {
-    Thread ret = new Thread(new Runnable() {
-      @Override
-      public void run() {
-        try {
-          byte buf[] = new byte[1024 * 8];
-          while (true) {
-            int count = in.read(buf);
-            if (count < 0) return;
-            out.write(buf, 0, count);
-          }
-        } catch (Exception e) {
-          e.printStackTrace();
+    Thread ret = new Thread(() -> {
+      try {
+        byte buf[] = new byte[1024 * 8];
+        while (true) {
+          int count = in.read(buf);
+          if (count < 0) return;
+          out.write(buf, 0, count);
         }
+      } catch (Exception e) {
+        e.printStackTrace();
       }
     });
     
