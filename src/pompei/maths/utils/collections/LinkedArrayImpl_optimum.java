@@ -17,8 +17,7 @@ class LinkedArrayImpl_optimum<Element> implements LinkedArray<Element> {
     }
   }
 
-  Node<Element> first = null;
-  Node<Element> last = null;
+  Node<Element> first = null, last = null;
   final AtomicInteger count = new AtomicInteger(0);
   int maxCount = 0;
 
