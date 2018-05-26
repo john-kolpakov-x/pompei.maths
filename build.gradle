@@ -29,20 +29,33 @@ dependencies {
 
 }
 
-test { useTestNG() }
-
 task SortTester(type: JavaExec) {
   main = 'pompei.maths.utils.SortLauncher'
   classpath sourceSets.test.runtimeClasspath
 }
 
-compileJava.options.encoding = "UTF-8"
-compileTestJava.options.encoding = "UTF-8"
+test.useTestNG()
+
+idea.module.inheritOutputDirs = false
+idea.module.outputDir = file("$buildDir/classes/main/")
+idea.module.testOutputDir = file("$buildDir/classes/test/")
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
 
 sourceSets.main.java.srcDirs = ["src"]
-sourceSets.main.resources.srcDirs = ["src", "src_resources"]
 sourceSets.test.java.srcDirs = ["test_src"]
-sourceSets.test.resources.srcDirs = ["test_src", "test_resources"]
+sourceSets.main.resources.srcDirs = ["src_resources"]
+sourceSets.test.resources.srcDirs = ["test_resources"]
+
+sourceSets.main.resources {
+  srcDirs += sourceSets.main.java.srcDirs
+  exclude '**/*.java'
+}
+sourceSets.test.resources {
+  srcDirs += sourceSets.test.java.srcDirs
+  exclude '**/*.java'
+}
 
 jar {
   manifest {
