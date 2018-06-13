@@ -40,8 +40,8 @@ idea.module.inheritOutputDirs = false
 idea.module.outputDir = file("$buildDir/classes/main/")
 idea.module.testOutputDir = file("$buildDir/classes/test/")
 
-compileJava.options.encoding = 'UTF-8'
-compileTestJava.options.encoding = 'UTF-8'
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+[compileJava, compileTestJava]*.options*.debugOptions*.debugLevel = "source,lines,vars"
 
 sourceSets.main.java.srcDirs = ["src"]
 sourceSets.test.java.srcDirs = ["test_src"]
