@@ -4,6 +4,7 @@ import pompei.maths.circles_with_lines.Vec2;
 
 public class Circle {
   public double x, y, m, r;
+  public double vx, vy;
 
   public Circle() {}
 

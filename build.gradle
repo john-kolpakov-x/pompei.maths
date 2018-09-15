@@ -4,8 +4,7 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 
 repositories {
-  //mavenCentral()
-  jcenter()
+  mavenCentral()
 }
 
 //noinspection GroovyUnusedAssignment

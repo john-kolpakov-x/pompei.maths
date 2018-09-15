@@ -26,6 +26,8 @@ public class ViewPanel extends JPanel {
 
   private final List<MouseEvent> mouseDownList = new ArrayList<>();
 
+  private final MovingCalculus movingCalculus = new MovingCalculus();
+
   public ViewPanel() {
 
     addMouseListener(new MouseAdapter() {
@@ -186,6 +188,8 @@ public class ViewPanel extends JPanel {
     lineList.add(l3_23);
     lineList.add(l4_12);
     lineList.add(l4_23);
+
+    movingCalculus.register(lineList, circleList);
   }
 
   double scale = 100;
@@ -396,11 +400,20 @@ public class ViewPanel extends JPanel {
 
   private void command_ToCenter() {
     if (circleList.isEmpty()) return;
-    double ccx = circleList.stream().mapToDouble(c -> c.x).sum() / circleList.size();
-    double ccy = circleList.stream().mapToDouble(c -> c.y).sum() / circleList.size();
+    double totalMass = circleList.stream().mapToDouble(c -> c.m).sum();
+    double ccx = circleList.stream().mapToDouble(c -> c.x * c.m).sum() / totalMass;
+    double ccy = circleList.stream().mapToDouble(c -> c.y * c.m).sum() / totalMass;
 
     centerX = -ccx;
     centerY = -ccy;
+
+    double vx = circleList.stream().mapToDouble(c -> c.vx * c.m).sum() / totalMass;
+    double vy = circleList.stream().mapToDouble(c -> c.vy * c.m).sum() / totalMass;
+    for (Circle c : circleList) {
+      c.vx -= vx;
+      c.vy -= vy;
+    }
+
     updateScreen();
   }
 }
