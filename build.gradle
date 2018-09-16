@@ -35,6 +35,8 @@ task SortTester(type: JavaExec) {
 
 test.useTestNG()
 
+idea.module.downloadSources = true
+idea.module.downloadJavadoc = true
 idea.module.inheritOutputDirs = false
 idea.module.outputDir = file("$buildDir/classes/main/")
 idea.module.testOutputDir = file("$buildDir/classes/test/")
