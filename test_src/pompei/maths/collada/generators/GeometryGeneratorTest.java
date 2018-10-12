@@ -20,12 +20,12 @@ public class GeometryGeneratorTest {
     TorRectDomainUV torDomain = new TorRectDomainUV();
     TorSurface torSurface = new TorSurface();
 
-    torDomain.Nu = 320;
-    torDomain.Nv = 160;
+    torDomain.Nu = 32;
+    torDomain.Nv = 16;
 
     //
     //
-    GeometryGenerator.append(tor, torDomain, torSurface, false);
+    GeometryGenerator.append(tor, torDomain, torSurface, false, false);
     //
     //
 
