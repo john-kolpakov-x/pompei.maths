@@ -2,10 +2,28 @@ package pompei.maths.collada.generators;
 
 import pompei.maths.collada.core.Geometry;
 
-public class GeneratorClosedUV {
+public class GeometryGenerator {
+
+  public static void append(Geometry geometry,
+                            RectDomainUV domainUV,
+                            Surface surface,
+                            boolean rightRound) {
+
+    if (domainUV.connectedByU() && domainUV.connectedByV()) {
+      appendBothConnected(geometry, domainUV, surface, rightRound);
+      return;
+    }
+
+    throw new IllegalArgumentException("Variant while do not realized:"
+      + " domainUV.connectedByU() = " + domainUV.connectedByU()
+      + ", domainUV.connectedByV() = " + domainUV.connectedByV());
+  }
 
   @SuppressWarnings("UnnecessaryLocalVariable")
-  public static void append(Geometry geometry, DomainUV domainUV, Surface surface, boolean rightRound) {
+  private static void appendBothConnected(Geometry geometry,
+                                          RectDomainUV domainUV,
+                                          Surface surface,
+                                          boolean rightRound) {
 
     int Ni = domainUV.Nu(), Nj = domainUV.Nv();
     double u1 = domainUV.u1(), u2 = domainUV.u2();

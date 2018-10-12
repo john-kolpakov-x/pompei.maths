@@ -8,7 +8,7 @@ import java.io.PrintStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class GeneratorClosedUVTest {
+public class GeometryGeneratorTest {
 
   @Test
   public void append() throws Exception {
@@ -17,7 +17,7 @@ public class GeneratorClosedUVTest {
     Geometry tor = collada.upsertGeometry("Tor-mesh");
     collada.upsertNode("Tor", tor);
 
-    TorDomainUV torDomain = new TorDomainUV();
+    TorRectDomainUV torDomain = new TorRectDomainUV();
     TorSurface torSurface = new TorSurface();
 
     torDomain.Nu = 320;
@@ -25,7 +25,7 @@ public class GeneratorClosedUVTest {
 
     //
     //
-    GeneratorClosedUV.append(tor, torDomain, torSurface, false);
+    GeometryGenerator.append(tor, torDomain, torSurface, false);
     //
     //
 

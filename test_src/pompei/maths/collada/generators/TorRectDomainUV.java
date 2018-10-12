@@ -1,6 +1,6 @@
 package pompei.maths.collada.generators;
 
-public class TorDomainUV implements DomainUV {
+public class TorRectDomainUV implements RectDomainUV {
   @Override
   public double u1() {
     return -Math.PI;
@@ -31,5 +31,15 @@ public class TorDomainUV implements DomainUV {
   @Override
   public int Nv() {
     return Nv;
+  }
+
+  @Override
+  public boolean connectedByU() {
+    return true;
+  }
+
+  @Override
+  public boolean connectedByV() {
+    return true;
   }
 }

@@ -1,6 +1,6 @@
 package pompei.maths.collada.generators;
 
-public interface DomainUV {
+public interface RectDomainUV {
   double u1();
 
   double u2();
@@ -12,4 +12,8 @@ public interface DomainUV {
   int Nu();
 
   int Nv();
+
+  boolean connectedByU();
+
+  boolean connectedByV();
 }
