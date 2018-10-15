@@ -27,9 +27,28 @@ public class Collada {
     }
   }
 
+  private final Map<String, Material> materialMap = new HashMap<>();
+
+  public Material upsertMaterial(String id) {
+    {
+      Material material = materialMap.get(id);
+      if (material != null) {
+        return material;
+      }
+    }
+    {
+      Material material = new Material(id);
+      materialMap.put(material.id, material);
+      return material;
+    }
+  }
+
   public void printTo(PrintStream out) {
     out.println("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
     out.println("<COLLADA xmlns=\"http://www.collada.org/2005/11/COLLADASchema\" version=\"1.4.1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">");
+
+    printMaterials(out);
+
     out.println("<library_geometries>");
     geometryMap.entrySet().stream()
       .sorted(Comparator.comparing(Map.Entry::getKey))
@@ -40,6 +59,29 @@ public class Collada {
     printScene(out);
 
     out.println("</COLLADA>");
+  }
+
+  private void printMaterials(PrintStream out) {
+    if (materialMap.isEmpty()) {
+      return;
+    }
+
+    {
+      out.println("<library_effects>");
+      materialMap.entrySet().stream()
+        .sorted(Comparator.comparing(Map.Entry::getKey))
+        .map(Map.Entry::getValue)
+        .forEachOrdered(m -> m.printEffect(out));
+      out.println("</library_effects>");
+    }
+    {
+      out.println("<library_materials>");
+      materialMap.entrySet().stream()
+        .sorted(Comparator.comparing(Map.Entry::getKey))
+        .map(Map.Entry::getValue)
+        .forEachOrdered(m -> m.printMaterial(out));
+      out.println("</library_materials>");
+    }
   }
 
   private final Map<String, Node> nodeMap = new HashMap<>();

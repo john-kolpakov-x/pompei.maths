@@ -11,6 +11,7 @@ import java.util.stream.DoubleStream;
 public class Geometry {
   public final String id;
   public String name;
+  public Material material = null;
 
   Geometry(String id, String name) {
     this.id = id;
@@ -69,11 +70,18 @@ public class Geometry {
       .mapToObj(Conv::doubleToStr)
       .collect(Collectors.joining(" "));
 
-    out.println("<triangles count=\"" + triangleList.size() + "\">");
+    out.println("<triangles " + materialAttribute() + "count=\"" + triangleList.size() + "\">");
     out.println("<input semantic=\"VERTEX\" source=\"#" + getVerticesId() + "\" offset=\"0\"/>");
     out.println("<input semantic=\"NORMAL\" source=\"#" + getNormalsId() + "\" offset=\"1\"/>");
     out.println("<p>" + data + "</p>");
     out.println("</triangles>");
+  }
+
+  private String materialAttribute() {
+    if (material == null) {
+      return "";
+    }
+    return "material=\"" + material.materialId() + "\" ";
   }
 
   private void printVertices(PrintStream out) {
