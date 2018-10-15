@@ -3,7 +3,6 @@ package pompei.maths.collada.generators;
 import org.testng.annotations.Test;
 import pompei.maths.collada.core.Collada;
 import pompei.maths.collada.core.Geometry;
-import pompei.maths.collada.core.Material;
 
 import java.io.PrintStream;
 import java.nio.file.Path;
@@ -16,9 +15,11 @@ public class GeometryGeneratorTest {
 
     Collada collada = new Collada();
     Geometry tor = collada.upsertGeometry("Tor-mesh");
-    collada.upsertNode("Tor", tor);
+
 
     tor.material = collada.upsertMaterial("Boom");
+
+    collada.upsertNode("Tor", tor).material = tor.material;
 
     TorRectDomainUV torDomain = new TorRectDomainUV();
     TorSurface torSurface = new TorSurface();
