@@ -81,7 +81,7 @@ public class Geometry {
     if (material == null) {
       return "";
     }
-    return "material=\"" + material.materialId() + "\" ";
+    return " material=\"#" + material.materialId() + "\" ";
   }
 
   private void printVertices(PrintStream out) {

@@ -18,7 +18,7 @@ public class GeometryGeneratorTest {
     Geometry tor = collada.upsertGeometry("Tor-mesh");
     collada.upsertNode("Tor", tor);
 
-    tor.material = collada.upsertMaterial("White");
+    tor.material = collada.upsertMaterial("Boom");
 
     TorRectDomainUV torDomain = new TorRectDomainUV();
     TorSurface torSurface = new TorSurface();
@@ -32,7 +32,7 @@ public class GeometryGeneratorTest {
     //
     //
 
-    Path pathToFile = Paths.get(System.getProperty("user.home") + "/tmp/gen_tor.dae");
+    Path pathToFile = Paths.get(System.getProperty("user.home") + "/tmp/gen_tor_with_material.dae");
 
     try (PrintStream printStream = new PrintStream(pathToFile.toFile(), "UTF-8")) {
       collada.printTo(printStream);
