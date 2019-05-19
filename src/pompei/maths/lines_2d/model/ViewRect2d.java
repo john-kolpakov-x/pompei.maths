@@ -2,7 +2,7 @@ package pompei.maths.lines_2d.model;
 
 import static pompei.maths.lines_2d.util.IntUtil.toInt;
 
-public class ViewRect2d extends Rect2d {
+public class ViewRect2d extends Rect2d<ViewRect2d, ViewVec2d> {
 
   public static ViewRect2d of(double x, double y, double width, double height) {
     var ret = new ViewRect2d();
@@ -43,6 +43,11 @@ public class ViewRect2d extends Rect2d {
 
   public int H() {
     return toInt(height);
+  }
+
+  @Override
+  protected ViewVec2d newVector(double x, double y) {
+    return ViewVec2d.of(x, y);
   }
 
 }

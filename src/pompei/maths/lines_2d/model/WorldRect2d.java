@@ -1,6 +1,6 @@
 package pompei.maths.lines_2d.model;
 
-public class WorldRect2d extends Rect2d {
+public class WorldRect2d extends Rect2d<WorldRect2d, WorldVec2d> {
 
   public static WorldRect2d of(double x, double y, double width, double height) {
     var ret = new WorldRect2d();
@@ -21,4 +21,10 @@ public class WorldRect2d extends Rect2d {
   public WorldVec2d vertex(Hor hor, Vert vert) {
     return WorldVec2d.of(getX(hor), getY(vert));
   }
+
+  @Override
+  protected WorldVec2d newVector(double x, double y) {
+    return WorldVec2d.of(x, y);
+  }
+
 }

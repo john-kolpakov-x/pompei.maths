@@ -1,11 +1,14 @@
 package pompei.maths.lines_2d.core;
 
 import pompei.maths.lines_2d.model.ViewRect2d;
+import pompei.maths.lines_2d.model.ViewVec2d;
 
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseWheelEvent;
 
 public class MainContentPane extends JPanel {
 
@@ -15,6 +18,17 @@ public class MainContentPane extends JPanel {
     this.viewPort = viewPort;
 
     activateTiming();
+
+    addMouseWheelListener(new MouseAdapter() {
+      @Override
+      public void mouseWheelMoved(MouseWheelEvent e) {
+        double scaleChangeFactor = 1.23;
+        if (e.getWheelRotation() > 0) {
+          scaleChangeFactor = 1 / scaleChangeFactor;
+        }
+        viewPort.axes.changeScale(scaleChangeFactor, ViewVec2d.of(e.getPoint()));
+      }
+    });
 
   }
 

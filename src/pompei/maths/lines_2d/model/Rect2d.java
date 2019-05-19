@@ -2,7 +2,7 @@ package pompei.maths.lines_2d.model;
 
 import static pompei.maths.lines_2d.util.NumberUtil.notNegative;
 
-public abstract class Rect2d {
+public abstract class Rect2d<R extends Rect2d, V extends Vec2d> {
 
   public double x;
   public double y;
@@ -50,6 +50,10 @@ public abstract class Rect2d {
     return true;
   }
 
+  public boolean contains(V vec) {
+    return containX(vec.x) && containY(vec.y);
+  }
+
   public double getY(Vert vert) {
     switch (vert) {
       case TOP:
@@ -72,6 +76,12 @@ public abstract class Rect2d {
         return x + width;
     }
     throw new IllegalArgumentException("hor = " + hor);
+  }
+
+  protected abstract V newVector(double x, double y);
+
+  public V center() {
+    return newVector(x + width / 2, y + height / 2);
   }
 
 }

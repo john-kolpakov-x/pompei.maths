@@ -33,4 +33,12 @@ public abstract class Vec2d<V extends Vec2d> {
     ret.y -= a.y;
     return ret;
   }
+
+  public V mul(double a) {
+    V ret = copy();
+    ret.x *= a;
+    ret.y *= a;
+    return ret;
+  }
+
 }

@@ -14,6 +14,10 @@ public class ViewVec2d extends Vec2d<ViewVec2d> {
     return new ViewVec2d(x, y);
   }
 
+  public static ViewVec2d of(Point point) {
+    return of((double) point.x, (double) point.y);
+  }
+
   public Point asPoint() {
     return new Point(toInt(x), toInt(y));
   }
