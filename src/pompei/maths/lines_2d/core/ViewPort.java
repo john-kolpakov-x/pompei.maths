@@ -1,12 +1,10 @@
 package pompei.maths.lines_2d.core;
 
-import pompei.maths.lines_2d.model.Rect2d;
-import pompei.maths.lines_2d.model.Vec2d;
+import pompei.maths.lines_2d.model.ViewRect2d;
+import pompei.maths.lines_2d.model.ViewVec2d;
+import pompei.maths.lines_2d.model.WorldRect2d;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
-
-import static pompei.maths.lines_2d.util.IntUtil.toInt;
 
 public class ViewPort {
 
@@ -17,37 +15,35 @@ public class ViewPort {
     this.scene = scene;
   }
 
-  public void paint(Graphics2D g, Rect2d viewPortRect) {
+  public void paint(Drawer g, ViewRect2d viewPortRect) {
     axes.rect = viewPortRect;
 
     paintCoordinateAxes(g, viewPortRect);
 
     {
-      var viewLeftTop = Vec2d.of(viewPortRect.x, viewPortRect.y);
-      var viewRightBottom = Vec2d.of(viewPortRect.x + viewPortRect.width, viewPortRect.y + viewPortRect.height);
+      var viewLeftTop = ViewVec2d.of(viewPortRect.x, viewPortRect.y);
+      var viewRightBottom = ViewVec2d.of(viewPortRect.x + viewPortRect.width, viewPortRect.y + viewPortRect.height);
       var worldLeftTop = axes.toWorld(viewLeftTop);
       var worldRightBottom = axes.toWorld(viewRightBottom);
-      var worldRect = Rect2d.diagonal(worldLeftTop, worldRightBottom);
+      var worldRect = WorldRect2d.diagonal(worldLeftTop, worldRightBottom);
 
       scene.selectContains(worldRect).forEach(f -> f.drawTo(g, viewPortRect, axes));
-
     }
   }
 
-  private void paintCoordinateAxes(Graphics2D g, Rect2d viewPortRect) {
+  private void paintCoordinateAxes(Drawer g, ViewRect2d viewPortRect) {
     {
       double zeroX = axes.toViewX(0);
 
       if (viewPortRect.containX(zeroX)) {
 
-        int X = toInt(zeroX);
-        int Y1 = toInt(viewPortRect.y);
-        int Y2 = toInt(viewPortRect.y + viewPortRect.height);
+        var p1 = ViewVec2d.of(zeroX, viewPortRect.y);
+        var p2 = ViewVec2d.of(zeroX, viewPortRect.y + viewPortRect.height);
 
         g.setColor(new Color(156, 156, 156));
-        g.drawLine(X, Y1, X, Y2);
-        g.drawLine(X - 5, Y1 + 5, X, Y1);
-        g.drawLine(X + 5, Y1 + 5, X, Y1);
+        g.drawLine(p1, p2);
+        g.drawLine(p1.plus(ViewVec2d.of(-5, 5)), p1);
+        g.drawLine(p1.plus(ViewVec2d.of(5, 5)), p1);
 
       }
     }
@@ -57,14 +53,13 @@ public class ViewPort {
 
       if (viewPortRect.containY(zeroY)) {
 
-        int Y = toInt(zeroY);
-        int X1 = toInt(viewPortRect.x);
-        int X2 = toInt(viewPortRect.x + viewPortRect.width);
+        var p1 = ViewVec2d.of(viewPortRect.x, zeroY);
+        var p2 = ViewVec2d.of(viewPortRect.x + viewPortRect.width, zeroY);
 
         g.setColor(new Color(156, 156, 156));
-        g.drawLine(X1, Y, X2, Y);
-        g.drawLine(X2, Y, X2 - 5, Y - 5);
-        g.drawLine(X2, Y, X2 - 5, Y + 5);
+        g.drawLine(p1, p2);
+        g.drawLine(p2.plus(ViewVec2d.of(-5, -5)), p2);
+        g.drawLine(p2.plus(ViewVec2d.of(-5, 5)), p2);
 
       }
     }

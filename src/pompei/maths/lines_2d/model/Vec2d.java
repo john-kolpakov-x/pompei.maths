@@ -1,6 +1,6 @@
 package pompei.maths.lines_2d.model;
 
-public class Vec2d {
+public abstract class Vec2d<V extends Vec2d> {
 
   public double x, y;
 
@@ -13,7 +13,19 @@ public class Vec2d {
     this.y = y;
   }
 
-  public static Vec2d of(double x, double y) {
-    return new Vec2d(x, y);
+  public abstract V copy();
+
+  public V plus(V a) {
+    V ret = copy();
+    ret.x += a.x;
+    ret.y += a.y;
+    return ret;
+  }
+
+  public V minus(V a) {
+    V ret = copy();
+    ret.x -= a.x;
+    ret.y -= a.y;
+    return ret;
   }
 }

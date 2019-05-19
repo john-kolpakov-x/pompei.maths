@@ -1,28 +1,28 @@
 package pompei.maths.lines_2d.model;
 
-public class Rect2d {
+public abstract class Rect2d {
 
-  public double x, y, width, height;
+  public double x;
+  public double y;
+  public double width;
+  public double height;
 
-  public static Rect2d of(double x, double y, double width, double height) {
-    Rect2d ret = new Rect2d();
-    ret.x = x;
-    ret.y = y;
-    ret.width = width;
-    ret.height = height;
-    return ret;
+  public void assign(double x, double y, double width, double height) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
   }
 
-  public static Rect2d diagonal(double x1, double y1, double x2, double y2) {
+  public void assignDiagonal(double x1, double y1, double x2, double y2) {
     double xMin = Math.min(x1, x2);
     double xMax = Math.max(x1, x2);
     double yMin = Math.min(y1, y2);
     double yMax = Math.max(y1, y2);
-    return of(xMin, yMin, xMax - xMin, yMax - yMin);
-  }
-
-  public static Rect2d diagonal(Vec2d p1, Vec2d p2) {
-    return diagonal(p1.x, p1.y, p2.x, p2.y);
+    x = xMin;
+    y = yMin;
+    width = xMax - xMin;
+    height = yMin - yMax;
   }
 
   public boolean containX(double x) {
@@ -45,11 +45,7 @@ public class Rect2d {
     return true;
   }
 
-  public Vec2d getPoint(Hor hor, Vert vert) {
-    return Vec2d.of(getX(hor), getY(vert));
-  }
-
-  private double getY(Vert vert) {
+  public double getY(Vert vert) {
     switch (vert) {
       case TOP:
         return y + height;
@@ -61,7 +57,7 @@ public class Rect2d {
     throw new IllegalArgumentException("vert = " + vert);
   }
 
-  private double getX(Hor hor) {
+  public double getX(Hor hor) {
     switch (hor) {
       case LEFT:
         return x;

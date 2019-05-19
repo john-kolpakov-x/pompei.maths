@@ -9,7 +9,7 @@ public class SceneImpl implements Scene {
 
   @Override
   public Stream<Figure> selectContains(Rect2d worldRect) {
-    return null;
+    return Stream.empty();
   }
 
 }

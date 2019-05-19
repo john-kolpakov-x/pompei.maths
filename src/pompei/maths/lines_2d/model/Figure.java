@@ -1,11 +1,10 @@
 package pompei.maths.lines_2d.model;
 
 import pompei.maths.lines_2d.core.Axes;
-
-import java.awt.Graphics2D;
+import pompei.maths.lines_2d.core.Drawer;
 
 public interface Figure {
 
-  void drawTo(Graphics2D g, Rect2d viewPortRect, Axes axes);
+  void drawTo(Drawer drawer, ViewRect2d viewPortRect, Axes axes);
 
 }
