@@ -8,6 +8,11 @@ public abstract class Vec2d<V extends Vec2d> {
     this(0, 0);
   }
 
+  @Override
+  public String toString() {
+    return getClass().getSimpleName() + "(" + x + "," + y + ")";
+  }
+
   public Vec2d(double x, double y) {
     this.x = x;
     this.y = y;

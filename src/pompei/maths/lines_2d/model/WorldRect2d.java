@@ -18,7 +18,7 @@ public class WorldRect2d extends Rect2d {
     return diagonal(p1.x, p1.y, p2.x, p2.y);
   }
 
-  public WorldVec2d getPoint(Hor hor, Vert vert) {
+  public WorldVec2d vertex(Hor hor, Vert vert) {
     return WorldVec2d.of(getX(hor), getY(vert));
   }
 }

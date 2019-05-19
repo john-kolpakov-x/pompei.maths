@@ -1,5 +1,7 @@
 package pompei.maths.lines_2d.model;
 
+import static pompei.maths.lines_2d.util.NumberUtil.notNegative;
+
 public abstract class Rect2d {
 
   public double x;
@@ -7,11 +9,16 @@ public abstract class Rect2d {
   public double width;
   public double height;
 
+  @Override
+  public String toString() {
+    return getClass().getSimpleName() + "(" + x + "," + y + ")-[" + width + "," + height + "]";
+  }
+
   public void assign(double x, double y, double width, double height) {
     this.x = x;
     this.y = y;
-    this.width = width;
-    this.height = height;
+    this.width = notNegative(width);
+    this.height = notNegative(height);
   }
 
   public void assignDiagonal(double x1, double y1, double x2, double y2) {
@@ -19,10 +26,8 @@ public abstract class Rect2d {
     double xMax = Math.max(x1, x2);
     double yMin = Math.min(y1, y2);
     double yMax = Math.max(y1, y2);
-    x = xMin;
-    y = yMin;
-    width = xMax - xMin;
-    height = yMin - yMax;
+
+    assign(xMin, yMin, xMax - xMin, yMax - yMin);
   }
 
   public boolean containX(double x) {
