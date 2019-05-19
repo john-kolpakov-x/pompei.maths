@@ -8,12 +8,12 @@ public class Vec2d {
     this(0, 0);
   }
 
-  public Vec2d(int x, int y) {
+  public Vec2d(double x, double y) {
     this.x = x;
     this.y = y;
   }
 
-  public static Vec2d of(int x, int y) {
+  public static Vec2d of(double x, double y) {
     return new Vec2d(x, y);
   }
 }

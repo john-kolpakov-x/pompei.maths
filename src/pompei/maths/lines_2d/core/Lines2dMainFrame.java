@@ -7,7 +7,9 @@ public class Lines2dMainFrame extends JFrame {
   public Lines2dMainFrame() {
     setTitle("Lines 2D");
 
-    var viewPort = new ViewPort();
+    var scene = new SceneImpl();
+
+    var viewPort = new ViewPort(scene);
 
     MainContentPane contentPane = new MainContentPane(viewPort);
 
