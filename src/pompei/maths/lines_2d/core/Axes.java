@@ -1,8 +1,11 @@
 package pompei.maths.lines_2d.core;
 
+import pompei.maths.lines_2d.model.Hor;
 import pompei.maths.lines_2d.model.Vec2d;
+import pompei.maths.lines_2d.model.Vert;
 import pompei.maths.lines_2d.model.ViewRect2d;
 import pompei.maths.lines_2d.model.ViewVec2d;
+import pompei.maths.lines_2d.model.WorldRect2d;
 import pompei.maths.lines_2d.model.WorldVec2d;
 
 public class Axes {
@@ -83,6 +86,12 @@ public class Axes {
 
   public ViewVec2d toView(Vec2d worldPoint) {
     return ViewVec2d.of(toViewX(worldPoint.x), toViewY(worldPoint.y));
+  }
+
+  public ViewRect2d toViewRect(WorldRect2d rect) {
+    var vA = toView(rect.vertex(Hor.LEFT, Vert.BOTTOM));
+    var vB = toView(rect.vertex(Hor.RIGHT, Vert.TOP));
+    return ViewRect2d.diagonal(vA, vB);
   }
 
 }

@@ -10,6 +10,8 @@ public class ViewVec2d extends Vec2d<ViewVec2d> {
     super(x, y);
   }
 
+  public ViewVec2d() {}
+
   public static ViewVec2d of(double x, double y) {
     return new ViewVec2d(x, y);
   }

@@ -1,4 +1,4 @@
-package pompei.maths.lines_2d.util;
+package pompei.maths.lines_2d.file_saver;
 
 import javax.swing.JFrame;
 import java.awt.Dimension;
@@ -24,15 +24,21 @@ public class FormPositionLook {
   }
 
   public void register(JFrame frame, String name) {
+    long startToSave = System.currentTimeMillis() + 1000;
     frame.addComponentListener(new ComponentAdapter() {
       @Override
       public void componentMoved(ComponentEvent e) {
-        formPosition(name).setValue(frame.getLocation());
+        if (System.currentTimeMillis() > startToSave) {
+          formPosition(name).setValue(frame.getLocation());
+        }
+
       }
 
       @Override
       public void componentResized(ComponentEvent e) {
-        formSize(name).setValue(frame.getSize());
+        if (System.currentTimeMillis() > startToSave) {
+          formSize(name).setValue(frame.getSize());
+        }
       }
 
       @Override
@@ -43,6 +49,6 @@ public class FormPositionLook {
         });
       }
     });
-
   }
+
 }

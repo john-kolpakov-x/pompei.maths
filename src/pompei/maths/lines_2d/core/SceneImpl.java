@@ -15,13 +15,13 @@ public class SceneImpl implements Scene {
   public Stream<Figure> selectContains(Rect2d worldRect) {
 
     FigureRect rect1 = new FigureRect();
-    rect1.source = WorldRect2d.diagonal(WorldVec2d.of(10, 10), WorldVec2d.of(100, 100));
+    rect1.source = WorldRect2d.diagonal(WorldVec2d.of(10, 10), WorldVec2d.of(150, 100));
 
     FigureRect rect2 = new FigureRect();
-    rect2.source = WorldRect2d.diagonal(WorldVec2d.of(-50, -50), WorldVec2d.of(-10, -10));
+    rect2.source = WorldRect2d.diagonal(WorldVec2d.of(-50, -70), WorldVec2d.of(-10, -10));
 
     FigureRect rect3 = new FigureRect();
-    rect3.source = WorldRect2d.diagonal(WorldVec2d.of(-250, 250), WorldVec2d.of(-10, 10));
+    rect3.source = WorldRect2d.diagonal(WorldVec2d.of(-250, 150), WorldVec2d.of(-10, 10));
 
     return Stream.of(rect1, rect2, rect3);
   }

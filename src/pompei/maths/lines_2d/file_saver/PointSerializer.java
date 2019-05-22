@@ -1,4 +1,4 @@
-package pompei.maths.lines_2d.util;
+package pompei.maths.lines_2d.file_saver;
 
 import java.awt.Point;
 

@@ -1,5 +1,6 @@
 package pompei.maths.lines_2d.core;
 
+import pompei.maths.lines_2d.file_saver.AxesLook;
 import pompei.maths.lines_2d.model.ViewRect2d;
 import pompei.maths.lines_2d.model.ViewVec2d;
 
@@ -18,8 +19,9 @@ public class MainContentPane extends JPanel {
 
   private ViewPort viewPort;
 
-  public MainContentPane(ViewPort viewPort) {
+  public MainContentPane(ViewPort viewPort, AxesLook axesLook) {
     this.viewPort = viewPort;
+    axesLook.load(viewPort.axes);
 
     activateTiming();
 
@@ -31,6 +33,7 @@ public class MainContentPane extends JPanel {
           scaleChangeFactor = 1 / scaleChangeFactor;
         }
         viewPort.axes.changeScale(scaleChangeFactor, ViewVec2d.of(e.getPoint()));
+        axesLook.save(viewPort.axes);
       }
     });
 
@@ -45,6 +48,7 @@ public class MainContentPane extends JPanel {
       }
       var delta = mousePoint.minus(mda);
       viewPort.axes.viewCenterOffset = startedOffset.plus(delta);
+      axesLook.save(viewPort.axes);
     };
 
     addMouseMotionListener(new MouseMotionAdapter() {
@@ -57,28 +61,35 @@ public class MainContentPane extends JPanel {
     addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1) {
-          mouseDownedAt.set(ViewVec2d.of(e.getPoint()));
-          offsetAtDowned.set(viewPort.axes.viewCenterOffset);
-        }
-        if (e.getButton() == MouseEvent.BUTTON2) {
-          mouseDownedAt.set(null);
-          var offset = offsetAtDowned.getAndSet(null);
-          if (offset != null) {
-            viewPort.axes.viewCenterOffset = offset;
+        if (e.getClickCount() == 1) {
+          if (e.getButton() == MouseEvent.BUTTON1) {
+            mouseDownedAt.set(ViewVec2d.of(e.getPoint()));
+            offsetAtDowned.set(viewPort.axes.viewCenterOffset);
+            return;
+          }
+          if (e.getButton() == MouseEvent.BUTTON3) {
+            mouseDownedAt.set(null);
+            var offset = offsetAtDowned.getAndSet(null);
+            if (offset != null) {
+              viewPort.axes.viewCenterOffset = offset;
+            }
+            return;
           }
         }
       }
 
       @Override
       public void mouseReleased(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1) {
-          ViewVec2d mda = mouseDownedAt.get();
-          if (mda != null) {
-            moveTo.accept(ViewVec2d.of(e.getPoint()));
+        if (e.getClickCount() == 0) {
+          if (e.getButton() == MouseEvent.BUTTON1) {
+            ViewVec2d mda = mouseDownedAt.getAndSet(null);
+            offsetAtDowned.set(null);
+            if (mda != null) {
+              moveTo.accept(ViewVec2d.of(e.getPoint()));
+            }
+            return;
           }
         }
-
       }
     });
 
@@ -121,6 +132,7 @@ public class MainContentPane extends JPanel {
     g.drawRect(padding, padding, width - 2 * padding, height - 2 * padding);
 
     doPaint(new DrawerGraphics(g));
+
   }
 
   private void doPaint(Drawer g) {

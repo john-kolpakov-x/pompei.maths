@@ -6,6 +6,8 @@ public class WorldVec2d extends Vec2d<WorldVec2d> {
     super(x, y);
   }
 
+  public WorldVec2d() {}
+
   public static WorldVec2d of(double x, double y) {
     return new WorldVec2d(x, y);
   }
