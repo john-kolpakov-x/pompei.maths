@@ -16,7 +16,7 @@ public class RND {
   public static final Random RANDOM = new Random();
 
   public static String str(int len) {
-    char ret[] = new char[len];
+    char[] ret = new char[len];
     final int length = ALL_CHARS.length;
     for (int i = 0; i < len; i++) {
       ret[i] = ALL_CHARS[RANDOM.nextInt(length)];
@@ -25,7 +25,7 @@ public class RND {
   }
 
   public static String strInt(int len) {
-    char ret[] = new char[len];
+    char[] ret = new char[len];
     final int length = DIGIT_CHARS.length;
     for (int i = 0; i < len; i++) {
       ret[i] = DIGIT_CHARS[RANDOM.nextInt(length)];
@@ -34,7 +34,7 @@ public class RND {
   }
 
   public static String strHex(int len) {
-    char ret[] = new char[len];
+    char[] ret = new char[len];
     final int length = HEX_DIGITS.length;
     for (int i = 0; i < len; i++) {
       ret[i] = HEX_DIGITS[RANDOM.nextInt(length)];
@@ -48,5 +48,11 @@ public class RND {
 
   public static boolean bool() {
     return RANDOM.nextBoolean();
+  }
+
+  public static byte[] bytes(int size) {
+    byte[] bytes = new byte[size];
+    RANDOM.nextBytes(bytes);
+    return bytes;
   }
 }
