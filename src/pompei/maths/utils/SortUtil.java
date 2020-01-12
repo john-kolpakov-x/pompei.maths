@@ -87,12 +87,12 @@ public class SortUtil {
     ss[j] = s1;
   }
 
-  public static void sortMerge(String ss[]) {
-    String ss2[] = new String[ss.length];
+  public static void sortMerge(String[] ss) {
+    String[] ss2 = new String[ss.length];
     sortMergeFromTo(ss, 0, ss.length, ss2);
   }
 
-  public static void sortMergeParallel(String ss[]) {
+  public static void sortMergeParallel(String[] ss) {
     new MergeSortPart(ss, new String[ss.length], 0, ss.length).fork().join();
   }
 
@@ -181,7 +181,7 @@ public class SortUtil {
     private final int from;
     private final int to;
 
-    public MergeSortPart(String ss[], String ss2[], int from, int to) {
+    public MergeSortPart(String[] ss, String[] ss2, int from, int to) {
       this.ss = ss;
       this.ss2 = ss2;
       this.from = from;
@@ -191,7 +191,8 @@ public class SortUtil {
     @Override
     protected void compute() {
       int from = this.from, to = this.to;
-      String ss[] = this.ss, ss2[] = this.ss2;
+      String[] ss = this.ss;
+      String[] ss2 = this.ss2;
 
       int len = to - from;
       if (sortSmall(from, to, ss, len)) return;
@@ -246,6 +247,7 @@ public class SortUtil {
     return false;
   }
 
+  @SuppressWarnings("DuplicatedCode")
   private static void sort9elements(String[] ss, int from) {
 
     swapIfNeed(ss, from + 0, from + 5);

@@ -1,0 +1,26 @@
+Allocates for 9.723342 s
+Filled for 2.498684 s
+Incremented for 4.340444 s
+Calculated sum = -6.6782704E15 for 2.870389 s :: count = 390954
+
+
+Allocates for 9.746194 s
+Filled for 2.501678 s
+Incremented for 4.333086 s
+Calculated sum = -6.6782704E15 for 2.866889 s :: count = 390954
+
+--------------------
+Allocates for 12.617542 s
+Filled for 1.906024 s
+Incremented for 4.350061 s
+Calculated sum = -6.490371E32 for 2.211157 s :: count = 571783941
+
+Allocates for 12.767330 s
+Filled for 1.907787 s
+Incremented for 4.347421 s
+Calculated sum = -6.490371E32 for 1.954266 s :: count = 571783941
+
+Allocates for 12.780956 s
+Filled for 1.911149 s
+Incremented for 4.353173 s
+Calculated sum = -6.490371E32 for 1.961215 s :: count = 571783941

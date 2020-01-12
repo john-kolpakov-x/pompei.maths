@@ -1,7 +1,7 @@
 
 Size 1200 800
 
-Point A 120 325
+Point A  120 325
 Point B 1000 300
 
 Shar S1 Rm 50 1 xy 300 500 vxy 0 0
