@@ -5,10 +5,10 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
-public class BigDecimalMath {
+public class BigDecimalMathMy {
   private final MathContext mc;
 
-  public BigDecimalMath(int precision) {
+  public BigDecimalMathMy(int precision) {
     mc = new MathContext(precision, RoundingMode.HALF_UP);
   }
 

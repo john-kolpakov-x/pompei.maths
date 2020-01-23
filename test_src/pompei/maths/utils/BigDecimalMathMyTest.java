@@ -7,10 +7,10 @@ import org.testng.annotations.Test;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class BigDecimalMathTest {
+public class BigDecimalMathMyTest {
   @Test
   public void exp_one() throws Exception {
-    BigDecimalMath math = new BigDecimalMath(12);
+    BigDecimalMathMy math = new BigDecimalMathMy(12);
 
     BigDecimal e = math.exp(BigDecimal.valueOf(1));
 
@@ -22,7 +22,7 @@ public class BigDecimalMathTest {
 
   @Test
   public void exp_minusOne() throws Exception {
-    BigDecimalMath math = new BigDecimalMath(12);
+    BigDecimalMathMy math = new BigDecimalMathMy(12);
 
     BigDecimal e = math.exp(BigDecimal.valueOf(-1));
 
@@ -34,7 +34,7 @@ public class BigDecimalMathTest {
 
   @Test
   public void exp_bigValue() throws Exception {
-    BigDecimalMath math = new BigDecimalMath(12);
+    BigDecimalMathMy math = new BigDecimalMathMy(12);
 
     double expected = Math.exp(230);
     System.out.println("expected = " + expected);

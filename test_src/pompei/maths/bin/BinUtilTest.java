@@ -2,9 +2,12 @@ package pompei.maths.bin;
 
 import org.testng.annotations.Test;
 import pompei.maths.TestUtil;
+import pompei.maths.bdmath.BigDecimalMath;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.Random;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -344,4 +347,22 @@ public class BinUtilTest {
     assertThat(actual).isNull();
   }
 
+  @Test
+  public void name() {
+
+    MathContext mc = new MathContext(300, RoundingMode.HALF_UP);
+    BigDecimal E = BigDecimalMath.exp(mc);
+    BigDecimal PI = BigDecimalMath.atan(BigDecimal.ONE.setScale(300, RoundingMode.HALF_UP))
+                                  .multiply(new BigDecimal("4"), mc);
+
+    System.out.println("E  = " + E);
+    System.out.println("PI = " + PI);
+
+    BigDecimal E_PI = BigDecimalMath.pow(E, PI);
+    BigDecimal PI_E = BigDecimalMath.pow(PI, E);
+
+    System.out.println("E_PI = " + E_PI);
+    System.out.println("PI_E = " + PI_E);
+
+  }
 }
