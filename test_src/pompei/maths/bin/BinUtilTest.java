@@ -91,7 +91,6 @@ public class BinUtilTest {
 
   }
 
-
   @Test
   public void sizeOfStr__null() {
 
@@ -268,7 +267,6 @@ public class BinUtilTest {
 
     assertThat(actual).isNull();
   }
-
 
   @Test
   public void writeBd__readBd() {
