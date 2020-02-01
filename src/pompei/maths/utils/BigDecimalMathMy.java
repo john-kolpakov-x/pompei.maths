@@ -16,9 +16,13 @@ public class BigDecimalMathMy {
 
     int cmp = x.compareTo(BigDecimal.ZERO);
 
-    if (cmp == 0) return BigDecimal.ONE;
+    if (cmp == 0) {
+      return BigDecimal.ONE;
+    }
 
-    if (cmp < 0) return BigDecimal.ONE.divide(expPositive(x.negate()), mc);
+    if (cmp < 0) {
+      return BigDecimal.ONE.divide(expPositive(x.negate()), mc);
+    }
 
     return expPositive(x);
   }
@@ -57,17 +61,29 @@ public class BigDecimalMathMy {
     int nZeroCompared = n.compareTo(BigInteger.ZERO);
 
     {
-      if (xZeroCompared == 0 && nZeroCompared == 0) throw new IllegalArgumentException("Unknown result of 0^0");
-      if (xZeroCompared == 0) return BigDecimal.ZERO;
-      if (nZeroCompared == 0) return BigDecimal.ONE;
+      if (xZeroCompared == 0 && nZeroCompared == 0) {
+        throw new IllegalArgumentException("Unknown result of 0^0");
+      }
+      if (xZeroCompared == 0) {
+        return BigDecimal.ZERO;
+      }
+      if (nZeroCompared == 0) {
+        return BigDecimal.ONE;
+      }
     }
 
-    if (n.compareTo(BigInteger.ONE) == 0) return x;
+    if (n.compareTo(BigInteger.ONE) == 0) {
+      return x;
+    }
 
     {
-      if (nZeroCompared > 0) return powPlus(x, n);
+      if (nZeroCompared > 0) {
+        return powPlus(x, n);
+      }
 
-      if (xZeroCompared < 0) throw new IllegalArgumentException("Unknown result of negative^negative");
+      if (xZeroCompared < 0) {
+        throw new IllegalArgumentException("Unknown result of negative^negative");
+      }
 
       return powMinus(x, n);
     }
