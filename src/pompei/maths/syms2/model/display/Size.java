@@ -13,7 +13,9 @@ public class Size {
   }
 
   public Size(Size size) {
-    if (size != null) copyFrom(size);
+    if (size != null) {
+      copyFrom(size);
+    }
   }
 
   @SuppressWarnings("unused")
@@ -22,7 +24,9 @@ public class Size {
   }
 
   public final Size copyFrom(Size size) {
-    if (size == null) return this;
+    if (size == null) {
+      return this;
+    }
     top = size.top;
     bottom = size.bottom;
     width = size.width;

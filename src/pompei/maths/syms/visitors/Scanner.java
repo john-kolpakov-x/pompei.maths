@@ -16,74 +16,86 @@ import pompei.maths.syms.visitable.Skob;
 import pompei.maths.syms.visitable.Var;
 
 public class Scanner implements Visitor<Expr> {
-  
+
   @Override
   public Expr visitConstDouble(ConstDouble constDouble) {
     return visitConst(constDouble);
   }
-  
+
   @Override
   public Expr visitConstInt(ConstInt constInt) {
     return visitConst(constInt);
   }
-  
+
   protected Expr visitConst(Const aConst) {
     return aConst;
   }
-  
+
   @Override
   public Expr visitVar(Var var) {
     return var;
   }
-  
+
   @Override
   public Expr visitPlus(Plus plus) {
     Expr left = plus.left.visit(this);
     Expr right = plus.right.visit(this);
-    if (left == plus.left && right == plus.right) return plus;
+    if (left == plus.left && right == plus.right) {
+      return plus;
+    }
     return new Plus(left, right);
   }
-  
+
   @Override
   public Expr visitMul(Mul mul) {
     Expr left = mul.left.visit(this);
     Expr right = mul.right.visit(this);
-    if (left == mul.left && right == mul.right) return mul;
+    if (left == mul.left && right == mul.right) {
+      return mul;
+    }
     return new Mul(left, right);
   }
-  
+
   @Override
   public Expr visitMinus(Minus minus) {
     Expr left = minus.left.visit(this);
     Expr right = minus.right.visit(this);
-    if (left == minus.left && right == minus.right) return minus;
+    if (left == minus.left && right == minus.right) {
+      return minus;
+    }
     return new Minus(left, right);
   }
-  
+
   @Override
   public Expr visitDiv(Div div) {
     Expr left = div.top.visit(this);
     Expr right = div.bottom.visit(this);
-    if (left == div.top && right == div.bottom) return div;
+    if (left == div.top && right == div.bottom) {
+      return div;
+    }
     return new Div(left, right);
   }
-  
+
   @Override
   public Expr visitIntPower(IntPower intPower) {
     Expr exp = intPower.exp.visit(this);
-    if (exp == intPower.exp) return intPower;
+    if (exp == intPower.exp) {
+      return intPower;
+    }
     return new IntPower(exp, intPower.pow);
   }
-  
+
   @Override
   public Expr visitSkob(Skob skob) {
     throw new SkobException();
   }
-  
+
   @Override
   public Expr visitMinis(Minis minis) {
     Expr exp = minis.target.visit(this);
-    if (exp == minis.target) return minis;
+    if (exp == minis.target) {
+      return minis;
+    }
     return new Minis(exp);
   }
 }

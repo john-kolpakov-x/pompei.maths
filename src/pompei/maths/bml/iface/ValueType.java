@@ -1,5 +1,5 @@
 package pompei.maths.bml.iface;
 
-public enum  ValueType {
+public enum ValueType {
   UnsignedInt, SignedInt, Float, Str,
 }

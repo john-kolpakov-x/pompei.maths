@@ -1,11 +1,16 @@
 package pompei.maths.syms_diff.visitors.similar;
 
+import pompei.maths.syms_diff.model.Const;
+import pompei.maths.syms_diff.model.Form;
+import pompei.maths.syms_diff.visitable.ConstInt;
+import pompei.maths.syms_diff.visitable.ConstOp;
+import pompei.maths.syms_diff.visitable.Minis;
+import pompei.maths.syms_diff.visitable.Mul;
+import pompei.maths.syms_diff.visitable.Plus;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import pompei.maths.syms_diff.model.Const;
-import pompei.maths.syms_diff.model.Form;
-import pompei.maths.syms_diff.visitable.*;
 
 public class MulPart implements Comparable<MulPart> {
 

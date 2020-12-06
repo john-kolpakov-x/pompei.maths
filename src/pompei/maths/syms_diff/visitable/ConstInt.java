@@ -1,9 +1,10 @@
 package pompei.maths.syms_diff.visitable;
 
-import java.math.BigInteger;
 import pompei.maths.syms.exceptions.DivByZero;
 import pompei.maths.syms_diff.model.Const;
 import pompei.maths.syms_diff.model.FormVisitor;
+
+import java.math.BigInteger;
 
 public class ConstInt implements Const {
 

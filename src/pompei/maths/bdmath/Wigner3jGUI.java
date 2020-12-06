@@ -146,9 +146,9 @@ public class Wigner3jGUI implements ActionListener, ListSelectionListener {
     for (int l = 0; l < 3; ) {
       try {
         trias[l] = s.nextLine().trim();
-              if (!trias[l].startsWith("#")) {
-                      l++;
-              }
+        if (!trias[l].startsWith("#")) {
+          l++;
+        }
       } catch (Exception e) {
         outG.setText("ERROR: less than 3 lines in the triad definition");
         return;
@@ -255,17 +255,17 @@ public class Wigner3jGUI implements ActionListener, ListSelectionListener {
          */
         inpGtria.setText("15\n");
         inpGtria.append(
-          "1 -6 2 -2 -7 3 -3 -8 4 -4 -9 5 -5 -10 11 # (j1 l1 j2)(j2 l2 j3)(j3 l3 j4)(j4 l4 j5)(j5 l5 k1)\n");
+            "1 -6 2 -2 -7 3 -3 -8 4 -4 -9 5 -5 -10 11 # (j1 l1 j2)(j2 l2 j3)(j3 l3 j4)(j4 l4 j5)(j5 l5 k1)\n");
         inpGtria.append(
-          "-11 6 12 -12 7 13 -13 8 14 -14 9 15 -15 10 -1 # (k1 l1 k2)(k2 l2 k3)(k3 l3 k4)(k4 l4 k5)(k5 l5 j1)");
+            "-11 6 12 -12 7 13 -13 8 14 -14 9 15 -15 10 -1 # (k1 l1 k2)(k2 l2 k3)(k3 l3 k4)(k4 l4 k5)(k5 l5 j1)");
         outG.setText("");
         break;
       case 5:
         inpGtria.setText("15\n");
         inpGtria.append(
-          "-1 -6 2 -2 -7 3 -3 -8 4 -4 -9 5 1 -5 -10 # (j1 l1 j2)(j2 l2 j3)(j3 l3 j4)(j4 l4 j5)(j1 j5 l5)\n");
+            "-1 -6 2 -2 -7 3 -3 -8 4 -4 -9 5 1 -5 -10 # (j1 l1 j2)(j2 l2 j3)(j3 l3 j4)(j4 l4 j5)(j1 j5 l5)\n");
         inpGtria.append(
-          "11 -15 10 9 15 -14 8 14 -13 7 13 -12 6 12 -11 # (k1 k5 l5)(l4 k5 k4)(l3 k4 k3)(l2 k3 k2)(l1 k2 k1)");
+            "11 -15 10 9 15 -14 8 14 -13 7 13 -12 6 12 -11 # (k1 k5 l5)(l4 k5 k4)(l3 k4 k3)(l2 k3 k2)(l1 k2 k1)");
         outG.setText("");
         break;
       case 6:
@@ -276,9 +276,9 @@ public class Wigner3jGUI implements ActionListener, ListSelectionListener {
          */
         inpGtria.setText("15\n");
         inpGtria.append(
-          "-13 -12 -8 12 14 10 -10 -1 7 -7 -11 -2 2 4 6 # (j' j p)(j j2 j1)(j1 k1 p1)(p1 j1' k1')(k1' k' k2')\n");
+            "-13 -12 -8 12 14 10 -10 -1 7 -7 -11 -2 2 4 6 # (j' j p)(j j2 j1)(j1 k1 p1)(p1 j1' k1')(k1' k' k2')\n");
         inpGtria.append(
-          "-4 -3 8 1 3 5 -14 -5 9 -15 -6 -9 15 11 13 # (k' k p)(k1 k k2)(j2 k2 p2)(j2' k2' p2)(j2' j1' j')");
+            "-4 -3 8 1 3 5 -14 -5 9 -15 -6 -9 15 11 13 # (k' k p)(k1 k k2)(j2 k2 p2)(j2' k2' p2)(j2' j1' j')");
         outG.setText("");
         break;
       case 7:
@@ -289,9 +289,9 @@ public class Wigner3jGUI implements ActionListener, ListSelectionListener {
          */
         inpGtria.setText("15\n");
         inpGtria.append(
-          "-14 -12 -8 12 11 -10 -11 13 -7 7 -1 3 2 1 6 # (k2' k2 s)(k2 j2 p')(j2 s2 l)(l j1 s1)(k1 j1 p)\n");
+            "-14 -12 -8 12 11 -10 -11 13 -7 7 -1 3 2 1 6 # (k2' k2 s)(k2 j2 p')(j2 s2 l)(l j1 s1)(k1 j1 p)\n");
         inpGtria.append(
-          "-4 -2 8 10 4 5 9 -5 -3 -13 -9 -15 15 -6 14 # (k1' k1 s)(p' k1' j1')(l' j1' s1)(s2 l' j2')(j2' p k2')");
+            "-4 -2 8 10 4 5 9 -5 -3 -13 -9 -15 15 -6 14 # (k1' k1 s)(p' k1' j1')(l' j1' s1)(s2 l' j2')(j2' p k2')");
         outG.setText("");
         break;
       case 8:
@@ -302,9 +302,9 @@ public class Wigner3jGUI implements ActionListener, ListSelectionListener {
          */
         inpGtria.setText("15\n");
         inpGtria.append(
-          "-15 1 -7 -4 -11 7 5 4 -3 -12 -5 6 12 -9 -1 # (l3' k1 k2')(l1 k3 k2')(l1' l1 j1)(k3' l1' k2)(k3' l2 k1)\n");
+            "-15 1 -7 -4 -11 7 5 4 -3 -12 -5 6 12 -9 -1 # (l3' k1 k2')(l1 k3 k2')(l1' l1 j1)(k3' l1' k2)(k3' l2 k1)\n");
         inpGtria.append(
-          "9 -8 10 -10 11 -2 -14 -6 2 14 -13 15 3 8 13 # (l2 j2 l2')(l2' k3 k1')(l3 k2 k1')(l3 j3 l3')(j1 j2 j3)");
+            "9 -8 10 -10 11 -2 -14 -6 2 14 -13 15 3 8 13 # (l2 j2 l2')(l2' k3 k1')(l3 k2 k1')(l3 j3 l3')(j1 j2 j3)");
         outG.setText("");
         break;
     }

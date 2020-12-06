@@ -1,8 +1,19 @@
 package pompei.maths.utils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -13,7 +24,7 @@ public class PrepareGraphicFromTomcatAccessLogs {
   }
 
   private final Pattern LOG_LINE = Pattern.compile(
-    "\\s*(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+\\[(\\S+)\\s+(\\S+)\\]\\s+\"([^\"]+)\"\\s+(\\d+)\\s+.*");
+      "\\s*(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+\\[(\\S+)\\s+(\\S+)\\]\\s+\"([^\"]+)\"\\s+(\\d+)\\s+.*");
 
   static class Record {
     public final double t;
@@ -31,7 +42,9 @@ public class PrepareGraphicFromTomcatAccessLogs {
     public int get(String key) {
       int ret = 0;
       for (Map.Entry<String, Integer> e : map.entrySet()) {
-        if (e.getKey().startsWith(key)) ret += e.getValue();
+        if (e.getKey().startsWith(key)) {
+          ret += e.getValue();
+        }
       }
       return ret;
     }
@@ -70,10 +83,13 @@ public class PrepareGraphicFromTomcatAccessLogs {
     //noinspection ConstantConditions
     for (File accessLog : dir.listFiles(pathname -> pathname.getName().contains("access_log"))) {
       System.out.println("Paring file " + accessLog.getName() + " ...");
-      try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(accessLog), "UTF-8"))) {
+      try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(accessLog),
+                                                                        StandardCharsets.UTF_8))) {
         while (true) {
           String line = br.readLine();
-          if (line == null) break;
+          if (line == null) {
+            break;
+          }
           Matcher m = LOG_LINE.matcher(line);
           if (m.matches()) {
 
@@ -83,8 +99,12 @@ public class PrepareGraphicFromTomcatAccessLogs {
             String statusKey = "status_" + status;
 
             long millis = DF.parse(dateStr).getTime();
-            if (millis < fromMillis) continue;
-            if (millis >= toMillis) continue;
+            if (millis < fromMillis) {
+              continue;
+            }
+            if (millis >= toMillis) {
+              continue;
+            }
             int index = (int) ((millis - fromMillis) / deltaInMillis);
             arr[index].inc(statusKey);
             if (!allKeys.contains(statusKey)) {
@@ -106,7 +126,7 @@ public class PrepareGraphicFromTomcatAccessLogs {
     File outFile = new File("build/graphic_data.txt");
     outFile.getParentFile().mkdirs();
 
-    try (PrintStream pr = new PrintStream(outFile, "UTF-8")) {
+    try (PrintStream pr = new PrintStream(outFile, StandardCharsets.UTF_8)) {
 
       pr.println("t=t=" + keys.stream().map(k -> k + "=" + k).collect(Collectors.joining("=")));
 

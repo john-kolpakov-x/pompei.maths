@@ -8,7 +8,7 @@ public class StrPainter implements Painter {
 
   private final Font font;
   private final String str;
-  private Size size;
+  private final Size size;
   private final Color color;
 
   public StrPainter(Graphics2D g, Font font, String str, Color color) {
@@ -23,7 +23,7 @@ public class StrPainter implements Painter {
 
     size = new Size(nameWidth, ascent, descent);
   }
-  
+
   @Override
   public void paintTo(Graphics2D g, int x, int y) {
     g.setFont(font);

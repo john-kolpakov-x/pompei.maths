@@ -2,7 +2,6 @@ package pompei.maths.difur.falling_in_cylinder;
 
 import pompei.maths.difur.F;
 
-
 import static java.lang.Math.tan;
 
 public class FallInCylinderF implements F {

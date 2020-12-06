@@ -855,7 +855,7 @@ public class Rational implements Cloneable, Comparable<Rational> {
    */
   public boolean isIntegerFrac() {
     return (a.compareTo(MAX_INT) <= 0 && a.compareTo(MIN_INT) >= 0
-      && b.compareTo(MAX_INT) <= 0 && b.compareTo(MIN_INT) >= 0);
+                && b.compareTo(MAX_INT) <= 0 && b.compareTo(MIN_INT) >= 0);
   } /* Rational.isIntegerFrac */
 
   /**

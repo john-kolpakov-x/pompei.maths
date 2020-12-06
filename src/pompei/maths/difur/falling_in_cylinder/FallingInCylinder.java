@@ -1,14 +1,16 @@
 package pompei.maths.difur.falling_in_cylinder;
 
-import java.io.BufferedWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import pompei.maths.difur.DiffUr;
 import pompei.maths.difur.DiffUrDefault;
 import pompei.maths.difur.Stepper_H5_RungeKutta;
 
+import java.io.BufferedWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
-import static java.lang.Math.*;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+import static java.lang.Math.tan;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.StandardOpenOption.APPEND;
 import static java.nio.file.StandardOpenOption.CREATE;
@@ -45,7 +47,9 @@ public class FallingInCylinder {
     printXYZ(0, a, f);
     for (int i = 1; i <= 1000000; i++) {
       diffUr.step();
-      if (i % 100 == 0) printXYZ(diffUr.getT(), a, f);
+      if (i % 100 == 0) {
+        printXYZ(diffUr.getT(), a, f);
+      }
     }
   }
 
@@ -55,7 +59,7 @@ public class FallingInCylinder {
     double z = a[0];
 
     try (BufferedWriter wr = Files.newBufferedWriter(Paths.get(
-      System.getProperty("user.home") + "/tmp/asd.txt"), UTF_8, APPEND, CREATE)) {
+        System.getProperty("user.home") + "/tmp/asd.txt"), UTF_8, APPEND, CREATE)) {
       //noinspection StringBufferReplaceableByString
       var sb = new StringBuilder();
       sb.append(t).append('\t');
@@ -86,6 +90,8 @@ public class FallingInCylinder {
   }
 
   private void toLen(StringBuilder sb, int len) {
-    while (sb.length() < len) sb.append(' ');
+    while (sb.length() < len) {
+      sb.append(' ');
+    }
   }
 }

@@ -1,12 +1,16 @@
 package pompei.maths.fast_file_work;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
 import org.rocksdb.BuiltinComparator;
 import org.rocksdb.Options;
 import org.rocksdb.RocksDB;
 import org.rocksdb.RocksDBException;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import static java.lang.System.nanoTime;
 import static pompei.maths.utils.Conv.nanoToSec;

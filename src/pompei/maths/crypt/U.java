@@ -6,7 +6,7 @@ import java.util.Base64;
 public class U {
 
   public static void ___(int len) {
-    char c[] = new char[len];
+    char[] c = new char[len];
     for (int i = 0; i < len; i++) {
       c[i] = '-';
     }
@@ -20,8 +20,10 @@ public class U {
     int strLen = str.length(), from = 0;
     while (from < strLen) {
       int to = from + len;
-      if (to > strLen) to = strLen;
-      ret.append(str.substring(from, to)).append('\n');
+      if (to > strLen) {
+        to = strLen;
+      }
+      ret.append(str, from, to).append('\n');
       from += len;
     }
     ret.setLength(ret.length() - 1);
@@ -42,23 +44,31 @@ public class U {
     String spaceStr = null;
 
     StringBuilder ret = new StringBuilder(spaces + strLength + 100);
-    if (title != null) ret.append(title);
+    if (title != null) {
+      ret.append(title);
+    }
     int to = width;
-    if (to > strLength) to = strLength;
+    if (to > strLength) {
+      to = strLength;
+    }
     ret.append(str, 0, to);
     while (to < strLength) {
       int from = to;
       to += width;
-      if (to > strLength) to = strLength;
+      if (to > strLength) {
+        to = strLength;
+      }
 
       ret.append('\n');
       if (spaceStr == null) {
         char[] spaceChars = new char[spaces];
-        for (int i = 0; i < spaces; i++) spaceChars[i] = ' ';
+        for (int i = 0; i < spaces; i++) {
+          spaceChars[i] = ' ';
+        }
         spaceStr = new String(spaceChars);
       }
       ret.append(spaceStr);
-      ret.append(str.substring(from, to));
+      ret.append(str, from, to);
     }
 
     return ret.toString();

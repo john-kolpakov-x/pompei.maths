@@ -17,8 +17,8 @@ public class GeometryGenerator {
     }
 
     throw new IllegalArgumentException("Variant while do not realized:"
-      + " domainUV.connectedByU() = " + domainUV.connectedByU()
-      + ", domainUV.connectedByV() = " + domainUV.connectedByV());
+                                           + " domainUV.connectedByU() = " + domainUV.connectedByU()
+                                           + ", domainUV.connectedByV() = " + domainUV.connectedByV());
   }
 
   @SuppressWarnings({"UnnecessaryLocalVariable", "SingleStatementInBlock"})
@@ -74,13 +74,13 @@ public class GeometryGenerator {
 
         if (rightRound) {
           geometry
-            .addTriangle(a, d, b, a1, d1, b1)
-            .addTriangle(a, c, d, a1, c1, d1)
+              .addTriangle(a, d, b, a1, d1, b1)
+              .addTriangle(a, c, d, a1, c1, d1)
           ;
         } else {
           geometry
-            .addTriangle(a, b, d, a1, b1, d1)
-            .addTriangle(a, d, c, a1, d1, c1)
+              .addTriangle(a, b, d, a1, b1, d1)
+              .addTriangle(a, d, c, a1, d1, c1)
           ;
         }
 

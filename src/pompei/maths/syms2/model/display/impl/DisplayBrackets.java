@@ -45,7 +45,8 @@ public class DisplayBrackets implements DisplayExpr {
     size();
 
     drawBracket(type, x, y - top, leftWidth, top + bottom);
-    drawBracket(type, x + leftWidth + leftSpace + centerWidth + rightSpace + rightWidth, y - top, -rightWidth, top + bottom);
+    drawBracket(type, x + leftWidth + leftSpace + centerWidth + rightSpace + rightWidth, y - top, -rightWidth,
+                top + bottom);
 
     in.displayTo(x + leftWidth + leftSpace, y);
   }
@@ -53,7 +54,9 @@ public class DisplayBrackets implements DisplayExpr {
 
   @Override
   public Size size() {
-    if (size != null) return size;
+    if (size != null) {
+      return size;
+    }
 
     Size inSize = in.size();
     top = inSize.top;
@@ -66,7 +69,9 @@ public class DisplayBrackets implements DisplayExpr {
     leftSpace = (int) ((float) height * 0.04f);
 
     lineWidth = (float) height * 0.03f;
-    if (lineWidth < 1f) lineWidth = 1f;
+    if (lineWidth < 1f) {
+      lineWidth = 1f;
+    }
 
     rightWidth = leftWidth;
     rightSpace = leftSpace;
@@ -87,7 +92,9 @@ public class DisplayBrackets implements DisplayExpr {
   }
 
   private void drawBracket_ROUND(int x, int y, int width, int height) {
-    if (width == 0) return;
+    if (width == 0) {
+      return;
+    }
 
     Graphics2D g = (Graphics2D) port.graphics().create();
     if (width > 0) {
@@ -114,7 +121,9 @@ public class DisplayBrackets implements DisplayExpr {
   }
 
   private void drawBracket_SQUARE(int x, int y, int width, int height) {
-    if (width == 0) return;
+    if (width == 0) {
+      return;
+    }
 
     Graphics2D g = (Graphics2D) port.graphics().create();
 

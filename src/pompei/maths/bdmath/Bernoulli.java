@@ -32,11 +32,12 @@ public class Bernoulli {
    */
   protected void set(final int n, final Rational value) {
     final int nindx = n / 2;
-    if (nindx < a.size())
+    if (nindx < a.size()) {
       a.set(nindx, value);
-    else {
-      while (a.size() < nindx)
+    } else {
+      while (a.size() < nindx) {
         a.add(Rational.ZERO);
+      }
       a.add(value);
     }
   }
@@ -49,15 +50,16 @@ public class Bernoulli {
    * @author Richard J. Mathar
    */
   public Rational at(int n) {
-    if (n == 1)
+    if (n == 1) {
       return (new Rational(-1, 2));
-    else if (n % 2 != 0)
+    } else if (n % 2 != 0) {
       return Rational.ZERO;
-    else {
+    } else {
       final int nindx = n / 2;
       if (a.size() <= nindx) {
-        for (int i = 2 * a.size(); i <= n; i += 2)
+        for (int i = 2 * a.size(); i <= n; i += 2) {
           set(i, doubleSum(i));
+        }
       }
       return a.elementAt(nindx);
     }
@@ -75,10 +77,11 @@ public class Bernoulli {
       BigInteger bin = BigInteger.ONE;
       for (int j = 0; j <= k; j++) {
         BigInteger jpown = (new BigInteger("" + j)).pow(n);
-        if (j % 2 == 0)
+        if (j % 2 == 0) {
           jsum = jsum.add(bin.multiply(jpown));
-        else
+        } else {
           jsum = jsum.subtract(bin.multiply(jpown));
+        }
 
         /* update binomial(k,j) recursively
          */

@@ -183,7 +183,7 @@ class Permutation implements Cloneable {
   Permutation multiply(final Permutation right) {
     if (images.length != right.images.length) {
       throw new IllegalArgumentException("Different permutation lengths "
-                                           + images.length + " vs " + right.images.length);
+                                             + images.length + " vs " + right.images.length);
     }
 
     /* the list of images in the new product
@@ -364,13 +364,13 @@ class Permutation implements Cloneable {
    */
   public String cyclRep() {
     int[][] allcyc = cycles();
-    String rep = new String();
+    String rep = "";
     /* there is one case ( the unit element) where no cycles are listed
      * because they are only containing fixed elements. To vaoid that this
      * disappears entirely, we print an empty () to let it be visible.
      */
     if (allcyc.length == 0) {
-      return new String("()");
+      return "()";
     }
 
     /* loop over all cycles in the order genereated (ie, such that
@@ -606,7 +606,7 @@ class Permutation implements Cloneable {
      * all elements fixed, where m=images.length, f=images.length-1 and the general case.
      * Well-ordered in the current sense are sensed by the criterion m=f+1.
      */
-    return (m == f + 1) ? true : false;
+    return m == f + 1;
   } /* isSorted */
 
   /**
@@ -672,7 +672,7 @@ class Permutation implements Cloneable {
    * @since 2015-03-07
    */
   public String toString() {
-    String s = new String("(");
+    String s = "(";
     for (int i = 0; i < images.length; i++) {
       s += (images[i] + 1 - REPOFFSET) + " ";
     }
@@ -687,7 +687,7 @@ class Permutation implements Cloneable {
    * @author Richard J. Mathar
    * @since 2010-09-13
    */
-  static public void main(String args[]) {
+  static public void main(String[] args) {
     /* Parse the command line arguments for the number n.
      */
 
@@ -727,7 +727,7 @@ class Permutation implements Cloneable {
       Permutation invp = p.inverse();
       System.out.println("inverse is " + invp + " product " + invp.multiply(p));
     } else if (args.length == 0) {
-      int maxc[] = {0, 1, 2, 3, 4, 6, 6, 12, 15, 20, 30, 30, 60, 60, 84, 105, 140, 210, 210, 420, 420, 420, 420, 840, 840};
+      int[] maxc = {0, 1, 2, 3, 4, 6, 6, 12, 15, 20, 30, 30, 60, 60, 84, 105, 140, 210, 210, 420, 420, 420, 420, 840, 840};
                         /* build a statistics of cycle lengths in the symmetric groups, http://oeis.org/A057731
                          1: 1
                          1 1: 2

@@ -3,7 +3,13 @@ package pompei.maths.syms.visitors;
 import pompei.maths.syms.top.Const;
 import pompei.maths.syms.top.Expr;
 import pompei.maths.syms.top.SimpleExpr;
-import pompei.maths.syms.visitable.*;
+import pompei.maths.syms.visitable.IntPower;
+import pompei.maths.syms.visitable.Minis;
+import pompei.maths.syms.visitable.Minus;
+import pompei.maths.syms.visitable.Mul;
+import pompei.maths.syms.visitable.Plus;
+import pompei.maths.syms.visitable.Skob;
+import pompei.maths.syms.visitable.Var;
 
 public class Skobing extends Scanner {
 
@@ -20,13 +26,19 @@ public class Skobing extends Scanner {
   public Expr visitMul(Mul mul) {
     Expr left = onMulArg(mul.left.visit(this));
     Expr right = onMulArg(mul.right.visit(this));
-    if (left == mul.left && right == mul.right) return mul;
+    if (left == mul.left && right == mul.right) {
+      return mul;
+    }
     return new Mul(left, right);
   }
 
   private Expr onMulArg(Expr arg) {
-    if (arg instanceof Plus) return s(arg);
-    if (arg instanceof Minus) return s(arg);
+    if (arg instanceof Plus) {
+      return s(arg);
+    }
+    if (arg instanceof Minus) {
+      return s(arg);
+    }
     return arg;
   }
 
@@ -39,7 +51,9 @@ public class Skobing extends Scanner {
   public Expr visitIntPower(IntPower intPower) {
     Expr exp = intPower.exp.visit(this);
     if (exp instanceof SimpleExpr || intPower.exp instanceof Skob) {
-      if (exp == intPower.exp) return intPower;
+      if (exp == intPower.exp) {
+        return intPower;
+      }
       return new IntPower(exp, intPower.pow);
     }
     return new IntPower(s(exp), intPower.pow);
@@ -48,7 +62,9 @@ public class Skobing extends Scanner {
   @Override
   public Expr visitSkob(Skob skob) {
     Expr target = skob.target.visit(this);
-    if (target == skob.target) return skob;
+    if (target == skob.target) {
+      return skob;
+    }
     return new Skob(target);
   }
 
@@ -58,7 +74,9 @@ public class Skobing extends Scanner {
     if (!(target instanceof Const) && !(target instanceof Var) && !(target instanceof Skob)) {
       return new Minis(s(target));
     }
-    if (target == minis.target) return minis;
+    if (target == minis.target) {
+      return minis;
+    }
     return new Minis(target);
   }
 

@@ -1,10 +1,11 @@
 package pompei.maths.syms_diff.visitors.similar;
 
-import java.util.Objects;
 import pompei.maths.syms_diff.model.Form;
 import pompei.maths.syms_diff.visitable.ConstInt;
 import pompei.maths.syms_diff.visitable.Func;
 import pompei.maths.syms_diff.visitable.Power;
+
+import java.util.Objects;
 
 public class MulElementFunc extends MulElement {
   public final String name;

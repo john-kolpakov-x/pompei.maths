@@ -56,7 +56,9 @@ public class DisplayDiv implements DisplayExpr {
   }
 
   private void displayLine(int x, int y) {
-    if (lineColor == null) return;
+    if (lineColor == null) {
+      return;
+    }
     Graphics2D g = (Graphics2D) port.graphics().create();
 
     g.setColor(lineColor);
@@ -69,7 +71,9 @@ public class DisplayDiv implements DisplayExpr {
 
   @Override
   public Size size() {
-    if (size != null) return size;
+    if (size != null) {
+      return size;
+    }
 
     Size topSize = top.size();
     Size bottomSize = bottom.size();
@@ -99,8 +103,12 @@ public class DisplayDiv implements DisplayExpr {
     float top = space + topSize.height() + ascent / 2;
     float bottom = space + bottomSize.height() - ascent / 2;
 
-    if (top < ascent) top = ascent;
-    if (bottom < descent) bottom = descent;
+    if (top < ascent) {
+      top = ascent;
+    }
+    if (bottom < descent) {
+      bottom = descent;
+    }
 
     return size = new Size(round(top), round(bottom), round(width));
   }

@@ -60,9 +60,9 @@ public class BigSurd implements Cloneable, Comparable<BigSurd> {
     this.pref = a;
     /* reject attempts to use a negative b
      */
-          if (b.signum() < 0) {
-                  throw new ProviderException("Not implemented: imaginary surds");
-          }
+    if (b.signum() < 0) {
+      throw new ProviderException("Not implemented: imaginary surds");
+    }
     this.disc = b;
     normalize();
     normalizeG();
@@ -121,14 +121,14 @@ public class BigSurd implements Cloneable, Comparable<BigSurd> {
   public BigSurdVec add(final BigSurd val) {
     /* zero plus somethings yields something
      */
-          if (signum() == 0) {
-                  return new BigSurdVec(val);
-          } else if (val.signum() == 0) {
-                  return new BigSurdVec(this);
-          } else
-                  /* let the ctor of BigSurdVec to the work */ {
-                  return new BigSurdVec(this, val);
-          }
+    if (signum() == 0) {
+      return new BigSurdVec(val);
+    } else if (val.signum() == 0) {
+      return new BigSurdVec(this);
+    } else
+      /* let the ctor of BigSurdVec to the work */ {
+      return new BigSurdVec(this, val);
+    }
   } /* add */
 
   /**
@@ -203,9 +203,9 @@ public class BigSurd implements Cloneable, Comparable<BigSurd> {
    * @since 2011-02-12
    */
   public BigSurd divide(final BigSurd val) {
-          if (val.signum() == 0) {
-                  throw new ArithmeticException("Dividing " + toString() + " through zero.");
-          }
+    if (val.signum() == 0) {
+      throw new ArithmeticException("Dividing " + toString() + " through zero.");
+    }
     return new BigSurd(pref.divide(val.pref), disc.divide(val.disc));
   } /* BigSurd.divide */
 
@@ -218,9 +218,9 @@ public class BigSurd implements Cloneable, Comparable<BigSurd> {
    * @since 2011-02-12
    */
   public BigSurd divide(final BigInteger val) {
-          if (val.signum() == 0) {
-                  throw new ArithmeticException("Dividing " + toString() + " through zero.");
-          }
+    if (val.signum() == 0) {
+      throw new ArithmeticException("Dividing " + toString() + " through zero.");
+    }
     return new BigSurd(pref.divide(val), disc);
   } /* BigSurd.divide */
 
@@ -233,9 +233,9 @@ public class BigSurd implements Cloneable, Comparable<BigSurd> {
    * @since 2011-02-12
    */
   public BigSurd divide(int val) {
-          if (val == 0) {
-                  throw new ArithmeticException("Dividing " + toString() + " through zero.");
-          }
+    if (val == 0) {
+      throw new ArithmeticException("Dividing " + toString() + " through zero.");
+    }
     return new BigSurd(pref.divide(val), disc);
   } /* BigSurd.divide */
 
@@ -281,21 +281,21 @@ public class BigSurd implements Cloneable, Comparable<BigSurd> {
      */
     final int sig = signum();
     final int sigv = val.signum();
-          if (sig < 0 && sigv >= 0) {
-                  return -1;
-          }
-          if (sig > 0 && sigv <= 0) {
-                  return 1;
-          }
-          if (sig == 0 && sigv == 0) {
-                  return 0;
-          }
-          if (sig == 0 && sigv > 0) {
-                  return -1;
-          }
-          if (sig == 0 && sigv < 0) {
-                  return 1;
-          }
+    if (sig < 0 && sigv >= 0) {
+      return -1;
+    }
+    if (sig > 0 && sigv <= 0) {
+      return 1;
+    }
+    if (sig == 0 && sigv == 0) {
+      return 0;
+    }
+    if (sig == 0 && sigv > 0) {
+      return -1;
+    }
+    if (sig == 0 && sigv < 0) {
+      return 1;
+    }
 
     /* Work out the cases of equal sign. Compare absolute values by comparison
      * of the squares which is forwarded to the comparison of the Rational class.
@@ -303,16 +303,16 @@ public class BigSurd implements Cloneable, Comparable<BigSurd> {
     final Rational this2 = sqr();
     final Rational val2 = val.sqr();
     final int c = this2.compareTo(val2);
-          if (c == 0) {
-                  return 0;
-          }
-          /* If both values have negative sign, the one with the smaller square is the larger number.
-           */
-          else if (sig > 0 && c > 0 || sig < 0 && c < 0) {
-                  return 1;
-          } else {
-                  return -1;
-          }
+    if (c == 0) {
+      return 0;
+    }
+    /* If both values have negative sign, the one with the smaller square is the larger number.
+     */
+    else if (sig > 0 && c > 0 || sig < 0 && c < 0) {
+      return 1;
+    } else {
+      return -1;
+    }
   } /* BigSurd.compareTo */
 
   /**
@@ -324,11 +324,11 @@ public class BigSurd implements Cloneable, Comparable<BigSurd> {
    * @since 2011-02-12
    */
   public String toString() {
-          if (disc.compareTo(Rational.ONE) != 0 && disc.compareTo(Rational.ZERO) != 0) {
-                  return ("(" + pref.toString() + ")*(" + disc.toString() + ")^(1/2)");
-          } else {
-                  return pref.toString();
-          }
+    if (disc.compareTo(Rational.ONE) != 0 && disc.compareTo(Rational.ZERO) != 0) {
+      return ("(" + pref.toString() + ")*(" + disc.toString() + ")^(1/2)");
+    } else {
+      return pref.toString();
+    }
   } /* BigSurd.toString */
 
   /**
@@ -391,11 +391,11 @@ public class BigSurd implements Cloneable, Comparable<BigSurd> {
    * @since 2012-02-15
    */
   public Rational toRational() {
-          if (isRational()) {
-                  return pref;
-          } else {
-                  throw new ArithmeticException("Undefined conversion " + toString() + " to Rational.");
-          }
+    if (isRational()) {
+      return pref;
+    } else {
+      throw new ArithmeticException("Undefined conversion " + toString() + " to Rational.");
+    }
   } /* BigSurd.toRational */
 
   /**
@@ -422,30 +422,30 @@ public class BigSurd implements Cloneable, Comparable<BigSurd> {
   protected void normalize() {
     /* Move squares out of the numerator and denominator of the discriminant
      */
-          if (disc.signum() != 0) {
-                  /* square-free part of the numerator: numer = numC*some^2
-                   */
-                  BigInteger numC = BigIntegerMath.core(disc.numer());
-                  /* extract the perfect square of the numerator
-                   */
-                  BigInteger sq = disc.numer().divide(numC);
-                  /* extract the associated square root
-                   */
-                  BigInteger sqf = BigIntegerMath.isqrt(sq);
+    if (disc.signum() != 0) {
+      /* square-free part of the numerator: numer = numC*some^2
+       */
+      BigInteger numC = BigIntegerMath.core(disc.numer());
+      /* extract the perfect square of the numerator
+       */
+      BigInteger sq = disc.numer().divide(numC);
+      /* extract the associated square root
+       */
+      BigInteger sqf = BigIntegerMath.isqrt(sq);
 
-                  /* move sqf over to the pre-factor
-                   */
-                  pref = pref.multiply(sqf);
+      /* move sqf over to the pre-factor
+       */
+      pref = pref.multiply(sqf);
 
-                  BigInteger denC = BigIntegerMath.core(disc.denom());
-                  sq = disc.denom().divide(denC);
-                  sqf = BigIntegerMath.isqrt(sq);
-                  pref = pref.divide(sqf);
+      BigInteger denC = BigIntegerMath.core(disc.denom());
+      sq = disc.denom().divide(denC);
+      sqf = BigIntegerMath.isqrt(sq);
+      pref = pref.divide(sqf);
 
-                  disc = new Rational(numC, denC);
-          } else {
-                  pref = Rational.ZERO;
-          }
+      disc = new Rational(numC, denC);
+    } else {
+      pref = Rational.ZERO;
+    }
   } /* BigSurd.normalize */
 
   /**

@@ -4,7 +4,15 @@ import pompei.maths.syms2.model.display.impl.DisplayBrackets;
 import pompei.maths.syms2.model.display.impl.DisplayDiv;
 import pompei.maths.syms2.model.display.impl.DisplayLeaning;
 import pompei.maths.syms2.model.display.impl.DisplayText;
-import pompei.maths.syms2.model.universe.*;
+import pompei.maths.syms2.model.universe.Brackets;
+import pompei.maths.syms2.model.universe.ExprFunc1;
+import pompei.maths.syms2.model.universe.ExprFunc2;
+import pompei.maths.syms2.model.universe.ExprInt;
+import pompei.maths.syms2.model.universe.ExprOper1;
+import pompei.maths.syms2.model.universe.ExprOper2;
+import pompei.maths.syms2.model.universe.ExprVar;
+import pompei.maths.syms2.model.universe.ExprVisitor;
+import pompei.maths.syms2.model.universe.Oper2;
 
 import java.awt.Color;
 import java.util.LinkedList;
@@ -73,11 +81,17 @@ public class DisplayExprVisitor implements ExprVisitor<DisplayExpr> {
   private DisplayExpr getDisplayTextOper(DisplayExpr left, String operText, DisplayExpr right) {
     DisplayText displayOperText = new DisplayText(level, operText, new Color(0, 0, 0), false, false);
 
-    if (left != null && right != null) return displayOrder(left, displayOperText, right);
+    if (left != null && right != null) {
+      return displayOrder(left, displayOperText, right);
+    }
 
-    if (left != null) return displayOrder(left, displayOperText);
+    if (left != null) {
+      return displayOrder(left, displayOperText);
+    }
 
-    if (right != null) return displayOrder(displayOperText, right);
+    if (right != null) {
+      return displayOrder(displayOperText, right);
+    }
 
     throw new RuntimeException("Must be right != null or/and left != null");
   }
@@ -93,11 +107,13 @@ public class DisplayExprVisitor implements ExprVisitor<DisplayExpr> {
     return displayOrder(
         new DisplayText(level, name, new Color(0, 0, 0), false, false),
         new DisplayBrackets(displayWithComma(args), SQUARE, new Color(0, 0, 0))
-    );
+                       );
   }
 
   private DisplayExpr displayWithComma(DisplayExpr[] args) {
-    if (args.length == 1) return args[0];
+    if (args.length == 1) {
+      return args[0];
+    }
 
     LinkedList<DisplayExpr> list = new LinkedList<>();
     for (DisplayExpr arg : args) {
@@ -111,8 +127,8 @@ public class DisplayExprVisitor implements ExprVisitor<DisplayExpr> {
   @Override
   public DisplayExpr visitExprFunc2(ExprFunc2 exprFunc2) {
     return getDisplayFunc(exprFunc2.func2.name(),
-        exprFunc2.arg1.visit(this), exprFunc2.arg2.visit(this)
-    );
+                          exprFunc2.arg1.visit(this), exprFunc2.arg2.visit(this)
+                         );
   }
 
   @Override

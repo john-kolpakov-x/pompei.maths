@@ -1,7 +1,6 @@
 package pompei.maths.syms_diff.visitable;
 
 import pompei.maths.syms_diff.model.Const;
-import pompei.maths.syms_diff.model.Form;
 
 public class ConstOp {
 

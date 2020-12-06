@@ -47,7 +47,9 @@ public class Dividing extends Scanner {
       return new Div(ab, c);
     }
 
-    if (left == mul.left && right == mul.right) return mul;
+    if (left == mul.left && right == mul.right) {
+      return mul;
+    }
 
     return new Mul(left, right);
   }
@@ -89,7 +91,9 @@ public class Dividing extends Scanner {
       return new Div(ac, b);
     }
 
-    if (top == div.top && bottom == div.bottom) return div;
+    if (top == div.top && bottom == div.bottom) {
+      return div;
+    }
     return new Mul(top, bottom);
   }
 
@@ -132,7 +136,9 @@ public class Dividing extends Scanner {
       return new Div(new Plus(ac, b), c);
     }
 
-    if (left == plus.left && right == plus.right) return plus;
+    if (left == plus.left && right == plus.right) {
+      return plus;
+    }
     return new Mul(left, right);
   }
 
@@ -144,7 +150,9 @@ public class Dividing extends Scanner {
       Expr b = ((Div) target).bottom;
       return new Div(new Minis(a), b);
     }
-    if (target == minis.target) return minis;
+    if (target == minis.target) {
+      return minis;
+    }
     return new Minis(target);
   }
 }

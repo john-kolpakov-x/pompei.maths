@@ -13,7 +13,9 @@ public class Factorial {
 
   // recursive function with shared primes array
   private static BigInteger factorial(int n, int[] primes) {
-    if (n < 2) return BigInteger.ONE;
+    if (n < 2) {
+      return BigInteger.ONE;
+    }
     BigInteger f = factorial(n / 2, primes);
     BigInteger ps = primeSwing(n, primes);
     return f.multiply(f).multiply(ps);
@@ -42,8 +44,12 @@ public class Factorial {
 
   // fast product for the list of numbers
   private static BigInteger product(List<BigInteger> multipliers, int i, int j) {
-    if (i > j) return BigInteger.ONE;
-    if (i == j) return multipliers.get(i);
+    if (i > j) {
+      return BigInteger.ONE;
+    }
+    if (i == j) {
+      return multipliers.get(i);
+    }
     int k = (i + j) >>> 1;
     return product(multipliers, i, k).multiply(product(multipliers, k + 1, j));
   }
@@ -56,7 +62,7 @@ public class Factorial {
     }
 
     int length = upTo >>> 1;
-    boolean sieve_bool[] = new boolean[length];
+    boolean[] sieve_bool = new boolean[length];
     for (int i = 1, iterations = (int) Math.sqrt(length - 1); i < iterations; i++) {
       if (!sieve_bool[i]) {
         for (int step = 2 * i + 1, j = i * (step + 1); j < length; j += step) {
@@ -67,10 +73,12 @@ public class Factorial {
 
     int not_primes = 0;
     for (boolean not_prime : sieve_bool) {
-      if (not_prime) not_primes++;
+      if (not_prime) {
+        not_primes++;
+      }
     }
 
-    int sieve_int[] = new int[length - not_primes];
+    int[] sieve_int = new int[length - not_primes];
     sieve_int[0] = 2;
     for (int i = 1, j = 1; i < length; i++) {
       if (!sieve_bool[i]) {

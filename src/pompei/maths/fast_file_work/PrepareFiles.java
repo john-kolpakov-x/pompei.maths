@@ -1,12 +1,16 @@
 package pompei.maths.fast_file_work;
 
-import java.io.*;
+import pompei.maths.utils.RND;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import pompei.maths.utils.RND;
-
 
 import static java.lang.System.nanoTime;
 import static pompei.maths.utils.Conv.nanoToSec;

@@ -234,7 +234,9 @@ public class Джанибеков {
 
       double dL = L0 - L;
 
-      if (dL > DU) return K_TR * dL;
+      if (dL > DU) {
+        return K_TR * dL;
+      }
 
       double nx = (x2 - x1) / L, ny = (y2 - y1) / L, nz = (z2 - z1) / L;
       double vx = vx2 - vx1, vy = vy2 - vy1, vz = vz2 - vz1;

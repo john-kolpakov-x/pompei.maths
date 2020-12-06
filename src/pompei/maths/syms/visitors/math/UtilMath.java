@@ -5,12 +5,16 @@ import java.math.BigInteger;
 public class UtilMath {
   @SuppressWarnings("unused")
   public static long gcd(long a, long b) {
-    if (a > b) return gcdInner(a, b);
+    if (a > b) {
+      return gcdInner(a, b);
+    }
     return gcdInner(b, a);
   }
 
   private static long gcdInner(long a, long b) {
-    if (b == 0) return a;
+    if (b == 0) {
+      return a;
+    }
     return gcdInner(b, a % b);
   }
 
@@ -23,9 +27,15 @@ public class UtilMath {
    * @return [d, x, y]
    */
   public static BigInteger[] gcdExt(BigInteger a, BigInteger b) {
-    if (a == null) a = BigInteger.ZERO;
-    if (b == null) b = BigInteger.ZERO;
-    if (a.compareTo(b) < 0) return gcdExt(b, a);
+    if (a == null) {
+      a = BigInteger.ZERO;
+    }
+    if (b == null) {
+      b = BigInteger.ZERO;
+    }
+    if (a.compareTo(b) < 0) {
+      return gcdExt(b, a);
+    }
 
 
     if (b.compareTo(BigInteger.ZERO) == 0) {

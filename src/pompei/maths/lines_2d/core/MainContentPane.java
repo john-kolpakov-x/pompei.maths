@@ -17,7 +17,7 @@ import java.util.function.Consumer;
 
 public class MainContentPane extends JPanel {
 
-  private ViewPort viewPort;
+  private final ViewPort viewPort;
 
   public MainContentPane(ViewPort viewPort, AxesLook axesLook) {
     this.viewPort = viewPort;

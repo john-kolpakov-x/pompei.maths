@@ -2,7 +2,16 @@ package pompei.maths.syms.visitors;
 
 import pompei.maths.syms.top.VarSource;
 import pompei.maths.syms.top.Visitor;
-import pompei.maths.syms.visitable.*;
+import pompei.maths.syms.visitable.ConstDouble;
+import pompei.maths.syms.visitable.ConstInt;
+import pompei.maths.syms.visitable.Div;
+import pompei.maths.syms.visitable.IntPower;
+import pompei.maths.syms.visitable.Minis;
+import pompei.maths.syms.visitable.Minus;
+import pompei.maths.syms.visitable.Mul;
+import pompei.maths.syms.visitable.Plus;
+import pompei.maths.syms.visitable.Skob;
+import pompei.maths.syms.visitable.Var;
 
 @SuppressWarnings("unused")
 public class ExpEvaluator implements Visitor<Double> {
@@ -50,7 +59,9 @@ public class ExpEvaluator implements Visitor<Double> {
   @Override
   public Double visitIntPower(IntPower intPower) {
     int pow = intPower.pow;
-    if (pow == 0) return 1.0;
+    if (pow == 0) {
+      return 1.0;
+    }
 
     double value = intPower.exp.visit(this);
     double ret = 1;

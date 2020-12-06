@@ -45,15 +45,16 @@ public class Collada {
 
   public void printTo(PrintStream out) {
     out.println("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-    out.println("<COLLADA xmlns=\"http://www.collada.org/2005/11/COLLADASchema\" version=\"1.4.1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">");
+    out.println(
+        "<COLLADA xmlns=\"http://www.collada.org/2005/11/COLLADASchema\" version=\"1.4.1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">");
 
     printMaterials(out);
 
     out.println("<library_geometries>");
     geometryMap.entrySet().stream()
-      .sorted(Comparator.comparing(Map.Entry::getKey))
-      .map(Map.Entry::getValue)
-      .forEachOrdered(g -> g.printTo(out));
+               .sorted(Comparator.comparing(Map.Entry::getKey))
+               .map(Map.Entry::getValue)
+               .forEachOrdered(g -> g.printTo(out));
     out.println("</library_geometries>");
 
     printScene(out);
@@ -69,17 +70,17 @@ public class Collada {
     {
       out.println("<library_effects>");
       materialMap.entrySet().stream()
-        .sorted(Comparator.comparing(Map.Entry::getKey))
-        .map(Map.Entry::getValue)
-        .forEachOrdered(m -> m.printEffect(out));
+                 .sorted(Comparator.comparing(Map.Entry::getKey))
+                 .map(Map.Entry::getValue)
+                 .forEachOrdered(m -> m.printEffect(out));
       out.println("</library_effects>");
     }
     {
       out.println("<library_materials>");
       materialMap.entrySet().stream()
-        .sorted(Comparator.comparing(Map.Entry::getKey))
-        .map(Map.Entry::getValue)
-        .forEachOrdered(m -> m.printMaterial(out));
+                 .sorted(Comparator.comparing(Map.Entry::getKey))
+                 .map(Map.Entry::getValue)
+                 .forEachOrdered(m -> m.printMaterial(out));
       out.println("</library_materials>");
     }
   }
@@ -115,9 +116,9 @@ public class Collada {
     out.println("<visual_scene id=\"Scene\" name=\"Scene\">");
 
     nodeMap.entrySet().stream()
-      .sorted(Comparator.comparing(Map.Entry::getKey))
-      .map(Map.Entry::getValue)
-      .forEachOrdered(node -> node.printTo(out))
+           .sorted(Comparator.comparing(Map.Entry::getKey))
+           .map(Map.Entry::getValue)
+           .forEachOrdered(node -> node.printTo(out))
     ;
 
     out.println("</visual_scene>");

@@ -1,7 +1,7 @@
 package pompei.maths.lines_2d.core;
 
-import pompei.maths.lines_2d.model.figures.Figure;
 import pompei.maths.lines_2d.model.Rect2d;
+import pompei.maths.lines_2d.model.figures.Figure;
 
 import java.util.stream.Stream;
 

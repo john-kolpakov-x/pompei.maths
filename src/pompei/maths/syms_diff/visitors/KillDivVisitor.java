@@ -2,7 +2,12 @@ package pompei.maths.syms_diff.visitors;
 
 import pompei.maths.syms_diff.model.Const;
 import pompei.maths.syms_diff.model.Form;
-import pompei.maths.syms_diff.visitable.*;
+import pompei.maths.syms_diff.visitable.ConstInt;
+import pompei.maths.syms_diff.visitable.ConstOp;
+import pompei.maths.syms_diff.visitable.Div;
+import pompei.maths.syms_diff.visitable.Minis;
+import pompei.maths.syms_diff.visitable.Mul;
+import pompei.maths.syms_diff.visitable.Power;
 
 public class KillDivVisitor extends CalcScanner {
   @Override

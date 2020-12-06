@@ -1,10 +1,11 @@
 package pompei.maths.fast_file_work;
 
+import pompei.maths.utils.RND;
+
 import java.io.File;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
-import pompei.maths.utils.RND;
 
 public class PrepareHtmlWithLargeJs {
   public static void main(String[] args) throws Exception {

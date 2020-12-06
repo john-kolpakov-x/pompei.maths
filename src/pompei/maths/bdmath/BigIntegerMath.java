@@ -25,14 +25,14 @@ public class BigIntegerMath {
     if (k == 0) {
       return BigInteger.ONE;
     }
-    BigInteger bin = BigInteger.valueOf((long) n);
+    BigInteger bin = BigInteger.valueOf(n);
     BigInteger n2 = bin;
-    for (BigInteger i = BigInteger.valueOf((long) (k - 1));
+    for (BigInteger i = BigInteger.valueOf(k - 1);
          i.compareTo(BigInteger.ONE) >= 0;
          i = i.subtract(BigInteger.ONE)) {
       bin = bin.multiply(n2.subtract(i));
     }
-    for (BigInteger i = BigInteger.valueOf((long) k); i.compareTo(BigInteger.ONE) > 0; i = i.subtract(BigInteger.ONE)) {
+    for (BigInteger i = BigInteger.valueOf(k); i.compareTo(BigInteger.ONE) > 0; i = i.subtract(BigInteger.ONE)) {
       bin = bin.divide(i);
     }
     return (bin);
@@ -156,7 +156,7 @@ public class BigIntegerMath {
    * @since 2012-03-04 Adapted to new Ifactor representation.
    */
   public BigInteger eulerPhi(final int n) {
-    return eulerPhi(BigInteger.valueOf((long) n));
+    return eulerPhi(BigInteger.valueOf(n));
   } /* eulerPhi */
 
   /**
@@ -197,7 +197,7 @@ public class BigIntegerMath {
     if (n < 0) {
       throw new ArithmeticException("Negative argument " + n);
     }
-    final double resul = Math.sqrt((double) n);
+    final double resul = Math.sqrt(n);
     return (int) Math.round(resul);
   } /* isqrt */
 
@@ -285,7 +285,7 @@ public class BigIntegerMath {
     /* Start with an estimate from a floating point reduction.
      */
     BigInteger r;
-    final BigInteger nBig = BigInteger.valueOf((long) n);
+    final BigInteger nBig = BigInteger.valueOf(n);
     final int bl = x.bitLength();
     if (bl > 120) {
       r = x.shiftRight(bl / n - 1);
@@ -357,7 +357,7 @@ public class BigIntegerMath {
     if (c < 0 || c >= cL) {
       throw new ArithmeticException("column number " + c + " out of range 0.." + (cL - 1));
     }
-    BigInteger M[][] = new BigInteger[rL - 1][cL - 1];
+    BigInteger[][] M = new BigInteger[rL - 1][cL - 1];
     int imrow = 0;
     for (int row = 0; row < rL; row++) {
       if (row != r) {
@@ -452,7 +452,7 @@ public class BigIntegerMath {
         /* Do not consider minors that do no contribute anyway
          */
         if (A[r][0].compareTo(BigInteger.ZERO) != 0) {
-          final BigInteger M[][] = minor(A, r, 0);
+          final BigInteger[][] M = minor(A, r, 0);
           final BigInteger m = A[r][0].multiply(det(M));
           /* recursive call */
           if (r % 2 == 0) {

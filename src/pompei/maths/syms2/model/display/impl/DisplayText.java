@@ -38,9 +38,9 @@ public class DisplayText implements DisplayExpr {
   private void prepare(Graphics2D g) {
     g.setColor(color);
     g.setFont(g.getFont()
-        .deriveFont(port.getFontSize(level))
-        .deriveFont((bold ? Font.BOLD : 0) | (italic ? Font.ITALIC : 0))
-    );
+               .deriveFont(port.getFontSize(level))
+               .deriveFont((bold ? Font.BOLD : 0) | (italic ? Font.ITALIC : 0))
+             );
   }
 
   @Override
@@ -56,7 +56,9 @@ public class DisplayText implements DisplayExpr {
 
   @Override
   public Size size() {
-    if (size != null) return size;
+    if (size != null) {
+      return size;
+    }
 
     Graphics2D g = (Graphics2D) port.graphics().create();
     prepare(g);

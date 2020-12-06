@@ -29,10 +29,10 @@ public class Node {
     } else {
       out.println("<instance_geometry url=\"#" + geometry.id + "\" name=\"" + geometry.name + "\">");
       out.println("<bind_material>\n" +
-        "            <technique_common>\n" +
-        "              <instance_material symbol=\"" + material.materialId() + "\" target=\"#" + material.materialId() + "\"/>\n" +
-        "            </technique_common>\n" +
-        "          </bind_material>");
+                      "            <technique_common>\n" +
+                      "              <instance_material symbol=\"" + material.materialId() + "\" target=\"#" + material.materialId() + "\"/>\n" +
+                      "            </technique_common>\n" +
+                      "          </bind_material>");
       out.println("</instance_geometry>");
     }
 

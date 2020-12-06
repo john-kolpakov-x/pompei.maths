@@ -1,6 +1,7 @@
 package pompei.maths.end_element;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 
 public class GraphicsDraw implements DrawDestination {
 

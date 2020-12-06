@@ -1,11 +1,12 @@
 package pompei.maths.syms_diff.visitors.similar;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import pompei.maths.syms_diff.model.Form;
 import pompei.maths.syms_diff.visitable.ConstInt;
 import pompei.maths.syms_diff.visitable.Plus;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class MulPartCollector {
 

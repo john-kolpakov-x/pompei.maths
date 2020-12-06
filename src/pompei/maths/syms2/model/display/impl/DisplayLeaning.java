@@ -31,14 +31,20 @@ public class DisplayLeaning implements DisplayExpr {
       throw new IllegalArgumentException("len = " + len + ", order = " + order);
     }
 
-    if (len == 1) return order[offset];
-    if (len == 2) return new DisplayLeaning(order[offset], order[offset + 1], true, 0, 0);
+    if (len == 1) {
+      return order[offset];
+    }
+    if (len == 2) {
+      return new DisplayLeaning(order[offset], order[offset + 1], true, 0, 0);
+    }
     return new DisplayLeaning(order[offset], displayOrder(order, offset + 1, len - 1), true, 0, 0);
   }
 
   public static DisplayExpr displayOrder(Collection<DisplayExpr> collection) {
     int size = collection.size();
-    if (size == 1) return collection.iterator().next();
+    if (size == 1) {
+      return collection.iterator().next();
+    }
     DisplayExpr[] order = new DisplayExpr[size];
     int index = 0;
     for (DisplayExpr displayExpr : collection) {
@@ -72,7 +78,9 @@ public class DisplayLeaning implements DisplayExpr {
 
   @Override
   public Size size() {
-    if (size != null) return size;
+    if (size != null) {
+      return size;
+    }
 
     Size baseSize = base.size();
     Size leanedSize = leaned.size();

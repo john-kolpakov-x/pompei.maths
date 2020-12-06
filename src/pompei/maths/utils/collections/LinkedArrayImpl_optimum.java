@@ -46,7 +46,9 @@ class LinkedArrayImpl_optimum<Element> implements LinkedArray<Element> {
 
   private void checkMaxCount() {
     int count = this.count.get();
-    if (maxCount < count) maxCount = count;
+    if (maxCount < count) {
+      maxCount = count;
+    }
   }
 
   @Override
@@ -78,7 +80,9 @@ class LinkedArrayImpl_optimum<Element> implements LinkedArray<Element> {
     lock.lock();
     try {
       Node<Element> F = this.first;
-      if (F == null) return null;
+      if (F == null) {
+        return null;
+      }
       Element ret = F.element;
       F = first = F.next;
       if (F == null) {
@@ -99,7 +103,9 @@ class LinkedArrayImpl_optimum<Element> implements LinkedArray<Element> {
     lock.lock();
     try {
       Node<Element> L = last;
-      if (L == null) return null;
+      if (L == null) {
+        return null;
+      }
       Element ret = L.element;
       L = last = L.prev;
       if (L == null) {

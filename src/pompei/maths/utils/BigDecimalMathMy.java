@@ -45,7 +45,9 @@ public class BigDecimalMathMy {
       BigDecimal newResult = result.add(delta, mc);
 
       BigDecimal subtracted = newResult.subtract(result, mc);
-      if (subtracted.compareTo(BigDecimal.ZERO) == 0) return result;
+      if (subtracted.compareTo(BigDecimal.ZERO) == 0) {
+        return result;
+      }
 
       result = newResult;
 

@@ -2,7 +2,12 @@ package pompei.maths.syms_diff.visitors.similar;
 
 import pompei.maths.syms_diff.model.Const;
 import pompei.maths.syms_diff.model.Form;
-import pompei.maths.syms_diff.visitable.*;
+import pompei.maths.syms_diff.visitable.ConstOp;
+import pompei.maths.syms_diff.visitable.Func;
+import pompei.maths.syms_diff.visitable.Mul;
+import pompei.maths.syms_diff.visitable.Plus;
+import pompei.maths.syms_diff.visitable.Power;
+import pompei.maths.syms_diff.visitable.Var;
 
 public abstract class MulElement {
 

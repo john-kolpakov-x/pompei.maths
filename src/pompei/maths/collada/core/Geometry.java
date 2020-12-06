@@ -66,9 +66,9 @@ public class Geometry {
   private void printTriangles(PrintStream out) {
 
     String data = triangleList.stream()
-      .flatMapToDouble(t -> DoubleStream.of(t.p1, t.n1, t.p2, t.n2, t.p3, t.n3))
-      .mapToObj(Conv::doubleToStr)
-      .collect(Collectors.joining(" "));
+                              .flatMapToDouble(t -> DoubleStream.of(t.p1, t.n1, t.p2, t.n2, t.p3, t.n3))
+                              .mapToObj(Conv::doubleToStr)
+                              .collect(Collectors.joining(" "));
 
     out.println("<triangles " + materialAttribute() + "count=\"" + triangleList.size() + "\">");
     out.println("<input semantic=\"VERTEX\" source=\"#" + getVerticesId() + "\" offset=\"0\"/>");
@@ -92,13 +92,13 @@ public class Geometry {
 
   private void printSource(PrintStream out, String meshId, String arrayId, List<VecXYZ> vector) {
     String spacedVector = vector.stream()
-      .flatMapToDouble(p -> DoubleStream.of(p.x, p.y, p.z))
-      .mapToObj(Conv::doubleToStr)
-      .collect(Collectors.joining(" "));
+                                .flatMapToDouble(p -> DoubleStream.of(p.x, p.y, p.z))
+                                .mapToObj(Conv::doubleToStr)
+                                .collect(Collectors.joining(" "));
 
     out.println("<source id=\"" + meshId + "\">");
     out.println("<float_array id=\"" + arrayId
-      + "\" count=\"" + (vector.size() * 3) + "\">" + spacedVector + "</float_array>");
+                    + "\" count=\"" + (vector.size() * 3) + "\">" + spacedVector + "</float_array>");
     out.println("<technique_common>");
     out.println("<accessor source=\"#" + arrayId + "\" count=\"" + vector.size() + "\" stride=\"3\">");
     out.println("<param name=\"X\" type=\"double\"/>");

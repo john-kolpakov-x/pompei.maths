@@ -1,6 +1,10 @@
 package pompei.maths.end_element;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 public class PointIndex {
   private final double kx;

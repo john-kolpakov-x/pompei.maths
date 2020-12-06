@@ -24,7 +24,9 @@ public class BigMath {
 
   public BigDecimal e() {
 
-    if (e != null) return e;
+    if (e != null) {
+      return e;
+    }
 
     long n = 1;
     BigInteger down = BigInteger.ONE;
@@ -36,7 +38,9 @@ public class BigMath {
 
       BigDecimal newResult = result.add(adding, mc);
 
-      if (newResult.compareTo(result) == 0) return e = result;
+      if (newResult.compareTo(result) == 0) {
+        return e = result;
+      }
 
       result = newResult;
 
@@ -45,7 +49,7 @@ public class BigMath {
     }
   }
 
-  private final BigDecimal e2nArray[] = new BigDecimal[100];
+  private final BigDecimal[] e2nArray = new BigDecimal[100];
 
   /**
    * Calculates e^(2^n)
@@ -54,14 +58,22 @@ public class BigMath {
    * @return result
    */
   public BigDecimal e2n(int n) {
-    if (n < 0) throw new IllegalArgumentException("n = " + n);
-    if (n == 0) return e();
+    if (n < 0) {
+      throw new IllegalArgumentException("n = " + n);
+    }
+    if (n == 0) {
+      return e();
+    }
 
     final int index = n - 1;
 
     BigDecimal en = e2nArray[0];
-    if (en == null) en = e2nArray[0] = e().multiply(e(), mc);
-    if (index == 0) return en;
+    if (en == null) {
+      en = e2nArray[0] = e().multiply(e(), mc);
+    }
+    if (index == 0) {
+      return en;
+    }
 
     if (index >= e2nArray.length) {
       BigDecimal prev = e2n(n - 1);
@@ -71,7 +83,9 @@ public class BigMath {
     for (int i = 1; i <= index; i++) {
       BigDecimal prev = en;
       en = e2nArray[i];
-      if (en != null) continue;
+      if (en != null) {
+        continue;
+      }
       e2nArray[i] = en = prev.multiply(prev, mc);
     }
 
@@ -91,7 +105,9 @@ public class BigMath {
 
       BigDecimal newResult = result.add(adding, mc);
 
-      if (newResult.compareTo(result) == 0) return result;
+      if (newResult.compareTo(result) == 0) {
+        return result;
+      }
 
       result = newResult;
 
@@ -111,7 +127,9 @@ public class BigMath {
 
       BigDecimal newValue = value.add(a.divide(value, mc), mc).divide(TWO, mc);
 
-      if (newValue.compareTo(value) == 0) return value;
+      if (newValue.compareTo(value) == 0) {
+        return value;
+      }
 
       value = newValue;
     }
@@ -121,7 +139,9 @@ public class BigMath {
   private BigDecimal pi = null;
 
   public BigDecimal pi() {
-    if (pi != null) return pi;
+    if (pi != null) {
+      return pi;
+    }
 
     int k = 0;
 
@@ -135,9 +155,9 @@ public class BigMath {
 
     BigInteger rightBottom = BigInteger.ONE;
     final BigInteger rightBottomMul
-      = new BigInteger("640320")
-      .multiply(new BigInteger("640320"))
-      .multiply(new BigInteger("640320"));
+        = new BigInteger("640320")
+              .multiply(new BigInteger("640320"))
+              .multiply(new BigInteger("640320"));
 
     BigDecimal result = BigDecimal.ZERO;
 
@@ -153,7 +173,9 @@ public class BigMath {
 
       BigDecimal newResult = doAdding ? result.add(element, mc) : result.subtract(element, mc);
 
-      if (newResult.compareTo(result) == 0) return pi = finishPi(result);
+      if (newResult.compareTo(result) == 0) {
+        return pi = finishPi(result);
+      }
 
       result = newResult;
 
@@ -163,12 +185,12 @@ public class BigMath {
       {
         int _6k = 6 * k;
         fact_6k = fact_6k
-          .multiply(BigInteger.valueOf(_6k))
-          .multiply(BigInteger.valueOf(_6k - 1))
-          .multiply(BigInteger.valueOf(_6k - 2))
-          .multiply(BigInteger.valueOf(_6k - 3))
-          .multiply(BigInteger.valueOf(_6k - 4))
-          .multiply(BigInteger.valueOf(_6k - 5))
+                      .multiply(BigInteger.valueOf(_6k))
+                      .multiply(BigInteger.valueOf(_6k - 1))
+                      .multiply(BigInteger.valueOf(_6k - 2))
+                      .multiply(BigInteger.valueOf(_6k - 3))
+                      .multiply(BigInteger.valueOf(_6k - 4))
+                      .multiply(BigInteger.valueOf(_6k - 5))
         ;
       }
 
@@ -177,9 +199,9 @@ public class BigMath {
       {
         int _3k = 3 * k;
         fact_3k = fact_3k
-          .multiply(BigInteger.valueOf(_3k))
-          .multiply(BigInteger.valueOf(_3k - 1))
-          .multiply(BigInteger.valueOf(_3k - 2))
+                      .multiply(BigInteger.valueOf(_3k))
+                      .multiply(BigInteger.valueOf(_3k - 1))
+                      .multiply(BigInteger.valueOf(_3k - 2))
         ;
       }
 
@@ -210,10 +232,14 @@ public class BigMath {
   }
 
   public BigDecimal cut(BigDecimal distance, BigDecimal delta) {
-    if (distance.compareTo(delta) <= 0) return distance;
+    if (distance.compareTo(delta) <= 0) {
+      return distance;
+    }
 
     int numberPrecision = distance.precision() - distance.scale() - delta.precision() + delta.scale();
-    if (numberPrecision <= 0) numberPrecision = 1;
+    if (numberPrecision <= 0) {
+      numberPrecision = 1;
+    }
     final BigDecimal number = distance.divide(delta, new MathContext(numberPrecision));
 
     BigDecimal numberCut = new BigDecimal(number.toBigInteger());
@@ -221,8 +247,12 @@ public class BigMath {
     BigDecimal numberDistance = delta.multiply(numberCut);
 
     BigDecimal ret = distance.subtract(numberDistance);
-    while (ret.compareTo(BigDecimal.ZERO) < 0) ret = ret.add(delta, mc);
-    while (ret.compareTo(delta) >= 0) ret = ret.subtract(delta, mc);
+    while (ret.compareTo(BigDecimal.ZERO) < 0) {
+      ret = ret.add(delta, mc);
+    }
+    while (ret.compareTo(delta) >= 0) {
+      ret = ret.subtract(delta, mc);
+    }
     return ret;
   }
 
@@ -232,7 +262,9 @@ public class BigMath {
 
     x = border(x, pi.negate().subtract(pi2), pi2).add(pi2);
 
-    if (x.compareTo(BigDecimal.ZERO) < 0) return doSin(x.negate()).negate();
+    if (x.compareTo(BigDecimal.ZERO) < 0) {
+      return doSin(x.negate()).negate();
+    }
 
     return doSin(x);
   }
@@ -242,7 +274,9 @@ public class BigMath {
 
     x = border(x, pi().negate(), pi);
 
-    if (x.compareTo(BigDecimal.ZERO) < 0) return doSin(x.negate()).negate();
+    if (x.compareTo(BigDecimal.ZERO) < 0) {
+      return doSin(x.negate()).negate();
+    }
 
     return doSin(x);
   }
@@ -277,7 +311,9 @@ public class BigMath {
 
       BigDecimal newResult = adding ? result.add(element, mc) : result.subtract(element, mc);
 
-      if (newResult.compareTo(result) == 0) return result;
+      if (newResult.compareTo(result) == 0) {
+        return result;
+      }
 
       result = newResult;
 
@@ -291,13 +327,21 @@ public class BigMath {
   }
 
   public BigDecimal ln(BigDecimal x) {
-    if (x == null) throw new NullPointerException("x == null");
-    if (x.compareTo(BigDecimal.ZERO) <= 0) throw new IllegalArgumentException("x = " + x);
+    if (x == null) {
+      throw new NullPointerException("x == null");
+    }
+    if (x.compareTo(BigDecimal.ZERO) <= 0) {
+      throw new IllegalArgumentException("x = " + x);
+    }
 
     {
       int cmp = x.compareTo(BigDecimal.ONE);
-      if (cmp == 0) return BigDecimal.ZERO;
-      if (cmp < 0) return lnMoreOne(BigDecimal.ONE.divide(x, mc)).negate();
+      if (cmp == 0) {
+        return BigDecimal.ZERO;
+      }
+      if (cmp < 0) {
+        return lnMoreOne(BigDecimal.ONE.divide(x, mc)).negate();
+      }
       return lnMoreOne(x);
     }
   }
@@ -310,9 +354,13 @@ public class BigMath {
       in:
       for (int n = 0; ; n++) {
         BigDecimal tmp = e2n(n);
-        if (tmp.compareTo(x) <= 0) continue in;
+        if (tmp.compareTo(x) <= 0) {
+          continue in;
+        }
 
-        if (n == 0) break out;
+        if (n == 0) {
+          break out;
+        }
 
         {
           cel = cel.add(BigInteger.ONE.shiftLeft(n - 1));
@@ -340,7 +388,9 @@ public class BigMath {
       BigDecimal element = top.divide(new BigDecimal(bottom), mc);
       BigDecimal newResult = result.add(element, mc);
 
-      if (newResult.compareTo(result) == 0) return result.multiply(TWO, mc);
+      if (newResult.compareTo(result) == 0) {
+        return result.multiply(TWO, mc);
+      }
 
       result = newResult;
 
@@ -369,14 +419,20 @@ public class BigMath {
    * @return result
    */
   public BigDecimal powInt(BigDecimal x, long n) {
-    if (n == 0) return BigDecimal.ONE;
+    if (n == 0) {
+      return BigDecimal.ONE;
+    }
     boolean invert = n < 0;
-    if (invert) n = -n;
+    if (invert) {
+      n = -n;
+    }
 
     BigDecimal result = BigDecimal.ONE;
 
     while (n != 0) {
-      if (n % 2 > 0) result = result.multiply(x, mc);
+      if (n % 2 > 0) {
+        result = result.multiply(x, mc);
+      }
       n >>= 1;
       x = x.multiply(x, mc);
     }
@@ -393,9 +449,13 @@ public class BigMath {
    */
   public BigDecimal powBigInt(BigDecimal x, BigInteger n) {
     int cmpZero = n.compareTo(BigInteger.ZERO);
-    if (cmpZero == 0) return BigDecimal.ONE;
+    if (cmpZero == 0) {
+      return BigDecimal.ONE;
+    }
     boolean invert = cmpZero < 0;
-    if (invert) n = n.negate();
+    if (invert) {
+      n = n.negate();
+    }
 
     BigDecimal result = BigDecimal.ONE;
 
@@ -417,11 +477,17 @@ public class BigMath {
    * @return result
    */
   public BigDecimal root(BigDecimal x, long n) {
-    if (n == 0) throw new IllegalArgumentException("n == 0");
+    if (n == 0) {
+      throw new IllegalArgumentException("n == 0");
+    }
     boolean invert = n < 0;
-    if (invert) n = -n;
+    if (invert) {
+      n = -n;
+    }
 
-    if (n == 1) return invert ? BigDecimal.ONE.divide(x, mc) : x;
+    if (n == 1) {
+      return invert ? BigDecimal.ONE.divide(x, mc) : x;
+    }
 
     BigDecimal result = BigDecimal.ONE;
 
@@ -432,7 +498,9 @@ public class BigMath {
 
       BigDecimal newResult = result.subtract(right, mc);
 
-      if (newResult.compareTo(result) == 0) return invert ? BigDecimal.ONE.divide(result, mc) : result;
+      if (newResult.compareTo(result) == 0) {
+        return invert ? BigDecimal.ONE.divide(result, mc) : result;
+      }
 
       result = newResult;
     }

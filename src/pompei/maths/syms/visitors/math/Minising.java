@@ -21,7 +21,9 @@ public class Minising extends Scanner {
     Expr left = minus.left.visit(this);
     Expr right = minus.right.visit(this);
 
-    if (killMinus) return new Plus(left, minis(right));
+    if (killMinus) {
+      return new Plus(left, minis(right));
+    }
 
     boolean leftMinis = false, rightMinis = false;
     boolean leftPlus = true, rightPlus = true;
@@ -48,19 +50,25 @@ public class Minising extends Scanner {
       return new Minis(new Minus(left, right));
     }
 
-    if (left == minus.left && right == minus.right) return minus;
+    if (left == minus.left && right == minus.right) {
+      return minus;
+    }
     return new Minus(left, right);
   }
 
   private static Expr minis(Expr expr) {
-    if (expr instanceof Minis) return ((Minis) expr).target;
+    if (expr instanceof Minis) {
+      return ((Minis) expr).target;
+    }
     return new Minis(expr);
   }
 
   @SuppressWarnings("ConstantConditions")
   @Override
   public Expr visitPlus(Plus plus) {
-    if (killMinus) return super.visitPlus(plus);
+    if (killMinus) {
+      return super.visitPlus(plus);
+    }
 
     Expr left = plus.left.visit(this);
     Expr right = plus.right.visit(this);
@@ -90,7 +98,9 @@ public class Minising extends Scanner {
       return new Minis(new Plus(left, right));
     }
 
-    if (left == plus.left && right == plus.right) return plus;
+    if (left == plus.left && right == plus.right) {
+      return plus;
+    }
     return new Plus(left, right);
   }
 
@@ -111,9 +121,13 @@ public class Minising extends Scanner {
       needMinis = !needMinis;
     }
 
-    if (needMinis) return new Minis(new Mul(left, right));
+    if (needMinis) {
+      return new Minis(new Mul(left, right));
+    }
 
-    if (left == mul.left && right == mul.right) return mul;
+    if (left == mul.left && right == mul.right) {
+      return mul;
+    }
     return new Mul(left, right);
   }
 
@@ -123,7 +137,9 @@ public class Minising extends Scanner {
     if (target instanceof Minis) {
       return ((Minis) target).target;//минус на минус даёт плюс (а плюс - это ничего не делать)
     }
-    if (target == minis.target) return minis;
+    if (target == minis.target) {
+      return minis;
+    }
     return new Minis(target);
   }
 }

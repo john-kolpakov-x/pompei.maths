@@ -83,7 +83,9 @@ public class BinUtil {
 
   public static String readStr(byte[] buffer, int offset) {
     int length = readInt(buffer, offset);
-    if (length < 0) return null;
+    if (length < 0) {
+      return null;
+    }
     return new String(buffer, offset + SIZEOF_INT, length, StandardCharsets.UTF_8);
   }
 
@@ -119,7 +121,9 @@ public class BinUtil {
 
   public static BigInteger readBigInt(byte[] buffer, int offset) {
     int length = readInt(buffer, offset);
-    if (length < 0) return null;
+    if (length < 0) {
+      return null;
+    }
     byte[] bytes = new byte[length];
     System.arraycopy(buffer, offset + SIZEOF_INT, bytes, 0, bytes.length);
     return new BigInteger(bytes);
@@ -130,7 +134,9 @@ public class BinUtil {
   }
 
   public static int sizeOfBd(BigDecimal value) {
-    if (value == null) return SIZEOF_INT;
+    if (value == null) {
+      return SIZEOF_INT;
+    }
     byte[] bytes = value.unscaledValue().toByteArray();
     return SIZEOF_INT * 2 + bytes.length;
   }
@@ -151,7 +157,9 @@ public class BinUtil {
 
   public static BigDecimal readBd(byte[] buffer, int offset) {
     int length = readInt(buffer, offset);
-    if (length < 0) return null;
+    if (length < 0) {
+      return null;
+    }
     int scale = readInt(buffer, offset + SIZEOF_INT);
     byte[] bytes = new byte[length];
     System.arraycopy(buffer, offset + SIZEOF_INT * 2, bytes, 0, length);

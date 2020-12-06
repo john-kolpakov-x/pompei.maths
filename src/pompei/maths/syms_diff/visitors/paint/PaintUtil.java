@@ -35,7 +35,9 @@ public class PaintUtil {
       Painter p = f.visit(vis);
       pp.add(p);
       Size s = p.getSize();
-      if (s.width > width) width = s.width;
+      if (s.width > width) {
+        width = s.width;
+      }
       height += s.height() + PADDING;
     }
 
@@ -62,7 +64,7 @@ public class PaintUtil {
 
   private static void prepareG(Graphics2D g) {
     g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-        RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HBGR);
+                       RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HBGR);
     g.setFont(new Font("Arial", Font.PLAIN, 12));
   }
 

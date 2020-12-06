@@ -203,7 +203,7 @@ class Permute implements Iterator {
    * @since 2010-09-13
    */
   public String toString() {
-    String s = new String("(");
+    String s = "(";
     for (int i = 0; i < orgset.length; i++) {
       s += orgset[i] + " ";
     }
@@ -218,7 +218,7 @@ class Permute implements Iterator {
    * @author Richard J. Mathar
    * @since 2010-09-13
    */
-  static public void main(String args[]) {
+  static public void main(String[] args) {
     /* Parse the command line arguments for the number n.
      */
     int n = Integer.parseInt(args[0]);
@@ -231,10 +231,10 @@ class Permute implements Iterator {
      */
     while (!p.exhst) {
       int[] t = p.next();
-            for (int i = 0; i < n; i++) {
-                    System.out.print(" " + t[i]);
-            }
-      System.out.println("");
+      for (int i = 0; i < n; i++) {
+        System.out.print(" " + t[i]);
+      }
+      System.out.println();
     }
   }
 

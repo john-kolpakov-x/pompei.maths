@@ -6,7 +6,7 @@ import java.util.concurrent.RecursiveAction;
 public class SortUtil {
   private static final float K = 5f / 7f;
 
-  public static void sortBoob(String ss[]) {
+  public static void sortBoob(String[] ss) {
     int len = ss.length;
 
     boobDistancePresort(ss, len);
@@ -19,7 +19,9 @@ public class SortUtil {
         swapped = swapped || swapIfNeed(ss, i, i + 1);
       }
 
-      if (!swapped) return;
+      if (!swapped) {
+        return;
+      }
     }
   }
 
@@ -33,17 +35,21 @@ public class SortUtil {
 
       distance = (int) ((float) distance * K + 0.5f);
 
-      if (distance <= 1) break;
+      if (distance <= 1) {
+        break;
+      }
     }
   }
 
-  public static void sortBoob2(String ss[]) {
+  public static void sortBoob2(String[] ss) {
     int len = ss.length;
 
     boobDistancePresort(ss, len);
 
     int n8 = len / 8;
-    if (n8 * 8 == len) n8--;
+    if (n8 * 8 == len) {
+      n8--;
+    }
 
     while (true) {
       boolean ok1 = true, ok2 = true, ok3 = true, ok4 = true;
@@ -66,7 +72,9 @@ public class SortUtil {
         ok1 = ok1 && !swapIfNeed(ss, i, i + 1);
       }
 
-      if ((ok1 && ok2) && (ok3 && ok4)) return;
+      if ((ok1 && ok2) && (ok3 && ok4)) {
+        return;
+      }
     }
   }
 
@@ -74,7 +82,9 @@ public class SortUtil {
     String s1 = ss[i];
     String s2 = ss[j];
     int cmp = s1.compareTo(s2);
-    if (cmp <= 0) return false;
+    if (cmp <= 0) {
+      return false;
+    }
     ss[i] = s2;
     ss[j] = s1;
     return true;
@@ -99,7 +109,9 @@ public class SortUtil {
   private static void sort2elems(String[] ss, int from) {
     String s1 = ss[from];
     String s2 = ss[from + 1];
-    if (s1.compareTo(s2) <= 0) return;
+    if (s1.compareTo(s2) <= 0) {
+      return;
+    }
     ss[from] = s2;
     ss[from + 1] = s1;
   }
@@ -127,9 +139,15 @@ public class SortUtil {
       s2 = tmp;
       s1Change = s2Change = true;
     }
-    if (s1Change) ss[from] = s1;
-    if (s2Change) ss[from + 1] = s2;
-    if (s3Change) ss[from + 2] = s3;
+    if (s1Change) {
+      ss[from] = s1;
+    }
+    if (s2Change) {
+      ss[from + 1] = s2;
+    }
+    if (s3Change) {
+      ss[from + 2] = s3;
+    }
   }
 
   private static void sort4elems(String[] ss, int from) {
@@ -168,10 +186,18 @@ public class SortUtil {
       s3 = tmp;
       s2Change = s3Change = true;
     }
-    if (s1Change) ss[from] = s1;
-    if (s2Change) ss[from + 1] = s2;
-    if (s3Change) ss[from + 2] = s3;
-    if (s4Change) ss[from + 3] = s4;
+    if (s1Change) {
+      ss[from] = s1;
+    }
+    if (s2Change) {
+      ss[from + 1] = s2;
+    }
+    if (s3Change) {
+      ss[from + 2] = s3;
+    }
+    if (s4Change) {
+      ss[from + 3] = s4;
+    }
   }
 
   private static class MergeSortPart extends RecursiveAction {
@@ -195,7 +221,9 @@ public class SortUtil {
       String[] ss2 = this.ss2;
 
       int len = to - from;
-      if (sortSmall(from, to, ss, len)) return;
+      if (sortSmall(from, to, ss, len)) {
+        return;
+      }
       {
         int middle = from + len / 2;
 
@@ -271,7 +299,9 @@ public class SortUtil {
       boolean ok7 = !swapIfNeed(ss, from + 5, from + 6);
       boolean ok8 = !swapIfNeed(ss, from + 7, from + 8);
 
-      if ((ok1 && ok2) && (ok3 && ok4) && (ok5 && ok6) && (ok7 && ok8)) return;
+      if ((ok1 && ok2) && (ok3 && ok4) && (ok5 && ok6) && (ok7 && ok8)) {
+        return;
+      }
     }
   }
 
@@ -293,7 +323,9 @@ public class SortUtil {
       ok3 = ok3 && !swapIfNeed(ss, from + 3, from + 4);
       ok4 = ok4 && !swapIfNeed(ss, from + 5, from + 6);
 
-      if ((ok1 && ok2) && (ok3 && ok4)) return;
+      if ((ok1 && ok2) && (ok3 && ok4)) {
+        return;
+      }
     }
   }
 
@@ -311,7 +343,9 @@ public class SortUtil {
       boolean ok5 = !swapIfNeed(ss, from + 3, from + 4);
       boolean ok6 = !swapIfNeed(ss, from + 5, from + 6);
 
-      if ((ok1 && ok2) && (ok3 && ok4) && (ok5 && ok6)) return;
+      if ((ok1 && ok2) && (ok3 && ok4) && (ok5 && ok6)) {
+        return;
+      }
     }
   }
 
@@ -328,7 +362,9 @@ public class SortUtil {
       boolean ok4 = !swapIfNeed(ss, from + 1, from + 2);
       boolean ok5 = !swapIfNeed(ss, from + 3, from + 4);
 
-      if ((ok1 && ok2) && (ok3 && ok4) && ok5) return;
+      if ((ok1 && ok2) && (ok3 && ok4) && ok5) {
+        return;
+      }
     }
   }
 
@@ -343,13 +379,17 @@ public class SortUtil {
       boolean ok3 = !swapIfNeed(ss, from + 1, from + 2);
       boolean ok4 = !swapIfNeed(ss, from + 3, from + 4);
 
-      if ((ok1 && ok2) && (ok3 && ok4)) return;
+      if ((ok1 && ok2) && (ok3 && ok4)) {
+        return;
+      }
     }
   }
 
   public static void sortMergeFromTo(String[] ss, int from, int to, String[] ss2) {
     int len = to - from;
-    if (sortSmall(from, to, ss, len)) return;
+    if (sortSmall(from, to, ss, len)) {
+      return;
+    }
 
     int middle = from + len / 2;
     sortMergeFromTo(ss, from, middle, ss2);
@@ -373,7 +413,9 @@ public class SortUtil {
         leftIndex++;
         if (leftIndex < middle) {
           left = ss2[leftIndex];
-          if (rightIndex < to) leftCmpRight = left.compareTo(right);
+          if (rightIndex < to) {
+            leftCmpRight = left.compareTo(right);
+          }
         } else {
           leftCmpRight = 1;
         }
@@ -384,7 +426,9 @@ public class SortUtil {
         rightIndex++;
         if (rightIndex < to) {
           right = ss2[rightIndex];
-          if (leftIndex < middle) leftCmpRight = left.compareTo(right);
+          if (leftIndex < middle) {
+            leftCmpRight = left.compareTo(right);
+          }
         } else {
           leftCmpRight = -1;
         }
@@ -414,7 +458,9 @@ public class SortUtil {
       for (int i = from, end = to - 1; i < end; i++) {
         swapped = swapped || swapIfNeed(ss, i, i + 1);
       }
-      if (!swapped) return;
+      if (!swapped) {
+        return;
+      }
     }
   }
 

@@ -24,7 +24,9 @@ public class Approximations {
     Expr bottom = null;
 
     for (int j = 1; j <= count; j++) {
-      if (i == j) continue;
+      if (i == j) {
+        continue;
+      }
       Expr topPart = ex.minus(ex.var(xVar), ex.var(xVar + j));
       Expr bottomPart = ex.minus(ex.var(xVar + i), ex.var(xVar + j));
 

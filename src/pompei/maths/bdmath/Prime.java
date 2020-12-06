@@ -132,7 +132,7 @@ public class Prime {
     /* list of limiting numbers which fail tests on k primes, A014233 in the OEIS
      */
     final String[] mr = {"2047", "1373653", "25326001", "3215031751", "2152302898747", "3474749660383",
-      "341550071728321"};
+        "341550071728321"};
     int mrLim = 0;
     while (mrLim < mr.length) {
       int l = n.compareTo(new BigInteger(mr[mrLim]));

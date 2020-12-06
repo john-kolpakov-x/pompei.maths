@@ -1,11 +1,11 @@
 package pompei.maths.fast_file_work;
 
+import pompei.maths.utils.RND;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-import pompei.maths.utils.RND;
-
 
 import static pompei.maths.utils.Conv.nanoToSec;
 
