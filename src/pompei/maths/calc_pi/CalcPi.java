@@ -1,12 +1,12 @@
-package probe.plugin;
+package pompei.maths.calc_pi;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
 public class CalcPi {
-  final static MathContext mc = new MathContext(3000, RoundingMode.HALF_EVEN);
-  final static BigDecimal delta = new BigDecimal("0E-" + mc.getPrecision());
+  final static MathContext mc = new MathContext(30000 + 1 + 7 * 8, RoundingMode.HALF_EVEN);
+  final static BigDecimal delta = new BigDecimal("1E-" + mc.getPrecision());
 
   public static BigDecimal f(BigDecimal y) {
     var y2 = y.multiply(y);
@@ -34,11 +34,11 @@ public class CalcPi {
 
       var b1 = a.multiply(b).sqrt(mc);
 
-      var deltaA = a1.subtract(a);
+      var deltaA = a1.subtract(a, mc);
 
-      var t1 = t.subtract(p.multiply(deltaA.multiply(deltaA)));
+      var t1 = t.subtract(p.multiply(deltaA.multiply(deltaA, mc), mc), mc);
 
-      var p1 = p.multiply(_2);
+      var p1 = p.multiply(_2, mc);
 
       a = a1;
       b = b1;
@@ -46,16 +46,24 @@ public class CalcPi {
       p = p1;
 
       count++;
+      // System.out.println("ZyNd1a1GBL :: count = " + count);
 
-      if ((a.subtract(b).abs().compareTo(deltaA)) <= 0) {
+      if (a.subtract(b, mc).abs(mc).compareTo(delta) <= 0) {
+        break;
+      }
+
+      if (count >= 100) {
         break;
       }
     }
 
     var ab = a.add(b);
     var pi = ab.multiply(ab).divide(_4.multiply(t), mc);
-    System.out.println("pi = " + pi);
     System.out.println("count = [ " + count + " ]");
 
+    System.out.println("PI =");
+    new BdPrint(System.out).print(pi);
+
   }
+
 }
