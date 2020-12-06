@@ -3,7 +3,9 @@ package pompei.maths.end_element;
 import org.testng.annotations.Test;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -43,8 +45,8 @@ public class Task1Test {
         double W = nx * cellSize, H = ny * cellSize;
 
         Conversion conversion = ConversionBuilder.rect(dist, dist, width - 2 * dist, height - 2 * dist)
-            .fromLeftBottom(0, 0)
-            .toRightTop(W, H);
+                                                 .fromLeftBottom(0, 0)
+                                                 .toRightTop(W, H);
 
         GraphicsDraw draw = new GraphicsDraw(g, conversion);
 

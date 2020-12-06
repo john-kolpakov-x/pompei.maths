@@ -11,10 +11,10 @@ public class TestUtil {
   private static final String DEG = "0123456789";
   private static final String RUS = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
   private static final String CHIN = "⻨⻩⻪⻫⻬⻭⻮⻯⻰⻱⻲⻳⻠⻡⻢⻣⻤⻥⻦⻧⾀⾁⾂⾃⾄⾅⾆⾇⾈⾉⾊⾋⾌⾍⾎⾏⾐⾑⾒⾓⾔⾕⾖⾗⾘" +
-    "⾙⾚⾛⾜⾝⾞⾟⾠⾡⾢⾣⾤⾥⾦⾧⾨⾩⾪⾫⾬⾭⾮⾯⾰⾱⾲⾳⾴⾵⾶⾷⾸⾹⾺⾻⾼⾽⾾⾿⿀⿁⿂⿃⿄⿅⿆⿇⿈⿉⿊⿋⿌⿍⿎⿏⿐⿑⿒⿓⿔⿕";
+                                         "⾙⾚⾛⾜⾝⾞⾟⾠⾡⾢⾣⾤⾥⾦⾧⾨⾩⾪⾫⾬⾭⾮⾯⾰⾱⾲⾳⾴⾵⾶⾷⾸⾹⾺⾻⾼⾽⾾⾿⿀⿁⿂⿃⿄⿅⿆⿇⿈⿉⿊⿋⿌⿍⿎⿏⿐⿑⿒⿓⿔⿕";
 
   private static final char[] ALL = (ENG.toUpperCase() + ENG.toLowerCase() + DEG + RUS.toLowerCase()
-    + RUS.toUpperCase() + CHIN).toCharArray();
+                                         + RUS.toUpperCase() + CHIN).toCharArray();
 
   public static String rndStr(Random rnd, int length) {
     char[] chars = new char[length];

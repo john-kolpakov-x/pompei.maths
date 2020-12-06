@@ -1,10 +1,10 @@
 package pompei.maths.syms2.diff;
 
-import java.io.IOException;
 import pompei.maths.syms_diff.model.Form;
 import pompei.maths.syms_diff.visitors.KillDivVisitor;
 import pompei.maths.syms_diff.visitors.paint.PaintUtil;
 
+import java.io.IOException;
 
 import static pompei.maths.syms_diff.visitable.frm.f;
 import static pompei.maths.syms_diff.visitable.frm.p;

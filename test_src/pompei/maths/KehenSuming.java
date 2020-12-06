@@ -10,7 +10,7 @@ public class KehenSuming {
 
     long[] votes = new Random(42).longs(1000).toArray();
 
-    double ave1 = of(votes) .average().getAsDouble();
+    double ave1 = of(votes).average().getAsDouble();
 
     double ave2 = of(votes).asDoubleStream().average().getAsDouble();
 
@@ -24,9 +24,13 @@ public class KehenSuming {
       int i = 1;
       for (long val : votes) {
         StringBuilder s = new StringBuilder("" + val);
-        while (s.length() < 30) s.insert(0, ' ');
+        while (s.length() < 30) {
+          s.insert(0, ' ');
+        }
         StringBuilder I = new StringBuilder("" + i++);
-        while (I.length() < 5) I.insert(0, ' ');
+        while (I.length() < 5) {
+          I.insert(0, ' ');
+        }
         System.out.println(s.toString() + I);
         sum += val;
       }

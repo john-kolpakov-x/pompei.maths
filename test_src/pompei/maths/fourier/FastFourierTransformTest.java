@@ -126,13 +126,13 @@ public class FastFourierTransformTest {
 
       System.out.println(""
 
-        + toStr(l, r, re1[i]) + " +i* " + toStr(l, r, im1[i])
-        + " | "
-        + toStr(l, r, re3[i]) + " +i* " + toStr(l, r, im3[i])
-        + " | "
-        + toStr(l, r, r2) + "  @  " + toStr(l, r, fi2)
+                             + toStr(l, r, re1[i]) + " +i* " + toStr(l, r, im1[i])
+                             + " | "
+                             + toStr(l, r, re3[i]) + " +i* " + toStr(l, r, im3[i])
+                             + " | "
+                             + toStr(l, r, r2) + "  @  " + toStr(l, r, fi2)
 
-      );
+                        );
     }
 
     System.out.println();
@@ -197,13 +197,13 @@ public class FastFourierTransformTest {
 
       System.out.println(""
 
-        + toStr(l, r, re_1) + " & " + toStr(l, r, re_2)
-        + " | "
-        + toStr(l, r, r_1) + "  @  " + toStr(l, r, fi_1)
-        + " & "
-        + toStr(l, r, r_2) + "  @  " + toStr(l, r, fi_2)
+                             + toStr(l, r, re_1) + " & " + toStr(l, r, re_2)
+                             + " | "
+                             + toStr(l, r, r_1) + "  @  " + toStr(l, r, fi_1)
+                             + " & "
+                             + toStr(l, r, r_2) + "  @  " + toStr(l, r, fi_2)
 
-      );
+                        );
     }
 
     System.out.println();

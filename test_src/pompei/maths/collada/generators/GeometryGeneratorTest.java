@@ -36,8 +36,8 @@ public class GeometryGeneratorTest {
     //
 
     Path pathToFile = Paths.get(
-      System.getProperty("user.home") + "/tmp/gen_tor_with_material-" + torDomain.Nu + "x" + torDomain.Nv + ".dae"
-    );
+        System.getProperty("user.home") + "/tmp/gen_tor_with_material-" + torDomain.Nu + "x" + torDomain.Nv + ".dae"
+                               );
 
     try (PrintStream printStream = new PrintStream(pathToFile.toFile(), UTF_8)) {
       collada.printTo(printStream);

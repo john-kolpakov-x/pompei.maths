@@ -221,10 +221,10 @@ public class LinkedArrayTest extends LinkedArrayTestParent {
   public Object[][] countOfWrites_countOfReads_DP() {
     return new Object[][]{
 
-      {(Putter) LinkedArray::putLast, (GetAndRemover) LinkedArray::getAndRemoveLast},
-      {(Putter) LinkedArray::putLast, (GetAndRemover) LinkedArray::getAndRemoveFirst},
-      {(Putter) LinkedArray::putFirst, (GetAndRemover) LinkedArray::getAndRemoveLast},
-      {(Putter) LinkedArray::putFirst, (GetAndRemover) LinkedArray::getAndRemoveFirst},
+        {(Putter) LinkedArray::putLast, (GetAndRemover) LinkedArray::getAndRemoveLast},
+        {(Putter) LinkedArray::putLast, (GetAndRemover) LinkedArray::getAndRemoveFirst},
+        {(Putter) LinkedArray::putFirst, (GetAndRemover) LinkedArray::getAndRemoveLast},
+        {(Putter) LinkedArray::putFirst, (GetAndRemover) LinkedArray::getAndRemoveFirst},
 
     };
   }
@@ -240,7 +240,9 @@ public class LinkedArrayTest extends LinkedArrayTestParent {
     for (int i = 0; i < count; i++) {
 
       String str = RND.str(10);
-      while (set.contains(str)) str = RND.str(10);
+      while (set.contains(str)) {
+        str = RND.str(10);
+      }
 
       set.add(str);
       putter.go(testing, str);
@@ -255,7 +257,9 @@ public class LinkedArrayTest extends LinkedArrayTestParent {
       public void run() {
         while (true) {
           String str = getAndRemover.go(testing);
-          if (str == null) break;
+          if (str == null) {
+            break;
+          }
           localSet.add(str);
           count++;
         }
@@ -318,7 +322,9 @@ public class LinkedArrayTest extends LinkedArrayTestParent {
 
       @Override
       public void run() {
-        while (working.get() || !testing.isEmpty()) work();
+        while (working.get() || !testing.isEmpty()) {
+          work();
+        }
       }
 
       private void work() {
@@ -357,7 +363,9 @@ public class LinkedArrayTest extends LinkedArrayTestParent {
     int waitCount = 0;
 
     while (true) {
-      if (testing.isEmpty()) break;
+      if (testing.isEmpty()) {
+        break;
+      }
       waitCount++;
     }
 

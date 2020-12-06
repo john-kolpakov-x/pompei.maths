@@ -22,12 +22,16 @@ public class CalcPiByMonteCarlo {
       @Override
       public void run() {
         Random random = new SecureRandom();
-        while (working.get()) for (int i = 0; i < 100_000; i++) {
-          double x = random.nextDouble();
-          double y = random.nextDouble();
-          double d = x * x + y * y;
-          if (d < 1) hit++;
-          count++;
+        while (working.get()) {
+          for (int i = 0; i < 100_000; i++) {
+            double x = random.nextDouble();
+            double y = random.nextDouble();
+            double d = x * x + y * y;
+            if (d < 1) {
+              hit++;
+            }
+            count++;
+          }
         }
       }
     }

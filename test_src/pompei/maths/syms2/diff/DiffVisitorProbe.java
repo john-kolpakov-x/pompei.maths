@@ -1,7 +1,6 @@
 package pompei.maths.syms2.diff;
 
 import pompei.maths.syms_diff.model.Form;
-import pompei.maths.syms_diff.visitable.Skob;
 import pompei.maths.syms_diff.visitors.DiffVisitor;
 import pompei.maths.syms_diff.visitors.KillMulPlusVisitor;
 import pompei.maths.syms_diff.visitors.paint.PaintUtil;
@@ -41,7 +40,7 @@ public class DiffVisitorProbe {
     Form a34x = openBracketsAndSimilar(a34.visit(R.D));
 
     PaintUtil.paintToFile("build/DiffVisitorProbe.png",
-      a0.visit(R.S), a1.visit(R.S), a2.visit(R.S), a3.visit(R.S), a4.visit(R.S), a34, a34x);
+                          a0.visit(R.S), a1.visit(R.S), a2.visit(R.S), a3.visit(R.S), a4.visit(R.S), a34, a34x);
 
     System.out.println("OK");
   }

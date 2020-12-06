@@ -22,11 +22,15 @@ public class KeyName {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     KeyName keyName = (KeyName) o;
     return code == keyName.code &&
-      location == keyName.location;
+               location == keyName.location;
   }
 
   @Override

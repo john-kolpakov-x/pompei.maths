@@ -36,7 +36,7 @@ public class RndAccessTarFileTest {
         bytesArray[i] = RND.bytes(RND.plusInt(10) + 1);
         int I = i;
         threads[i] = new Thread(
-          () -> positions[I] = rndAccessTarFile.save(bytesArray[I])
+            () -> positions[I] = rndAccessTarFile.save(bytesArray[I])
         );
       }
 
@@ -53,8 +53,8 @@ public class RndAccessTarFileTest {
 
       for (int i = 0; i < N; i++) {
         assertThat(readBytesArray[i])
-          .describedAs("i = " + i)
-          .isEqualTo(bytesArray[i]);
+            .describedAs("i = " + i)
+            .isEqualTo(bytesArray[i]);
       }
 
     }
@@ -109,8 +109,8 @@ public class RndAccessTarFileTest {
 
       for (int i = 0; i < N; i++) {
         assertThat(readBytesArray[i])
-          .describedAs("i = " + i)
-          .isEqualTo(bytesArray[i]);
+            .describedAs("i = " + i)
+            .isEqualTo(bytesArray[i]);
       }
 
     }

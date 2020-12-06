@@ -92,9 +92,9 @@ public class ViewPanel extends JPanel {
     });
 
     setCursor(getToolkit().createCustomCursor(
-      new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB),
-      new Point(),
-      null));
+        new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB),
+        new Point(),
+        null));
   }
 
   protected final DownKeyStack keyDownStack = new DownKeyStack();
@@ -234,12 +234,24 @@ public class ViewPanel extends JPanel {
       double r = c.r;
       r *= scale;
       double R = r;
-      if (R < 2) R = 2;
-      if (R > SW) R = SW;
-      if (S.x < 0) continue;
-      if (S.x > SW) continue;
-      if (S.y < 0) continue;
-      if (S.y > SH) continue;
+      if (R < 2) {
+        R = 2;
+      }
+      if (R > SW) {
+        R = SW;
+      }
+      if (S.x < 0) {
+        continue;
+      }
+      if (S.x > SW) {
+        continue;
+      }
+      if (S.y < 0) {
+        continue;
+      }
+      if (S.y > SH) {
+        continue;
+      }
 
       int iX = (int) Math.round(S.x - R);
       int iY = (int) Math.round(S.y - R);
@@ -399,7 +411,9 @@ public class ViewPanel extends JPanel {
   }
 
   private void command_ToCenter() {
-    if (circleList.isEmpty()) return;
+    if (circleList.isEmpty()) {
+      return;
+    }
     double totalMass = circleList.stream().mapToDouble(c -> c.m).sum();
     double ccx = circleList.stream().mapToDouble(c -> c.x * c.m).sum() / totalMass;
     double ccy = circleList.stream().mapToDouble(c -> c.y * c.m).sum() / totalMass;

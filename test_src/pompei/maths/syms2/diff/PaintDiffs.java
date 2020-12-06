@@ -3,7 +3,6 @@ package pompei.maths.syms2.diff;
 import pompei.maths.syms_diff.model.Form;
 import pompei.maths.syms_diff.visitors.paint.PaintUtil;
 
-
 import static pompei.maths.syms_diff.visitable.frm.d;
 import static pompei.maths.syms_diff.visitable.frm.f;
 

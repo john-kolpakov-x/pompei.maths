@@ -1,8 +1,9 @@
 package pompei.maths.utils;
 
-import java.math.BigInteger;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.math.BigInteger;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -12,7 +13,7 @@ public class FactorialTest {
   public Object[][] factorial_DP() {
     return new Object[][]{
 
-      {1000}, {100}, {10}, {213}, {1111}, {315}
+        {1000}, {100}, {10}, {213}, {1111}, {315}
 
     };
   }

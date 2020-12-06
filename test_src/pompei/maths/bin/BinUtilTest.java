@@ -364,5 +364,5 @@ public class BinUtilTest {
     System.out.println("E_PI = " + E_PI);
     System.out.println("PI_E = " + PI_E);
 
-    }
+  }
 }

@@ -58,7 +58,9 @@ public class LinkedArray_optimizations_Test {
   };
 
   public static Value oneTimeSec(long time, long count) {
-    if (count == 0) return NONE;
+    if (count == 0) {
+      return NONE;
+    }
     double div = (double) time / (double) count / 1e9;
     DecimalFormat fmt = new DecimalFormat("0.0000000000000000");
     DecimalFormatSymbols sym = new DecimalFormatSymbols();
@@ -104,7 +106,9 @@ public class LinkedArray_optimizations_Test {
     public Indicator setNameLen(int len) {
       StringBuilder sb = new StringBuilder();
       sb.append(name());
-      while (sb.length() < len) sb.append(' ');
+      while (sb.length() < len) {
+        sb.append(' ');
+      }
       return new Indicator(sb.toString(), value);
     }
   }
@@ -146,10 +150,10 @@ public class LinkedArray_optimizations_Test {
     @Override
     public Stream<Indicator> indicators() {
       return Stream.of(
-        new Indicator("call", oneTimeSec(notNullTime, notNullCount)),
-        new Indicator("not null", oneTimeSec(nullTime, nullCount)),
-        new Indicator("count", new StrValue("" + (nullCount + notNullCount)))
-      );
+          new Indicator("call", oneTimeSec(notNullTime, notNullCount)),
+          new Indicator("not null", oneTimeSec(nullTime, nullCount)),
+          new Indicator("count", new StrValue("" + (nullCount + notNullCount)))
+                      );
     }
 
     public final void clean() {
@@ -184,9 +188,9 @@ public class LinkedArray_optimizations_Test {
     @Override
     public Stream<Indicator> indicators() {
       return Stream.of(
-        new Indicator("put", oneTimeSec(putTime, putCount)),
-        new Indicator("count", new StrValue("" + putCount))
-      );
+          new Indicator("put", oneTimeSec(putTime, putCount)),
+          new Indicator("count", new StrValue("" + putCount))
+                      );
     }
   }
 
@@ -200,11 +204,15 @@ public class LinkedArray_optimizations_Test {
 
     @Override
     public boolean equals(Object o) {
-      if (this == o) return true;
-      if (o == null || getClass() != o.getClass()) return false;
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
       Pair pair = (Pair) o;
       return Objects.equals(left, pair.left) &&
-        Objects.equals(top, pair.top);
+                 Objects.equals(top, pair.top);
     }
 
     @Override
@@ -235,9 +243,9 @@ public class LinkedArray_optimizations_Test {
 
     public Map<String, Value> topValues(String top) {
       return data.entrySet()
-        .stream()
-        .filter(a -> Objects.equals(top, a.getKey().top))
-        .collect(Collectors.toMap(a -> a.getKey().left, Map.Entry::getValue));
+                 .stream()
+                 .filter(a -> Objects.equals(top, a.getKey().top))
+                 .collect(Collectors.toMap(a -> a.getKey().left, Map.Entry::getValue));
     }
 
     public Value get(String left, String top) {
@@ -247,33 +255,45 @@ public class LinkedArray_optimizations_Test {
 
     public void T() {
       data = data.entrySet()
-        .stream()
-        .map(e -> new AbstractMap.SimpleEntry<>(e.getKey().invert(), e.getValue()))
-        .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
+                 .stream()
+                 .map(e -> new AbstractMap.SimpleEntry<>(e.getKey().invert(), e.getValue()))
+                 .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
     }
   }
 
   public static String toLen(String s, int len) {
     StringBuilder sb = new StringBuilder();
-    if (s != null) sb.append(s);
-    while (sb.length() < len) sb.append(' ');
+    if (s != null) {
+      sb.append(s);
+    }
+    while (sb.length() < len) {
+      sb.append(' ');
+    }
     return sb.toString();
   }
 
   public static String toLenC(String s, int len) {
     StringBuilder sb = new StringBuilder();
-    if (s != null) sb.append(s);
+    if (s != null) {
+      sb.append(s);
+    }
     while (true) {
-      if (sb.length() >= len) return sb.toString();
+      if (sb.length() >= len) {
+        return sb.toString();
+      }
       sb.append(' ');
-      if (sb.length() >= len) return sb.toString();
+      if (sb.length() >= len) {
+        return sb.toString();
+      }
       sb.insert(0, ' ');
     }
   }
 
   public static String len(String s, int len) {
     StringBuilder sb = new StringBuilder();
-    while (sb.length() < len) sb.append(s);
+    while (sb.length() < len) {
+      sb.append(s);
+    }
     return sb.toString();
   }
 
@@ -294,7 +314,9 @@ public class LinkedArray_optimizations_Test {
     int leftLength = 0;
     for (String s : lefts) {
       int length = s.length();
-      if (leftLength < length) leftLength = length;
+      if (leftLength < length) {
+        leftLength = length;
+      }
     }
 
     final Map<String, Integer> topLengths = new HashMap<>();
@@ -304,46 +326,49 @@ public class LinkedArray_optimizations_Test {
 
       for (Value value : table.topValues(top).values()) {
         int length = value.asStr().length();
-        if (len < length) len = length;
+        if (len < length) {
+          len = length;
+        }
       }
 
       topLengths.put(top, len);
     }
 
     System.out.println(""
-      + START_BOLD
-      + len("-", leftLength) + "---"
-      + tops.stream().map(s -> len("-", topLengths.get(s))).collect(Collectors.joining("---"))
-      + END_BOLD
-    );
+                           + START_BOLD
+                           + len("-", leftLength) + "---"
+                           + tops.stream().map(s -> len("-", topLengths.get(s))).collect(Collectors.joining("---"))
+                           + END_BOLD
+                      );
 
     System.out.println(""
-      + START_BOLD + toLen("", leftLength) + " | "
-      + tops.stream().map(s -> toLenC(s, topLengths.get(s))).collect(Collectors.joining(" | "))
-      + END_BOLD
-    );
+                           + START_BOLD + toLen("", leftLength) + " | "
+                           + tops.stream().map(s -> toLenC(s, topLengths.get(s))).collect(Collectors.joining(" | "))
+                           + END_BOLD
+                      );
 
     System.out.println(""
-      + START_BOLD
-      + len("-", leftLength) + "---"
-      + tops.stream().map(s -> len("-", topLengths.get(s))).collect(Collectors.joining("---"))
-      + END_BOLD
-    );
+                           + START_BOLD
+                           + len("-", leftLength) + "---"
+                           + tops.stream().map(s -> len("-", topLengths.get(s))).collect(Collectors.joining("---"))
+                           + END_BOLD
+                      );
 
 
     for (String left : lefts) {
       System.out.println(toLen(left, leftLength) + " | " + tops.stream()
-        .map(top -> toLen(table.get(left, top).asStr(), topLengths.get(top)))
-        .collect(Collectors.joining(" | "))
-      );
+                                                               .map(top -> toLen(table.get(left, top).asStr(),
+                                                                                 topLengths.get(top)))
+                                                               .collect(Collectors.joining(" | "))
+                        );
     }
 
     System.out.println(""
 //      + START_BOLD
-        + len("-", leftLength) + "---"
-        + tops.stream().map(s -> len("-", topLengths.get(s))).collect(Collectors.joining("---"))
+                           + len("-", leftLength) + "---"
+                           + tops.stream().map(s -> len("-", topLengths.get(s))).collect(Collectors.joining("---"))
 //      + END_BOLD
-    );
+                      );
   }
 
   private LinkedArray<String> createOriginal() {
@@ -413,9 +438,13 @@ public class LinkedArray_optimizations_Test {
             }
           }
           for (String s : acceptor) {
-            if (s != null) for (int i = 0, c = s.length(); i < c; i++) {
-              char ch = s.charAt(i);
-              if (ch == Character.toLowerCase(ch)) lowCaseCount++;
+            if (s != null) {
+              for (int i = 0, c = s.length(); i < c; i++) {
+                char ch = s.charAt(i);
+                if (ch == Character.toLowerCase(ch)) {
+                  lowCaseCount++;
+                }
+              }
             }
           }
         }
@@ -521,47 +550,47 @@ public class LinkedArray_optimizations_Test {
 
       Stream<MyThread> all() {
         return concat(
-          concat(lastGettingThreads.stream(), firstGettingThreads.stream()),
-          concat(lastPuttingThreads.stream(), firstPuttingThreads.stream())
-        );
+            concat(lastGettingThreads.stream(), firstGettingThreads.stream()),
+            concat(lastPuttingThreads.stream(), firstPuttingThreads.stream())
+                     );
       }
 
       Stream<Indicator> allIndicators() {
         GettingStatistics lastGetting = lastGettingThreads
-          .stream()
-          .map(GettingThread::showStat)
-          .reduce(new GettingStatistics(), GettingStatistics::add);
+                                            .stream()
+                                            .map(GettingThread::showStat)
+                                            .reduce(new GettingStatistics(), GettingStatistics::add);
 
         GettingStatistics firstGetting = firstGettingThreads
-          .stream()
-          .map(GettingThread::showStat)
-          .reduce(new GettingStatistics(), GettingStatistics::add);
+                                             .stream()
+                                             .map(GettingThread::showStat)
+                                             .reduce(new GettingStatistics(), GettingStatistics::add);
 
         PuttingStatistics lastPutting = lastPuttingThreads
-          .stream()
-          .map(PuttingThread::showStat)
-          .reduce(new PuttingStatistics(), PuttingStatistics::add);
+                                            .stream()
+                                            .map(PuttingThread::showStat)
+                                            .reduce(new PuttingStatistics(), PuttingStatistics::add);
 
         PuttingStatistics firstPutting = firstPuttingThreads
-          .stream()
-          .map(PuttingThread::showStat)
-          .reduce(new PuttingStatistics(), PuttingStatistics::add);
+                                             .stream()
+                                             .map(PuttingThread::showStat)
+                                             .reduce(new PuttingStatistics(), PuttingStatistics::add);
 
         int maxCount = original.maxCount();
 
         return concat(lastGetting.indicators("getting last  "),
-          concat(firstGetting.indicators("getting first "),
-            concat(
-              lastPutting.indicators("putting last  "),
-              concat(
-                firstPutting.indicators("putting first "),
-                Stream.of(
-                  new Indicator("max count ", () -> "" + maxCount)
-                )
-              )
-            )
-          )
-        );
+                      concat(firstGetting.indicators("getting first "),
+                             concat(
+                                 lastPutting.indicators("putting last  "),
+                                 concat(
+                                     firstPutting.indicators("putting first "),
+                                     Stream.of(
+                                         new Indicator("max count ", () -> "" + maxCount)
+                                              )
+                                       )
+                                   )
+                            )
+                     );
       }
     }
 
@@ -625,15 +654,15 @@ public class LinkedArray_optimizations_Test {
 
     System.out.println(
 
-      indicators
-        .map(a -> a.setNameLen(18))
-        .map(a -> a.addPrefix(prefix))
-        .map(a -> a.setNameLen(30))
-        .sorted()
-        .map(Indicator::toString)
-        .collect(Collectors.joining("\n"))
+        indicators
+            .map(a -> a.setNameLen(18))
+            .map(a -> a.addPrefix(prefix))
+            .map(a -> a.setNameLen(30))
+            .sorted()
+            .map(Indicator::toString)
+            .collect(Collectors.joining("\n"))
 
-    );
+                      );
   }
 
 

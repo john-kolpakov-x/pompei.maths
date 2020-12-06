@@ -5,7 +5,6 @@ import pompei.maths.syms_diff.visitors.AddSkobVisitor;
 import pompei.maths.syms_diff.visitors.KillMinusSkobVisitor;
 import pompei.maths.syms_diff.visitors.paint.PaintUtil;
 
-
 import static pompei.maths.syms_diff.visitable.frm.f;
 
 public class PaintProbe2 {

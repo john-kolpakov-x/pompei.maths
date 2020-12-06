@@ -117,7 +117,9 @@ public class SortLauncher {
 
   private static void checkSorted(String[] ss, String title) {
     for (int i = 0, n = ss.length - 1; i < n; i++) {
-      if (ss[i].compareTo(ss[i + 1]) >= 0) throw new RuntimeException(title + ": i = " + i);
+      if (ss[i].compareTo(ss[i + 1]) >= 0) {
+        throw new RuntimeException(title + ": i = " + i);
+      }
     }
   }
 

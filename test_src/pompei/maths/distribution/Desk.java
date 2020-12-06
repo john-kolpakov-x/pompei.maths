@@ -4,7 +4,7 @@ import java.io.PrintStream;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Desk {
-  private final AtomicInteger values[];
+  private final AtomicInteger[] values;
   private final double x1, x2;
   private final AtomicInteger totalCount = new AtomicInteger(0);
 
@@ -18,8 +18,12 @@ public class Desk {
   }
 
   public void put(double x) {
-    if (x < x1) return;
-    if (x >= x2) return;
+    if (x < x1) {
+      return;
+    }
+    if (x >= x2) {
+      return;
+    }
     int i = position(x);
     values[i].incrementAndGet();
     totalCount.incrementAndGet();
@@ -30,9 +34,15 @@ public class Desk {
   }
 
   public double get(double x) {
-    if (x < x1) return 0;
-    if (x > x2) return 0;
-    if (totalCount.get() == 0) return 0;
+    if (x < x1) {
+      return 0;
+    }
+    if (x > x2) {
+      return 0;
+    }
+    if (totalCount.get() == 0) {
+      return 0;
+    }
     return getInPosition(position(x));
   }
 

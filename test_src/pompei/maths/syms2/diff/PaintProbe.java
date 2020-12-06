@@ -1,15 +1,24 @@
 package pompei.maths.syms2.diff;
 
+import pompei.maths.syms_diff.model.Form;
+import pompei.maths.syms_diff.visitable.ConstInt;
+import pompei.maths.syms_diff.visitable.Div;
+import pompei.maths.syms_diff.visitable.Func;
+import pompei.maths.syms_diff.visitable.Minus;
+import pompei.maths.syms_diff.visitable.Mul;
+import pompei.maths.syms_diff.visitable.Plus;
+import pompei.maths.syms_diff.visitable.Power;
+import pompei.maths.syms_diff.visitable.Skob;
+import pompei.maths.syms_diff.visitable.Var;
+import pompei.maths.syms_diff.visitors.paint.PaintVisitor;
+import pompei.maths.syms_diff.visitors.paint.Painter;
+import pompei.maths.syms_diff.visitors.paint.Size;
+
+import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import javax.imageio.ImageIO;
-import pompei.maths.syms_diff.model.Form;
-import pompei.maths.syms_diff.visitable.*;
-import pompei.maths.syms_diff.visitors.paint.PaintVisitor;
-import pompei.maths.syms_diff.visitors.paint.Painter;
-import pompei.maths.syms_diff.visitors.paint.Size;
 
 public class PaintProbe {
   public static void main(String[] args) throws Exception {
@@ -28,7 +37,7 @@ public class PaintProbe {
     Size size = p.getSize();
 
     BufferedImage image = new BufferedImage(size.width + 20, size.heightBottom + size.heightTop
-      + 20, BufferedImage.TYPE_INT_ARGB);
+                                                                 + 20, BufferedImage.TYPE_INT_ARGB);
     Graphics2D g = image.createGraphics();
     g.setColor(Color.WHITE);
     g.fillRect(0, 0, image.getWidth(), image.getHeight());

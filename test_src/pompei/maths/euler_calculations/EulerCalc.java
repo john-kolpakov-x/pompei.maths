@@ -3,6 +3,7 @@ package pompei.maths.euler_calculations;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 public class EulerCalc {
@@ -30,7 +31,9 @@ public class EulerCalc {
       byte[] buffer = new byte[8 * 1024];
       while (true) {
         int count = inputStream.read(buffer);
-        if (count < 0) return out.toString("UTF-8");
+        if (count < 0) {
+          return out.toString(StandardCharsets.UTF_8);
+        }
         out.write(buffer, 0, count);
       }
 
@@ -50,10 +53,10 @@ public class EulerCalc {
       BigInteger c = new BigInteger(line[4]);
 
       System.out.println(
-        line[1] + "^4 = " +
-          line[2] + "^4 + " +
-          line[3] + "^4 + " +
-          line[4] + "^4 ~~~ " + calc(r, a, b, c));
+          line[1] + "^4 = " +
+              line[2] + "^4 + " +
+              line[3] + "^4 + " +
+              line[4] + "^4 ~~~ " + calc(r, a, b, c));
     });
 
   }

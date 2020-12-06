@@ -2,6 +2,7 @@ package pompei.maths.distribution;
 
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class ProbeUniformity {
     Path path = Paths.get("build/Uniformity4.data.txt");
     path.toFile().getParentFile().mkdirs();
 
-    try (PrintStream pr = new PrintStream(new FileOutputStream(path.toFile()), false, "UTF-8")) {
+    try (PrintStream pr = new PrintStream(new FileOutputStream(path.toFile()), false, StandardCharsets.UTF_8)) {
       desk.printTo(pr);
     }
 

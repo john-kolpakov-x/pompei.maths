@@ -38,7 +38,9 @@ public class LinkedArrayOnArrayList<E> implements LinkedArray<E> {
   @Override
   public E getAndRemoveFirst() {
     synchronized (mutex) {
-      if (list.size() == 0) return null;
+      if (list.size() == 0) {
+        return null;
+      }
       return list.remove(0);
     }
   }
@@ -46,7 +48,9 @@ public class LinkedArrayOnArrayList<E> implements LinkedArray<E> {
   @Override
   public E getAndRemoveLast() {
     synchronized (mutex) {
-      if (list.size() == 0) return null;
+      if (list.size() == 0) {
+        return null;
+      }
       return list.remove(list.size() - 1);
     }
   }

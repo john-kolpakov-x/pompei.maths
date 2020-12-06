@@ -3,6 +3,7 @@ package pompei.maths.collada.core;
 import org.testng.annotations.Test;
 
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -51,7 +52,7 @@ public class ColladaTest {
 
     Path pathToFile = Paths.get(System.getProperty("user.home") + "/tmp/gen_cube.dae.xml");
 
-    try (PrintStream printStream = new PrintStream(pathToFile.toFile(), "UTF-8")) {
+    try (PrintStream printStream = new PrintStream(pathToFile.toFile(), StandardCharsets.UTF_8)) {
       collada.printTo(printStream);
     }
   }
