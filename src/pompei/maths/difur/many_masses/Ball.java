@@ -26,7 +26,7 @@ public class Ball extends Node {
     return "Shar " + id + " Rm " + R + ' ' + m + " xy " + x + ' ' + y + " vxy " + vx + ' ' + vy;
   }
   
-  public static Ball parse(String split[]) {
+  public static Ball parse(String[] split) {
     if (!"Shar".equals(split[0])) return null;
     Ball ret = new Ball(split[1]);
     ret.R = Double.parseDouble(split[3]);

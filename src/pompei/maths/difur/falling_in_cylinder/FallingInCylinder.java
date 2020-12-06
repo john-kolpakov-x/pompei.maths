@@ -56,7 +56,8 @@ public class FallingInCylinder {
 
     try (BufferedWriter wr = Files.newBufferedWriter(Paths.get(
       System.getProperty("user.home") + "/tmp/asd.txt"), UTF_8, APPEND, CREATE)) {
-      StringBuilder sb = new StringBuilder();
+      //noinspection StringBufferReplaceableByString
+      var sb = new StringBuilder();
       sb.append(t).append('\t');
       sb.append(x).append('\t');
       sb.append(y).append('\t');

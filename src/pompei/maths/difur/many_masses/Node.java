@@ -40,7 +40,7 @@ public abstract class Node {
   
   public abstract int centerY();
   
-  public Vec2d getForse() {
+  public Vec2d getForce() {
     Vec2d ret = new Vec2d(0, 0);
     
     for (Connection s : toSet) {

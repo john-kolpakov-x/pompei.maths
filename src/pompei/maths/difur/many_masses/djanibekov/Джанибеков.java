@@ -8,6 +8,7 @@ import pompei.maths.difur.Stepper_H4_Hoine;
 import java.io.PrintStream;
 
 import static java.lang.Math.sqrt;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class Джанибеков {
 
@@ -369,8 +370,8 @@ public class Джанибеков {
     ur.setT(0);
     ur.setH(0.00001);
 
-    PrintStream out = new PrintStream("build/out.txt", "UTF-8");
-    PrintStream out2 = new PrintStream("build/out2.txt", "UTF-8");
+    PrintStream out = new PrintStream("build/out.txt", UTF_8);
+    PrintStream out2 = new PrintStream("build/out2.txt", UTF_8);
 
     save(out, out2, ur);
     while (ur.getT() < 20) {
@@ -404,7 +405,7 @@ public class Джанибеков {
     }
   }
 
-  @SuppressWarnings("PointlessArithmeticExpression")
+  @SuppressWarnings({"PointlessArithmeticExpression", "SameParameterValue"})
   private static double l(double[] x, int i, int j) {
 
     double dx = x[(i - 1) * 6 + 0] - x[(j - 1) * 6 + 0];

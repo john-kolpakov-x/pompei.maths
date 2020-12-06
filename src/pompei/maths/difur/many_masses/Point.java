@@ -26,7 +26,7 @@ public class Point extends Node {
     return "Point " + id + ' ' + x + ' ' + y;
   }
   
-  public static Point parse(String split[]) {
+  public static Point parse(String[] split) {
     if (!"Point".equals(split[0])) return null;
     Point ret = new Point(split[1]);
     ret.x = Double.parseDouble(split[2]);

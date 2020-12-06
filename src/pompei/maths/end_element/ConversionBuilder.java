@@ -29,7 +29,7 @@ public class ConversionBuilder {
 
     public Conversion toRightTop(double rightTopX, double rightTopY) {
       return new Conversion() {
-        double dWidth = rightTopX - leftBottomX;
+        final double dWidth = rightTopX - leftBottomX;
 
         @Override
         public double convertX(double x) {
@@ -37,7 +37,7 @@ public class ConversionBuilder {
           return (double) offsetX + t * width;
         }
 
-        double dHeight = rightTopY - leftBottomY;
+        final double dHeight = rightTopY - leftBottomY;
 
         @Override
         public double convertY(double y) {

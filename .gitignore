@@ -6,5 +6,6 @@ build/
 /.gradle/
 /.settings/
 /test-output/
-/.idea/
+.idea/*
+!.idea/codeStyles
 out/

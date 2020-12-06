@@ -1,9 +1,9 @@
 package pompei.maths.difur;
 
 public class Stepper_H3 implements Stepper {
-  double x[];
+  double[] x;
   
-  double k1[], k2[], tmp[];
+  double[] k1, k2, tmp;
   
   @Override
   public void prepare(int N) {
@@ -16,19 +16,19 @@ public class Stepper_H3 implements Stepper {
   @Override
   public void step(F f, double t, double h, int N) {
     
-    double k1[] = this.k1;
-    double x[] = this.x;
+    double[] k1 = this.k1;
+    double[] x = this.x;
     
     f.f(k1, t, x);
     
-    double tmp[] = this.tmp;
+    double[] tmp = this.tmp;
     
     for (int i = 0; i < N; i++) {
       tmp[i] = x[i] + h * k1[i];
     }
     
     double t_h = t + h;
-    double k2[] = this.k2;
+    double[] k2 = this.k2;
     f.f(k2, t_h, tmp);
     
     double h2 = h / 2;
