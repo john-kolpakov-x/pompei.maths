@@ -8,4 +8,5 @@ build/
 /test-output/
 .idea/*
 !.idea/codeStyles
+!.idea/inspectionProfiles
 out/
