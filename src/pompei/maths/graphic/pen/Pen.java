@@ -24,4 +24,6 @@ public interface Pen extends AutoCloseable {
 
   Pen setColor(Color color);
 
+  Pen pin(Vec2 a);
+
 }

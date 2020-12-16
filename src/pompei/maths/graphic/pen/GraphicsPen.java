@@ -92,4 +92,23 @@ public class GraphicsPen implements Pen {
     return this;
   }
 
+  @Override
+  public Pen pin(Vec2 a) {
+    if (converting) {
+      a = converter.toScreen(a);
+    }
+    if (0 <= a.x && a.x <= converter.screenWidth) {
+
+      if (0 <= a.y && a.y <= converter.screenHeight) {
+
+        int X = a.X();
+        int Y = a.Y();
+
+        g.drawLine(X, Y, X, Y);
+
+      }
+
+    }
+    return this;
+  }
 }

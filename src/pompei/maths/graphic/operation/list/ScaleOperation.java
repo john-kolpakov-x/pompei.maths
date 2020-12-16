@@ -42,7 +42,7 @@ public class ScaleOperation implements MouseOperation {
       return MouseOperationCommand.REMOVE_OPERATION;
     }
 
-    return MouseOperationCommand.NONE;
+    return MouseOperationCommand.REMOVE_OPERATION;
   }
 
   @Override
@@ -84,14 +84,14 @@ public class ScaleOperation implements MouseOperation {
   public MouseOperationCommand mouseWheelMoved(MouseWheelEvent e) {
 
     if (e.getWheelRotation() >= 1) {
-      io.converter.kx *= factor;
-      io.converter.ky *= factor;
+      io.converter.kx /= factor;
+      io.converter.ky /= factor;
       return MouseOperationCommand.NONE;
     }
 
     if (e.getWheelRotation() <= -1) {
-      io.converter.kx /= factor;
-      io.converter.ky /= factor;
+      io.converter.kx *= factor;
+      io.converter.ky *= factor;
       return MouseOperationCommand.NONE;
     }
 
