@@ -5,7 +5,7 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 
 public class CalcPi {
-  final static MathContext mc = new MathContext(30000 + 1 + 7 * 8, RoundingMode.HALF_EVEN);
+  final static MathContext mc = new MathContext(3000 + 1 + 7 * 8, RoundingMode.HALF_EVEN);
   final static BigDecimal delta = new BigDecimal("1E-" + mc.getPrecision());
 
   public static BigDecimal f(BigDecimal y) {

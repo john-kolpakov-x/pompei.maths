@@ -2,6 +2,7 @@ package pompei.maths.circles_with_lines;
 
 import pompei.maths.circles_with_lines.model.Circle;
 import pompei.maths.circles_with_lines.model.Line;
+import pompei.maths.utils.Vec2;
 
 import javax.swing.JPanel;
 import java.awt.BasicStroke;

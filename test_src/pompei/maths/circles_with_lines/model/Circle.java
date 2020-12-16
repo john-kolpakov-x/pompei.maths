@@ -1,6 +1,6 @@
 package pompei.maths.circles_with_lines.model;
 
-import pompei.maths.circles_with_lines.Vec2;
+import pompei.maths.utils.Vec2;
 
 public class Circle {
   public double x, y, m, r;
