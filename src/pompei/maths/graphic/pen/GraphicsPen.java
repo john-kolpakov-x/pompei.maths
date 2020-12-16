@@ -111,4 +111,15 @@ public class GraphicsPen implements Pen {
     }
     return this;
   }
+
+  @Override
+  public Pen print(Vec2 cursor, String strState) {
+    if (converting) {
+      cursor = converter.toScreen(cursor);
+    }
+
+    g.drawString(strState, cursor.X(), cursor.Y());
+
+    return this;
+  }
 }

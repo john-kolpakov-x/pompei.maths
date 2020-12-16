@@ -1,5 +1,7 @@
 package pompei.maths.graphic;
 
+import pompei.maths.graphic.graph.GraphPainter;
+import pompei.maths.graphic.graph.GraphParams;
 import pompei.maths.graphic.styles.KeyDefinition;
 import pompei.maths.graphic.styles.KeyDefinitionDefault;
 import pompei.maths.graphic.styles.Styles;
@@ -31,12 +33,14 @@ public class DrawGraphicLauncher {
 
     frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
+    GraphParams graphParams = new GraphParams();
+
     var realScreenConverter = new RealScreenConverter();
     KeyDefinition keyDefinition = new KeyDefinitionDefault();
     Styles styles = new StylesDefault();
-    var graphPainter = new GraphPainter(styles);
+    var graphPainter = new GraphPainter(styles, graphParams);
 
-    var drawPanel = new DrawPanel(graphPainter, realScreenConverter, styles, keyDefinition);
+    var drawPanel = new DrawPanel(graphPainter, realScreenConverter, styles, keyDefinition, graphParams);
     frame.addKeyListener(drawPanel.eventAdapter);
     frame.setContentPane(drawPanel);
 

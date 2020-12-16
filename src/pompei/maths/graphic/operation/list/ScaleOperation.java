@@ -25,24 +25,24 @@ public class ScaleOperation implements MouseOperation {
   public MouseOperationCommand keyPressed(KeyEvent e) {
 
     if (io.keyDefinition.keyForBreakOperation(e)) {
-      return MouseOperationCommand.REMOVE_OPERATION;
+      return MouseOperationCommand.REMOVE;
     }
 
     if (io.keyDefinition.keyForScaleOperation(e)) {
-      return MouseOperationCommand.REMOVE_OPERATION;
+      return MouseOperationCommand.REMOVE;
     }
 
-    return MouseOperationCommand.NONE;
+    return MouseOperationCommand.SKIP;
   }
 
   @Override
   public MouseOperationCommand mousePressed(MouseEvent e) {
 
     if (e.getButton() != MouseEvent.BUTTON1) {
-      return MouseOperationCommand.REMOVE_OPERATION;
+      return MouseOperationCommand.REMOVE;
     }
 
-    return MouseOperationCommand.REMOVE_OPERATION;
+    return MouseOperationCommand.REMOVE;
   }
 
   @Override

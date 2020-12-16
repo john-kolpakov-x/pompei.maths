@@ -24,19 +24,18 @@ public class MoveCenterOperation implements MouseOperation {
   @Override
   public MouseOperationCommand keyPressed(KeyEvent e) {
     if (io.keyDefinition.keyForBreakOperation(e)) {
-      return MouseOperationCommand.REMOVE_OPERATION;
+      return MouseOperationCommand.REMOVE;
     }
     if (io.keyDefinition.keyForMoveCenterOperation(e)) {
-      return MouseOperationCommand.REMOVE_OPERATION;
+      return MouseOperationCommand.REMOVE;
     }
-    System.out.println("hIH2dJi8mB :: keyPressed " + e);
-    return MouseOperationCommand.NONE;
+    return MouseOperationCommand.SKIP;
   }
 
   @Override
   public MouseOperationCommand mousePressed(MouseEvent e) {
     if (e.getButton() != MouseEvent.BUTTON1) {
-      return MouseOperationCommand.REMOVE_OPERATION;
+      return MouseOperationCommand.REMOVE;
     }
 
     var point = Vec2.from(e.getPoint());
@@ -57,11 +56,11 @@ public class MoveCenterOperation implements MouseOperation {
   @Override
   public MouseOperationCommand mouseReleased(MouseEvent e) {
     if (e.getButton() != MouseEvent.BUTTON1) {
-      return MouseOperationCommand.REMOVE_OPERATION;
+      return MouseOperationCommand.REMOVE;
     }
 
     if (startFrom == null) {
-      return MouseOperationCommand.REMOVE_OPERATION;
+      return MouseOperationCommand.REMOVE;
     }
 
     var point = Vec2.from(e.getPoint());

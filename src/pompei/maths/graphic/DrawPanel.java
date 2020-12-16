@@ -1,9 +1,15 @@
 package pompei.maths.graphic;
 
+import pompei.maths.graphic.graph.GraphPainter;
+import pompei.maths.graphic.graph.GraphParams;
+import pompei.maths.graphic.graph.VarInterfaceA;
+import pompei.maths.graphic.graph.VarInterfaceK;
+import pompei.maths.graphic.graph.VarInterfaceN;
 import pompei.maths.graphic.operation.EventAdapter;
 import pompei.maths.graphic.operation.InitOperation;
 import pompei.maths.graphic.operation.MouseOperation;
 import pompei.maths.graphic.operation.MouseOperationCommand;
+import pompei.maths.graphic.operation.list.ChangeVarOperation;
 import pompei.maths.graphic.operation.list.MoveCenterOperation;
 import pompei.maths.graphic.operation.list.ScaleOperation;
 import pompei.maths.graphic.pen.GraphicsPen;
@@ -25,6 +31,7 @@ public class DrawPanel extends JPanel {
   private final RealScreenConverter realScreenConverter;
   private final Styles styles;
   private final KeyDefinition keyDefinition;
+  private final GraphParams graphParams;
 
   private MouseOperation mouseOperation = null;
   private Vec2 cursor = Vec2.xy(0, 0);
@@ -59,8 +66,9 @@ public class DrawPanel extends JPanel {
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
       if (mouseOperation != null) {
-        doCommand(mouseOperation.mouseWheelMoved(e));
-        return;
+        if (doCommand(mouseOperation.mouseWheelMoved(e))) {
+          return;
+        }
       }
     }
 
@@ -80,8 +88,9 @@ public class DrawPanel extends JPanel {
     @Override
     public void keyPressed(KeyEvent e) {
       if (mouseOperation != null) {
-        doCommand(mouseOperation.keyPressed(e));
-        return;
+        if (doCommand(mouseOperation.keyPressed(e))) {
+          return;
+        }
       }
       if (keyDefinition.keyForMoveCenterOperation(e)) {
         mouseOperation = new MoveCenterOperation(initOperation());
@@ -91,18 +100,37 @@ public class DrawPanel extends JPanel {
         mouseOperation = new ScaleOperation(initOperation());
         return;
       }
+      if (e.getKeyCode() == KeyEvent.VK_1) {
+        mouseOperation = new ChangeVarOperation(initOperation(), new VarInterfaceA(graphParams));
+        return;
+      }
+      if (e.getKeyCode() == KeyEvent.VK_2) {
+        mouseOperation = new ChangeVarOperation(initOperation(), new VarInterfaceN(graphParams));
+        return;
+      }
+      if (e.getKeyCode() == KeyEvent.VK_3) {
+        mouseOperation = new ChangeVarOperation(initOperation(), new VarInterfaceK(graphParams));
+        return;
+      }
       System.out.println("MA93HOyw0n :: keyPressed " + e);
     }
 
-    private void doCommand(MouseOperationCommand mouseOperationCommand) {
+    private boolean doCommand(MouseOperationCommand mouseOperationCommand) {
       switch (mouseOperationCommand) {
 
         case NONE:
-          return;
+          return true;
 
-        case REMOVE_OPERATION:
+        case REMOVE:
           mouseOperation = null;
-          return;
+          return true;
+
+        case SKIP:
+          return false;
+
+        case REMOVE_AND_SKIP:
+          mouseOperation = null;
+          return false;
 
         default:
           throw new RuntimeException("04eulAz160 :: Unknown command " + mouseOperationCommand);
@@ -112,11 +140,12 @@ public class DrawPanel extends JPanel {
   };
 
   public DrawPanel(GraphPainter graphPainter, RealScreenConverter realScreenConverter,
-                   Styles styles, KeyDefinition keyDefinition) {
+                   Styles styles, KeyDefinition keyDefinition, GraphParams graphParams) {
     this.graphPainter = graphPainter;
     this.realScreenConverter = realScreenConverter;
     this.styles = styles;
     this.keyDefinition = keyDefinition;
+    this.graphParams = graphParams;
     addMouseListener(eventAdapter);
     addMouseMotionListener(eventAdapter);
     addMouseWheelListener(eventAdapter);

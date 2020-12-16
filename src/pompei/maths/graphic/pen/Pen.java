@@ -5,6 +5,7 @@ import pompei.maths.utils.Vec2;
 
 import java.awt.Color;
 
+@SuppressWarnings("UnusedReturnValue")
 public interface Pen extends AutoCloseable {
 
   @Override
@@ -25,5 +26,7 @@ public interface Pen extends AutoCloseable {
   Pen setColor(Color color);
 
   Pen pin(Vec2 a);
+
+  Pen print(Vec2 cursor, String strState);
 
 }

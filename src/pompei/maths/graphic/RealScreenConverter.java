@@ -29,6 +29,10 @@ public class RealScreenConverter {
     return a;
   }
 
+  public Vec2 toReal(double x, double y) {
+    return toReal(Vec2.xy(x, y));
+  }
+
   public Vec2 toReal(Vec2 screenPoint) {
     return Vec2.xy(
         (screenPoint.x - (deltaX + screenWidth / 2)) / kx,
