@@ -1,10 +1,7 @@
 package pompei.maths.graphic;
 
+import pompei.maths.graphic.graph.Graph;
 import pompei.maths.graphic.graph.GraphPainter;
-import pompei.maths.graphic.graph.GraphParams;
-import pompei.maths.graphic.graph.VarInterfaceA;
-import pompei.maths.graphic.graph.VarInterfaceK;
-import pompei.maths.graphic.graph.VarInterfaceN;
 import pompei.maths.graphic.operation.EventAdapter;
 import pompei.maths.graphic.operation.InitOperation;
 import pompei.maths.graphic.operation.MouseOperation;
@@ -31,7 +28,7 @@ public class DrawPanel extends JPanel {
   private final RealScreenConverter realScreenConverter;
   private final Styles styles;
   private final KeyDefinition keyDefinition;
-  private final GraphParams graphParams;
+  private final Graph graph;
 
   private MouseOperation mouseOperation = null;
   private Vec2 cursor = Vec2.xy(0, 0);
@@ -101,15 +98,7 @@ public class DrawPanel extends JPanel {
         return;
       }
       if (e.getKeyCode() == KeyEvent.VK_1) {
-        mouseOperation = new ChangeVarOperation(initOperation(), new VarInterfaceA(graphParams));
-        return;
-      }
-      if (e.getKeyCode() == KeyEvent.VK_2) {
-        mouseOperation = new ChangeVarOperation(initOperation(), new VarInterfaceN(graphParams));
-        return;
-      }
-      if (e.getKeyCode() == KeyEvent.VK_3) {
-        mouseOperation = new ChangeVarOperation(initOperation(), new VarInterfaceK(graphParams));
+        mouseOperation = new ChangeVarOperation(initOperation(), graph.varInterfaceList());
         return;
       }
       System.out.println("MA93HOyw0n :: keyPressed " + e);
@@ -140,12 +129,12 @@ public class DrawPanel extends JPanel {
   };
 
   public DrawPanel(GraphPainter graphPainter, RealScreenConverter realScreenConverter,
-                   Styles styles, KeyDefinition keyDefinition, GraphParams graphParams) {
+                   Styles styles, KeyDefinition keyDefinition, Graph graph) {
     this.graphPainter = graphPainter;
     this.realScreenConverter = realScreenConverter;
     this.styles = styles;
     this.keyDefinition = keyDefinition;
-    this.graphParams = graphParams;
+    this.graph = graph;
     addMouseListener(eventAdapter);
     addMouseMotionListener(eventAdapter);
     addMouseWheelListener(eventAdapter);

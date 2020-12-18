@@ -4,16 +4,14 @@ import pompei.maths.graphic.pen.Pen;
 import pompei.maths.graphic.styles.Styles;
 import pompei.maths.utils.Vec2;
 
-import java.awt.Color;
-
 public class GraphPainter {
 
   private final Styles styles;
-  private final GraphParams params;
+  private final Graph graph;
 
-  public GraphPainter(Styles styles, GraphParams params) {
+  public GraphPainter(Styles styles, Graph graph) {
     this.styles = styles;
-    this.params = params;
+    this.graph = graph;
   }
 
   public void paint(Pen pen) {
@@ -73,59 +71,20 @@ public class GraphPainter {
     var countX = countX(pen);
     var dx = (x2 - x1) / (double) countX;
 
-    pen.setColor(Color.GREEN.darker());
-    for (int i = 0; i < countX; i++) {
+    var funcCount = graph.funcCount();
+    for (int n = 1; n <= funcCount; n++) {
+      pen.setColor(graph.color(n));
 
-      double x = x1 + dx * i;
-      double y = f1(x);
+      for (int i = 0; i < countX; i++) {
 
-      pen.pin(Vec2.xy(x, y));
+        double x = x1 + dx * i;
+        double y = graph.f(n, x);
 
-    }
-    pen.setColor(Color.BLUE);
-    for (int i = 0; i < countX; i++) {
+        pen.pin(Vec2.xy(x, y));
 
-      double x = x1 + dx * i;
-      double y = f2(x);
-
-      pen.pin(Vec2.xy(x, y));
+      }
 
     }
-
-  }
-
-  private double f2(double x) {
-
-    double S = 0;
-
-    for (int n = 1, N = params.N; n <= N; n++) {
-
-      double a = Math.sin(params.k * Math.PI * n) * Math.cos(n * x) / n;
-
-      S += a;
-    }
-
-    return params.k * params.A + 2 * params.A / Math.PI * S;
-
-  }
-
-  private double f1(double x) {
-
-    while (x > Math.PI) {
-      x -= 2 * Math.PI;
-    }
-    while (x < -Math.PI) {
-      x += 2 * Math.PI;
-    }
-
-    if (x > params.k * Math.PI) {
-      return 0;
-    }
-    if (x < -params.k * Math.PI) {
-      return 0;
-    }
-
-    return params.A;
 
   }
 

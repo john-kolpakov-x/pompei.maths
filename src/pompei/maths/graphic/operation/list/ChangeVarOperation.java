@@ -11,15 +11,17 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.util.List;
 
 public class ChangeVarOperation implements MouseOperation {
 
   private final InitOperation io;
-  private final VarInterface v;
+  private final List<VarInterface> varInterfaceList;
+  private int i = 0;
 
-  public ChangeVarOperation(InitOperation io, VarInterface v) {
+  public ChangeVarOperation(InitOperation io, List<VarInterface> varInterfaceList) {
     this.io = io;
-    this.v = v;
+    this.varInterfaceList = varInterfaceList;
     cursor = io.cursor;
   }
 
@@ -30,6 +32,14 @@ public class ChangeVarOperation implements MouseOperation {
     if (io.keyDefinition.keyForBreakOperation(e)) {
       return MouseOperationCommand.REMOVE;
     }
+    if (e.getKeyCode() == KeyEvent.VK_BACK_QUOTE) {
+      i++;
+      if (i >= varInterfaceList.size()) {
+        i = 0;
+      }
+      return MouseOperationCommand.NONE;
+    }
+
     return MouseOperationCommand.SKIP;
   }
 
@@ -51,6 +61,7 @@ public class ChangeVarOperation implements MouseOperation {
 
   @Override
   public MouseOperationCommand mouseWheelMoved(MouseWheelEvent e) {
+    var v = varInterfaceList.get(i);
 
     if (e.getWheelRotation() <= -1) {
 
@@ -81,6 +92,6 @@ public class ChangeVarOperation implements MouseOperation {
   public void paint(Pen pen) {
     pen.setConverting(false);
     pen.setColor(Color.BLACK.brighter());
-    pen.print(cursor, v.strState());
+    pen.print(cursor, varInterfaceList.get(i).strState());
   }
 }

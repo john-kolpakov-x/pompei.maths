@@ -1,10 +1,12 @@
-package pompei.maths.graphic.graph;
+package pompei.maths.graphic.graph.fourier1;
+
+import pompei.maths.graphic.graph.VarInterface;
 
 public class VarInterfaceN implements VarInterface {
 
-  private final GraphParams params;
+  private final GraphFourier1 params;
 
-  public VarInterfaceN(GraphParams params) {
+  public VarInterfaceN(GraphFourier1 params) {
     this.params = params;
   }
 

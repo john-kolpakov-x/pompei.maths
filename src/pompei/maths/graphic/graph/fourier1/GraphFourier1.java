@@ -1,8 +1,11 @@
-package pompei.maths.graphic.graph;
+package pompei.maths.graphic.graph.fourier1;
 
+import pompei.maths.graphic.graph.Graph;
+import pompei.maths.graphic.graph.VarInterface;
 import pompei.maths.lines_2d.file_saver.Savable;
 
 import java.awt.Color;
+import java.util.List;
 
 public class GraphFourier1 implements Graph {
 
@@ -25,8 +28,10 @@ public class GraphFourier1 implements Graph {
     switch (n) {
       case 1:
         return f1(x);
+
       case 2:
         return f2(x);
+
       default:
         throw new RuntimeException("qv35nf8WMy");
     }
@@ -44,6 +49,11 @@ public class GraphFourier1 implements Graph {
       default:
         throw new RuntimeException("5z96tYwWg9");
     }
+  }
+
+  @Override
+  public List<VarInterface> varInterfaceList() {
+    return List.of(new VarInterfaceA(this), new VarInterfaceK(this), new VarInterfaceN(this));
   }
 
   private double f2(double x) {
@@ -80,4 +90,5 @@ public class GraphFourier1 implements Graph {
     return A;
 
   }
+
 }

@@ -1,7 +1,8 @@
 package pompei.maths.graphic;
 
+import pompei.maths.graphic.graph.Graph;
+import pompei.maths.graphic.graph.fourier1.GraphFourier1;
 import pompei.maths.graphic.graph.GraphPainter;
-import pompei.maths.graphic.graph.GraphParams;
 import pompei.maths.graphic.styles.KeyDefinition;
 import pompei.maths.graphic.styles.KeyDefinitionDefault;
 import pompei.maths.graphic.styles.Styles;
@@ -39,8 +40,8 @@ public class DrawGraphicLauncher {
 
     frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
-    var graphParams = new GraphParams();
-    savableThread.register(new ModelFileSaver(graphParams, new File(paramDir + "/graphParams"))
+    Graph graph = new GraphFourier1();
+    savableThread.register(new ModelFileSaver(graph, new File(paramDir + "/graph"))
                                .init());
 
     var realScreenConverter = new RealScreenConverter();
@@ -49,9 +50,9 @@ public class DrawGraphicLauncher {
 
     KeyDefinition keyDefinition = new KeyDefinitionDefault();
     Styles styles = new StylesDefault();
-    var graphPainter = new GraphPainter(styles, graphParams);
+    var graphPainter = new GraphPainter(styles, graph);
 
-    var drawPanel = new DrawPanel(graphPainter, realScreenConverter, styles, keyDefinition, graphParams);
+    var drawPanel = new DrawPanel(graphPainter, realScreenConverter, styles, keyDefinition, graph);
     frame.addKeyListener(drawPanel.eventAdapter);
     frame.setContentPane(drawPanel);
 
