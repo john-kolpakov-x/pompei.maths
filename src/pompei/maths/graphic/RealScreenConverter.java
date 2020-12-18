@@ -1,12 +1,17 @@
 package pompei.maths.graphic;
 
+import pompei.maths.lines_2d.file_saver.Savable;
 import pompei.maths.utils.Vec2;
 
 public class RealScreenConverter {
 
+  @Savable
   public double kx = 1;
+  @Savable
   public double ky = -1;
+  @Savable
   public double deltaX = 0;
+  @Savable
   public double deltaY = 0;
   public double screenWidth = 0;
   public double screenHeight = 0;

@@ -31,7 +31,6 @@ public class FormPositionLook {
         if (System.currentTimeMillis() > startToSave) {
           formPosition(name).setValue(frame.getLocation());
         }
-
       }
 
       @Override

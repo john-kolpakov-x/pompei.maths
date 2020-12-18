@@ -7,6 +7,8 @@ import pompei.maths.graphic.styles.KeyDefinitionDefault;
 import pompei.maths.graphic.styles.Styles;
 import pompei.maths.graphic.styles.StylesDefault;
 import pompei.maths.lines_2d.file_saver.FormPositionLook;
+import pompei.maths.lines_2d.file_saver.ModelFileSaver;
+import pompei.maths.lines_2d.file_saver.SavableThread;
 
 import javax.swing.JFrame;
 import java.awt.event.WindowAdapter;
@@ -21,8 +23,12 @@ public class DrawGraphicLauncher {
 
   private void exec() {
 
-    var mainFormDir = new File("build/" + getClass().getSimpleName() + "/store");
+    var paramDir = "build/" + getClass().getSimpleName();
+
+    var mainFormDir = new File(paramDir + "/store");
     var mainFormLook = new FormPositionLook(mainFormDir);
+
+    var savableThread = new SavableThread();
 
     JFrame frame = new JFrame();
     frame.setTitle("Graphics");
@@ -33,9 +39,21 @@ public class DrawGraphicLauncher {
 
     frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
+
     GraphParams graphParams = new GraphParams();
 
+    {
+      var modelFileSaver = new ModelFileSaver(graphParams, new File(paramDir + "/graphParams"));
+      modelFileSaver.init();
+      savableThread.register(modelFileSaver);
+    }
+
     var realScreenConverter = new RealScreenConverter();
+    {
+      var modelFileSaver = new ModelFileSaver(realScreenConverter, new File(paramDir + "/realScreenConverter"));
+      modelFileSaver.init();
+      savableThread.register(modelFileSaver);
+    }
     KeyDefinition keyDefinition = new KeyDefinitionDefault();
     Styles styles = new StylesDefault();
     var graphPainter = new GraphPainter(styles, graphParams);
@@ -69,6 +87,7 @@ public class DrawGraphicLauncher {
       @Override
       public void windowClosed(WindowEvent e) {
         working.set(false);
+        savableThread.stop();
         System.out.println("9CepT5mU8X :: Finish");
       }
 
