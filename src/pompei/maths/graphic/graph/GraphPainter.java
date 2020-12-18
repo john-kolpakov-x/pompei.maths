@@ -77,7 +77,7 @@ public class GraphPainter {
     for (int i = 0; i < countX; i++) {
 
       double x = x1 + dx * i;
-      double y = f(x);
+      double y = f1(x);
 
       pen.pin(Vec2.xy(x, y));
 
@@ -109,7 +109,7 @@ public class GraphPainter {
 
   }
 
-  private double f(double x) {
+  private double f1(double x) {
 
     while (x > Math.PI) {
       x -= 2 * Math.PI;
@@ -126,7 +126,7 @@ public class GraphPainter {
     }
 
     return params.A;
-  }
 
+  }
 
 }

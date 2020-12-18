@@ -23,7 +23,7 @@ public class ModelFileSaver implements Saver {
 
   private Map<String, FieldAcceptor> acceptorMap;
 
-  public void init() {
+  public ModelFileSaver init() {
     acceptorMap =
         FieldAcceptorCollect.collect(savableObject)
                             .stream()
@@ -56,6 +56,7 @@ public class ModelFileSaver implements Saver {
 
     initiated.set(true);
     save();
+    return this;
   }
 
   @Override

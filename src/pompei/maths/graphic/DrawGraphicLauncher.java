@@ -39,21 +39,14 @@ public class DrawGraphicLauncher {
 
     frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
-
-    GraphParams graphParams = new GraphParams();
-
-    {
-      var modelFileSaver = new ModelFileSaver(graphParams, new File(paramDir + "/graphParams"));
-      modelFileSaver.init();
-      savableThread.register(modelFileSaver);
-    }
+    var graphParams = new GraphParams();
+    savableThread.register(new ModelFileSaver(graphParams, new File(paramDir + "/graphParams"))
+                               .init());
 
     var realScreenConverter = new RealScreenConverter();
-    {
-      var modelFileSaver = new ModelFileSaver(realScreenConverter, new File(paramDir + "/realScreenConverter"));
-      modelFileSaver.init();
-      savableThread.register(modelFileSaver);
-    }
+    savableThread.register(new ModelFileSaver(realScreenConverter, new File(paramDir + "/realScreenConverter"))
+                               .init());
+
     KeyDefinition keyDefinition = new KeyDefinitionDefault();
     Styles styles = new StylesDefault();
     var graphPainter = new GraphPainter(styles, graphParams);
