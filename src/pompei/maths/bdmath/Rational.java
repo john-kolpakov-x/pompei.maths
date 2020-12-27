@@ -4,7 +4,10 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.util.Base64;
 import java.util.Vector;
+
+import static pompei.maths.utils.HexUtil.bytesToHex;
 
 /**
  * Fractions (rational numbers).
@@ -176,6 +179,14 @@ public class Rational implements Cloneable, Comparable<Rational> {
     }
   } /* ctor */
 
+  public static Rational parse(String str) {
+    var idx = str.indexOf('/');
+    if (idx < 0) {
+      return new Rational(new BigInteger(str));
+    }
+    return new Rational(new BigInteger(str.substring(0, idx)), new BigInteger(str.substring(idx + 1)));
+  }
+
   /**
    * Create a copy.
    *
@@ -198,7 +209,7 @@ public class Rational implements Cloneable, Comparable<Rational> {
    * @return the product of this with the val.
    * @author Richard J. Mathar
    */
-  public Rational multiply(final Rational val) {
+  public Rational mul(final Rational val) {
     BigInteger num = a.multiply(val.a);
     BigInteger deno = b.multiply(val.b);
     /* Normalization to an coprime format will be done inside
@@ -214,9 +225,9 @@ public class Rational implements Cloneable, Comparable<Rational> {
    * @return the product of this with the value.
    * @author Richard J. Mathar
    */
-  public Rational multiply(final BigInteger val) {
+  public Rational mul(final BigInteger val) {
     Rational val2 = new Rational(val, BigInteger.ONE);
-    return (multiply(val2));
+    return (mul(val2));
   } /* Rational.multiply */
 
   /**
@@ -226,9 +237,9 @@ public class Rational implements Cloneable, Comparable<Rational> {
    * @return the product of this with the value.
    * @author Richard J. Mathar
    */
-  public Rational multiply(final int val) {
+  public Rational mul(final int val) {
     BigInteger tmp = new BigInteger("" + val);
-    return multiply(tmp);
+    return mul(tmp);
   } /* Rational.multiply */
 
   /**
@@ -241,7 +252,7 @@ public class Rational implements Cloneable, Comparable<Rational> {
    */
   public Rational pow(int exponent) {
     if (exponent == 0) {
-      return new Rational(1, 1);
+      return ONE;
     }
 
     BigInteger num = a.pow(Math.abs(exponent));
@@ -392,7 +403,7 @@ public class Rational implements Cloneable, Comparable<Rational> {
    * @return this+val.
    * @author Richard J. Mathar
    */
-  public Rational add(Rational val) {
+  public Rational plus(Rational val) {
     BigInteger num = a.multiply(val.b).add(b.multiply(val.a));
     BigInteger deno = b.multiply(val.b);
     return (new Rational(num, deno));
@@ -405,9 +416,9 @@ public class Rational implements Cloneable, Comparable<Rational> {
    * @return this+val.
    * @author Richard J. Mathar
    */
-  public Rational add(BigInteger val) {
+  public Rational plus(BigInteger val) {
     Rational val2 = new Rational(val, BigInteger.ONE);
-    return (add(val2));
+    return (plus(val2));
   } /* Rational.add */
 
   /**
@@ -418,7 +429,7 @@ public class Rational implements Cloneable, Comparable<Rational> {
    * @author Richard J. Mathar
    * @since May 26 2010
    */
-  public Rational add(int val) {
+  public Rational plus(int val) {
     BigInteger val2 = a.add(b.multiply(new BigInteger("" + val)));
     return new Rational(val2, b);
   } /* Rational.add */
@@ -442,7 +453,7 @@ public class Rational implements Cloneable, Comparable<Rational> {
    */
   public Rational subtract(Rational val) {
     Rational val2 = val.negate();
-    return (add(val2));
+    return (plus(val2));
   } /* Rational.subtract */
 
   /**
@@ -484,7 +495,7 @@ public class Rational implements Cloneable, Comparable<Rational> {
     }
     Rational bin = n;
     for (BigInteger i = new BigInteger("2"); i.compareTo(m) <= 0; i = i.add(BigInteger.ONE)) {
-      bin = bin.multiply(n.subtract(i.subtract(BigInteger.ONE))).divide(i);
+      bin = bin.mul(n.subtract(i.subtract(BigInteger.ONE))).divide(i);
     }
     return bin;
   } /* Rational.binomial */
@@ -504,7 +515,7 @@ public class Rational implements Cloneable, Comparable<Rational> {
     }
     Rational bin = n;
     for (int i = 2; i <= m; i++) {
-      bin = bin.multiply(n.subtract(i - 1)).divide(i);
+      bin = bin.mul(n.subtract(i - 1)).divide(i);
     }
     return bin;
   } /* Rational.binomial */
@@ -524,7 +535,7 @@ public class Rational implements Cloneable, Comparable<Rational> {
     } else if (k < 0) {
       throw new ArithmeticException("Negative parameter " + k);
     }
-    Rational nkhalf = n.subtract(k).add(Rational.HALF);
+    Rational nkhalf = n.subtract(k).plus(Rational.HALF);
     nkhalf = nkhalf.Pochhammer(2 * k);
     Factorial f = new Factorial();
     return nkhalf.divide(f.at(k));
@@ -775,7 +786,7 @@ public class Rational implements Cloneable, Comparable<Rational> {
       Rational res = new Rational(a, b);
       BigInteger i = BigInteger.ONE;
       for (; i.compareTo(n) < 0; i = i.add(BigInteger.ONE)) {
-        res = res.multiply(add(i));
+        res = res.mul(plus(i));
       }
       return res;
     }
@@ -932,7 +943,7 @@ public class Rational implements Cloneable, Comparable<Rational> {
       /* add 1/i for i=2..n
        */
       for (int i = 2; i <= n; i++) {
-        a = a.add(new Rational(1, i));
+        a = a.plus(new Rational(1, i));
       }
       return a;
     }
@@ -958,4 +969,18 @@ public class Rational implements Cloneable, Comparable<Rational> {
       b = b.negate();
     }
   } /* Rational.normalize */
+
+  public Rational minus(Rational a) {
+    return plus(a.negate());
+  }
+
+  public String hexStr() {
+    return bytesToHex(a.toByteArray()) + '/' + bytesToHex(b.toByteArray());
+  }
+
+  public String toBase64() {
+    var encoder = Base64.getEncoder();
+    return encoder.encodeToString(a.toByteArray()) + '#' + encoder.encodeToString(b.toByteArray());
+  }
+
 } /* Rational */

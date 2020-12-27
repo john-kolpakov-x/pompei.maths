@@ -635,7 +635,7 @@ public class BigDecimalMath {
         } else {
           log3 = log3.subtract(c);
         }
-        pk = pk.multiply(r);
+        pk = pk.mul(r);
       }
       log3 = divideRound(log3, 12);
       return log3.round(mc);
@@ -667,7 +667,7 @@ public class BigDecimalMath {
         mcloc = new MathContext(err2prec(tmp.doubleValue(), eps));
         BigDecimal c = pk.divide(k).BigDecimalValue(mcloc);
         log5 = log5.subtract(c);
-        pk = pk.multiply(r);
+        pk = pk.mul(r);
       }
       log5 = divideRound(log5, 6);
       return log5.round(mc);
@@ -697,7 +697,7 @@ public class BigDecimalMath {
         mcloc = new MathContext(err2prec(tmp.doubleValue(), eps));
         BigDecimal c = pk.divide(k).BigDecimalValue(mcloc);
         log7 = log7.subtract(c);
-        pk = pk.multiply(r);
+        pk = pk.mul(r);
       }
       return log7.round(mc);
 
@@ -1151,7 +1151,7 @@ public class BigDecimalMath {
           Rational f = b.at(2 * i).abs();
           fourn = fourn.shiftLeft(2);
           fac = fac.multiply(new BigInteger("" + (2 * i))).multiply(new BigInteger("" + (2 * i - 1)));
-          f = f.multiply(fourn).multiply(fourn.subtract(BigInteger.ONE)).divide(fac);
+          f = f.mul(fourn).mul(fourn.subtract(BigInteger.ONE)).divide(fac);
           xpowi = multiplyRound(xpowi, xhighprSq);
           BigDecimal c = multiplyRound(xpowi, f);
           resul = resul.add(c);
@@ -1208,7 +1208,7 @@ public class BigDecimalMath {
       for (int i = 1; ; i++) {
         Rational f = b.at(2 * i);
         fac = fac.multiply(new BigInteger("" + (2 * i))).multiply(new BigInteger("" + (2 * i - 1)));
-        f = f.multiply(fourn).divide(fac);
+        f = f.mul(fourn).divide(fac);
         BigDecimal c = multiplyRound(xpowi, f);
         if (i % 2 == 0) {
           resul = resul.add(c);
@@ -1777,7 +1777,7 @@ public class BigDecimalMath {
         Rational pro = Rational.ONE;
         Rational f = q.subtract(1);
         while (f.compareTo(Rational.ZERO) > 0) {
-          pro = pro.multiply(f);
+          pro = pro.mul(f);
           f = f.subtract(1);
         }
         return multiplyRound(p, pro);
@@ -1786,7 +1786,7 @@ public class BigDecimalMath {
         Rational f = q;
         while (f.compareTo(Rational.ZERO) < 0) {
           pro = pro.divide(f);
-          f = f.add(1);
+          f = f.plus(1);
         }
         return multiplyRound(p, pro);
       }
@@ -1947,7 +1947,7 @@ public class BigDecimalMath {
        */
       Rational b = (new Bernoulli()).at(n).abs();
       b = b.divide((new Factorial()).at(n));
-      b = b.multiply(BigInteger.ONE.shiftLeft(n - 1));
+      b = b.mul(BigInteger.ONE.shiftLeft(n - 1));
 
       /* to be multiplied by pi^n. Absolute error in the result of pi^n is n times
        * error in pi times pi^(n-1). Relative error is n*error(pi)/pi, requested by mc.
@@ -1990,11 +1990,11 @@ public class BigDecimalMath {
       Bernoulli bern = new Bernoulli();
       Factorial fact = new Factorial();
       for (int npr = 0; npr <= (n + 1) / 2; npr++) {
-        Rational b = bern.at(2 * npr).multiply(bern.at(n + 1 - 2 * npr));
+        Rational b = bern.at(2 * npr).mul(bern.at(n + 1 - 2 * npr));
         b = b.divide(fact.at(2 * npr)).divide(fact.at(n + 1 - 2 * npr));
-        b = b.multiply(1 - 2 * npr);
+        b = b.mul(1 - 2 * npr);
         if (npr % 2 == 0) {
-          betsum = betsum.add(b);
+          betsum = betsum.plus(b);
         } else {
           betsum = betsum.subtract(b);
         }
@@ -2285,7 +2285,7 @@ public class BigDecimalMath {
          */
         int pk1h = p * (2 + 8 * c + k) / 2;
         tmp = tmp.divide(BigInteger.ONE.shiftLeft(pk1h));
-        r = r.add(tmp);
+        r = r.plus(tmp);
       }
 
       if (Math.abs(r.doubleValue()) < eps) {

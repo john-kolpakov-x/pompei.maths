@@ -78,7 +78,7 @@ public class Bernoulli {
       for (int j = 0; j <= k; j++) {
         BigInteger jpown = (new BigInteger("" + j)).pow(n);
         if (j % 2 == 0) {
-          jsum = jsum.add(bin.multiply(jpown));
+          jsum = jsum.plus(bin.multiply(jpown));
         } else {
           jsum = jsum.subtract(bin.multiply(jpown));
         }
@@ -87,7 +87,7 @@ public class Bernoulli {
          */
         bin = bin.multiply(new BigInteger("" + (k - j))).divide(new BigInteger("" + (j + 1)));
       }
-      resul = resul.add(jsum.divide(new BigInteger("" + (k + 1))));
+      resul = resul.plus(jsum.divide(new BigInteger("" + (k + 1))));
     }
     return resul;
   }

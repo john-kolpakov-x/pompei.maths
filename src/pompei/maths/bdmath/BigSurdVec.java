@@ -163,7 +163,7 @@ public class BigSurdVec implements Comparable<BigSurdVec> {
         BigSurd r = todo.divide(v);
         if (r.isRational()) {
           /* compute r+1 */
-          Rational newpref = r.toRational().add(1);
+          Rational newpref = r.toRational().plus(1);
           /* eliminate accidental zeros; overwrite with v*(1+r).
            */
           if (newpref.compareTo(Rational.ZERO) == 0) {

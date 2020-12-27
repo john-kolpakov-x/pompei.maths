@@ -140,7 +140,7 @@ public class BigSurd implements Cloneable, Comparable<BigSurd> {
    * @since 2011-02-12
    */
   public BigSurd multiply(final BigSurd val) {
-    return new BigSurd(pref.multiply(val.pref), disc.multiply(val.disc));
+    return new BigSurd(pref.mul(val.pref), disc.mul(val.disc));
   } /* BigSurd.multiply */
 
   /**
@@ -152,7 +152,7 @@ public class BigSurd implements Cloneable, Comparable<BigSurd> {
    * @since 2011-02-15
    */
   public BigSurd multiply(final Rational val) {
-    return new BigSurd(pref.multiply(val), disc);
+    return new BigSurd(pref.mul(val), disc);
   } /* BigSurd.multiply */
 
   /**
@@ -164,7 +164,7 @@ public class BigSurd implements Cloneable, Comparable<BigSurd> {
    * @since 2011-02-12
    */
   public BigSurd multiply(final BigInteger val) {
-    return new BigSurd(pref.multiply(val), disc);
+    return new BigSurd(pref.mul(val), disc);
   } /* BigSurd.multiply */
 
   /**
@@ -190,7 +190,7 @@ public class BigSurd implements Cloneable, Comparable<BigSurd> {
    */
   public Rational sqr() {
     Rational res = pref.pow(2);
-    res = res.multiply(disc);
+    res = res.mul(disc);
     return res;
   } /* BigSurd.sqr */
 
@@ -342,7 +342,7 @@ public class BigSurd implements Cloneable, Comparable<BigSurd> {
     /* First compute the square to prevent overflows if the two pieces of
      * the prefactor and the discriminant are of very different magnitude.
      */
-    Rational p2 = pref.pow(2).multiply(disc);
+    Rational p2 = pref.pow(2).mul(disc);
     double res = p2.doubleValue();
     return (pref.signum() >= 0) ? Math.sqrt(res) : -Math.sqrt(res);
   } /* BigSurd.doubleValue */
@@ -435,7 +435,7 @@ public class BigSurd implements Cloneable, Comparable<BigSurd> {
 
       /* move sqf over to the pre-factor
        */
-      pref = pref.multiply(sqf);
+      pref = pref.mul(sqf);
 
       BigInteger denC = BigIntegerMath.core(disc.denom());
       sq = disc.denom().divide(denC);
@@ -464,15 +464,15 @@ public class BigSurd implements Cloneable, Comparable<BigSurd> {
       /* instead of multiplying with the square of d, using two steps
        * offers a change to recognize the common factor..
        */
-      disc = disc.multiply(d);
-      disc = disc.multiply(d);
+      disc = disc.mul(d);
+      disc = disc.mul(d);
     }
     /* Is there a common factor between the denominator of the prefactor
      * and the numerator of the discriminant ?
      */
     d = pref.denom().gcd(disc.numer());
     if (d.compareTo(BigInteger.ONE) > 0) {
-      pref = pref.multiply(d);
+      pref = pref.mul(d);
       /* instead of dividing through the square of d, using two steps
        * offers a change to recognize the common factor..
        */

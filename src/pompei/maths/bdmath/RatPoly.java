@@ -131,7 +131,7 @@ class RatPoly {
       Rational c = new Rational(1, 1);
       for (int j = 0; j < A.size(); j++) {
         Rational aEl = new Rational(A.elementAt(j));
-        c = c.multiply(aEl.Pochhammer(n));
+        c = c.mul(aEl.Pochhammer(n));
       }
       for (int j = 0; j < B.size(); j++) {
         Rational bEl = new Rational(B.elementAt(j));
@@ -201,7 +201,7 @@ class RatPoly {
     /* result is initialized to zero */
     Rational f = new Rational(0, 1);
     for (int i = degree(); i >= 0; i--) {
-      f = f.multiply(x).add(a.elementAt(i));
+      f = f.mul(x).plus(a.elementAt(i));
     }
     return f;
   } /* valueOf */
@@ -352,7 +352,7 @@ class RatPoly {
     RatPoly resul = new RatPoly();
     if (val.compareTo(BigInteger.ZERO) != 0) {
       for (int n = 0; n < a.size(); n++) {
-        resul.set(n, a.elementAt(n).multiply(val));
+        resul.set(n, a.elementAt(n).mul(val));
       }
     }
     return resul;
@@ -371,7 +371,7 @@ class RatPoly {
     RatPoly resul = new RatPoly();
     if (val.compareTo(BigInteger.ZERO) != 0) {
       for (int n = 0; n < a.size(); n++) {
-        resul.set(n, a.elementAt(n).multiply(val));
+        resul.set(n, a.elementAt(n).mul(val));
       }
     }
     return resul;
@@ -405,7 +405,7 @@ class RatPoly {
     for (int n = 0; n <= nmax; n++) {
       Rational coef = new Rational(0, 1);
       for (int nleft = 0; nleft <= n; nleft++) {
-        coef = coef.add(at(nleft).multiply(val.at(n - nleft)));
+        coef = coef.plus(at(nleft).mul(val.at(n - nleft)));
       }
       resul.set(n, coef);
     }
@@ -486,7 +486,7 @@ class RatPoly {
      */
     final int nmax = (degree() > val.degree()) ? degree() : val.degree();
     for (int n = 0; n <= nmax; n++) {
-      Rational coef = at(n).add(val.at(n));
+      Rational coef = at(n).plus(val.at(n));
       resul.set(n, coef);
     }
     resul.simplify();
@@ -562,7 +562,7 @@ class RatPoly {
     for (int n = 0; n <= nmax; n++) {
       Rational coef = num.at(n);
       for (int nres = 0; nres < n; nres++) {
-        coef = coef.subtract(resul.at(nres).multiply(denom.at(n - nres)));
+        coef = coef.subtract(resul.at(nres).mul(denom.at(n - nres)));
       }
       coef = coef.divide(denom.at(0));
       resul.set(n, coef);
@@ -720,7 +720,7 @@ class RatPoly {
     } else {
       RatPoly d = new RatPoly();
       for (int i = 1; i <= degree(); i++) {
-        final Rational c = a.elementAt(i).multiply(i);
+        final Rational c = a.elementAt(i).mul(i);
         d.set(i - 1, c);
       }
       return d;
@@ -762,7 +762,7 @@ class RatPoly {
       for (int d = 1; d <= i && d < a.size(); d++) {
         if (i % d == 0) {
           final Ifactor m = new Ifactor(i / d);
-          c = c.add(a.elementAt(d).multiply(m.moebius()));
+          c = c.plus(a.elementAt(d).mul(m.moebius()));
         }
       }
       r.set(i, c);
@@ -787,7 +787,7 @@ class RatPoly {
       Rational c = new Rational();
       for (int d = 1; d <= i && d < a.size(); d++) {
         if (i % d == 0) {
-          c = c.add(a.elementAt(d));
+          c = c.plus(a.elementAt(d));
         }
       }
       r.set(i, c);
@@ -809,7 +809,7 @@ class RatPoly {
     for (int i = 0; i <= maxdeg; i++) {
       Rational c = new Rational(0, 1);
       for (int j = 0; j <= i && j < a.size(); j++) {
-        c = c.add(a.elementAt(j).multiply(BigIntegerMath.binomial(i, j)));
+        c = c.plus(a.elementAt(j).mul(BigIntegerMath.binomial(i, j)));
       }
       r.set(i, c);
     }
@@ -831,9 +831,9 @@ class RatPoly {
       Rational c = new Rational(0, 1);
       for (int j = 0; j <= i && j < a.size(); j++) {
         if ((j + i) % 2 != 0) {
-          c = c.subtract(a.elementAt(j).multiply(BigIntegerMath.binomial(i, j)));
+          c = c.subtract(a.elementAt(j).mul(BigIntegerMath.binomial(i, j)));
         } else {
-          c = c.add(a.elementAt(j).multiply(BigIntegerMath.binomial(i, j)));
+          c = c.plus(a.elementAt(j).mul(BigIntegerMath.binomial(i, j)));
         }
       }
       r.set(i, c);

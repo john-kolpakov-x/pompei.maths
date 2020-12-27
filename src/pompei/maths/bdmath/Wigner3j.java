@@ -249,7 +249,7 @@ public class Wigner3j {
       if (J[triadidx[t]].subtract(J[triadidx[t + 1]]).abs().compareTo(J[triadidx[t + 2]]) > 0) {
         return res;
       }
-      if (J[triadidx[t]].add(J[triadidx[t + 1]]).compareTo(J[triadidx[t + 2]]) < 0) {
+      if (J[triadidx[t]].plus(J[triadidx[t + 1]]).compareTo(J[triadidx[t + 2]]) < 0) {
         return res;
       }
     }
@@ -282,12 +282,12 @@ public class Wigner3j {
         } else {
           /* rough work load estimator: basically (2J1+1)*(2J2+1)
            */
-          Rational wt = J[triadidx[i]].multiply(2).add(1);
+          Rational wt = J[triadidx[i]].mul(2).plus(1);
           if (M[triadidx[nei1]] == null) {
-            wt = wt.multiply(J[triadidx[nei1]].multiply(2).add(1));
+            wt = wt.mul(J[triadidx[nei1]].mul(2).plus(1));
           }
           if (M[triadidx[nei2]] == null) {
-            wt = wt.multiply(J[triadidx[nei2]].multiply(2).add(1));
+            wt = wt.mul(J[triadidx[nei2]].mul(2).plus(1));
           }
           int thiswt = wt.intValue();
           if (freeM < 0 || thiswt < freeMrank) {
@@ -325,7 +325,7 @@ public class Wigner3j {
           while (newm.compareTo(J[triadidx[freeM]]) <= 0) {
             childM[triadidx[freeM]] = tvec[freeM] > 0 ? newm : newm.negate();
             res = res.add(wigner3j(tvec, J, childM, triadidx));
-            newm = newm.add(Rational.ONE);
+            newm = newm.plus(Rational.ONE);
           }
         } else {
           /* Set its value and the value at its companion j-value.
@@ -342,7 +342,7 @@ public class Wigner3j {
             m2 = m2.negate();
           }
           /* m3 = -(m1+m2) */
-          Rational newm = tvec[freeM] > 0 ? m1.add(m2).negate() : m1.add(m2);
+          Rational newm = tvec[freeM] > 0 ? m1.plus(m2).negate() : m1.plus(m2);
           /* No contribution if the m-value enforced by the other two entries
            * is outside the range -|J|..|J| enforced by its associated J-value. One could
            * essentially remove this branching and let wigner3j() decide on this,
@@ -392,7 +392,7 @@ public class Wigner3j {
      */
     Rational sig = new Rational();
     for (int ji = 0; ji < J.length; ji++) {
-      sig = sig.add(J[ji]).subtract(M[ji]);
+      sig = sig.plus(J[ji]).subtract(M[ji]);
     }
     /* sign depends on the sum being even or odd. We assume that "sig" is integer and
      * look only at the numerator */
@@ -420,13 +420,13 @@ public class Wigner3j {
   static protected BigSurd wigner3jm(Rational j1, Rational j2, Rational j3, Rational m1, Rational m2, Rational m3) {
     /* Check that m1+m2+m3 = 0
      */
-    if (m1.add(m2).add(m3).signum() != 0) {
+    if (m1.plus(m2).plus(m3).signum() != 0) {
       return BigSurd.ZERO;
     }
 
     /* Check that j1+j2+j3 is integer
      */
-    if (j1.add(j2).add(j3).isBigInteger() == false) {
+    if (j1.plus(j2).plus(j3).isBigInteger() == false) {
       return BigSurd.ZERO;
     }
 
@@ -436,7 +436,7 @@ public class Wigner3j {
     if (j1m2.abs().compareTo(j3) > 0) {
       return BigSurd.ZERO;
     }
-    Rational j1p2 = j1.add(j2);
+    Rational j1p2 = j1.plus(j2);
     if (j1p2.abs().compareTo(j3) < 0) {
       return BigSurd.ZERO;
     }
@@ -464,8 +464,8 @@ public class Wigner3j {
      */
     int j1j2jk = j1p2.subtract(j3).intValue();
     int j1m1k = j1.subtract(m1).intValue();
-    int j2m2k = j2.add(m2).intValue();
-    int jj2m1k = j3.subtract(j2).add(m1).intValue();
+    int j2m2k = j2.plus(m2).intValue();
+    int jj2m1k = j3.subtract(j2).plus(m1).intValue();
     int jj1m2k = j3.subtract(j1).subtract(m2).intValue();
 
     int k = Math.max(0, -jj2m1k);
@@ -488,7 +488,7 @@ public class Wigner3j {
                       .multiply(f.at(jj2m1k))
                       .multiply(f.at(jj1m2k));
       if (k % 2 == 0) {
-        sumk = sumk.add(new Rational(BigInteger.ONE, d));
+        sumk = sumk.plus(new Rational(BigInteger.ONE, d));
       } else {
         sumk = sumk.subtract(new Rational(BigInteger.ONE, d));
       }
@@ -508,25 +508,25 @@ public class Wigner3j {
       sumk = sumk.negate();
     }
 
-    k = j1m2.add(j3).intValue();
+    k = j1m2.plus(j3).intValue();
     BigInteger s = f.at(k);
     k = j3.subtract(j1m2).intValue();
     s = s.multiply(f.at(k));
     k = j1p2.subtract(j3).intValue();
     s = s.multiply(f.at(k));
-    k = j3.add(m3).intValue();
+    k = j3.plus(m3).intValue();
     s = s.multiply(f.at(k));
     k = j3.subtract(m3).intValue();
     s = s.multiply(f.at(k));
-    k = j1.add(m1).intValue();
+    k = j1.plus(m1).intValue();
     s = s.multiply(f.at(k));
     k = j1.subtract(m1).intValue();
     s = s.multiply(f.at(k));
-    k = j2.add(m2).intValue();
+    k = j2.plus(m2).intValue();
     s = s.multiply(f.at(k));
     k = j2.subtract(m2).intValue();
     s = s.multiply(f.at(k));
-    k = j1p2.add(j3).intValue();
+    k = j1p2.plus(j3).intValue();
     k++;
     Rational disc = new Rational(s, f.at(k));
     return new BigSurd(sumk, disc);

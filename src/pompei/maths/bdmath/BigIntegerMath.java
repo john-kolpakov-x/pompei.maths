@@ -537,7 +537,7 @@ public class BigIntegerMath {
           BigInteger tmp = A[c][c].multiply(A[r][cpr]).subtract(A[c][cpr].multiply(A[r][c]));
           A[r][cpr] = tmp;
         }
-        Rational tmp = x[r].multiply(A[c][c]).subtract(x[c].multiply(A[r][c]));
+        Rational tmp = x[r].mul(A[c][c]).subtract(x[c].mul(A[r][c]));
         x[r] = tmp;
       }
     }
@@ -548,7 +548,7 @@ public class BigIntegerMath {
     for (int r = cL - 1; r >= 0; r--) {
       x[r] = x[r].divide(A[r][r]);
       for (int rpr = r - 1; rpr >= 0; rpr--) {
-        x[rpr] = x[rpr].subtract(x[r].multiply(A[rpr][r]));
+        x[rpr] = x[rpr].subtract(x[r].mul(A[rpr][r]));
       }
     }
 
@@ -615,22 +615,22 @@ public class BigIntegerMath {
         for (int nu = 0; nu <= j; nu++) {
           Rational t = new Rational(j - 2 * nu, 2);
           t = t.pow(kprime + j);
-          t = t.multiply(binomial(j, nu));
+          t = t.mul(binomial(j, nu));
           if (nu % 2 != 0) {
             nusum = nusum.subtract(t);
           } else {
-            nusum = nusum.add(t);
+            nusum = nusum.plus(t);
           }
         }
         nusum = nusum.divide(f.at(j)).divide(n + j);
-        nusum = nusum.multiply(binomial(2 * kprime, kprime - j));
+        nusum = nusum.mul(binomial(2 * kprime, kprime - j));
         if (j % 2 != 0) {
           jsum = jsum.subtract(nusum);
         } else {
-          jsum = jsum.add(nusum);
+          jsum = jsum.plus(nusum);
         }
       }
-      return jsum.multiply(k).multiply(binomial(n + kprime, k));
+      return jsum.mul(k).mul(binomial(n + kprime, k));
     }
   } /* CentralFactNumt */
 
@@ -651,7 +651,7 @@ public class BigIntegerMath {
       return Rational.ONE;
     } else {
       /* Proposition 2.1 */
-      return centrlFactNumT(n - 2, k - 2).add(centrlFactNumT(n - 2, k).multiply(new Rational(k * k, 4)));
+      return centrlFactNumT(n - 2, k - 2).plus(centrlFactNumT(n - 2, k).mul(new Rational(k * k, 4)));
     }
   } /* CentralFactNumT */
 
